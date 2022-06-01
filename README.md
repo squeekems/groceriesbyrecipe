@@ -1,4 +1,4 @@
-# groceriesbyrecipe
+# Jack Kern's Groceries By Recipe
 ## Capstone for TEKSystems Fullstack Java Bootcamp
 
 ### User Stories
