@@ -9,51 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /* @author "Jack Kern" */
 
+@Data
 @Entity
 @Table(name = "amounts")
 public class Amount
 {
-	private int amountID;
-	private String value;
-	private User user;
-
-	public Amount()
-	{
-		user = new User();
-	}
-
 	@Id
-	@Column(name = "amountID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getAmountID()
-	{ return amountID; }
-
-	// @param amountID the amountID to set
-	public void setAmountID(int amountID)
-	{ this.amountID = amountID; }
-
-	@Column(name = "value")
-	public String getValue()
-	{ return value; }
-
-	// @param value the value to set
-	public void setValue(String value)
-	{ this.value = value; }
-
+	private int amountID;
+	@Column
+	private String value;
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
-	public User getUser()
-	{ return user; }
-
-	// @param user the user to set
-	public void setUser(User user)
-	{ this.user = user; }
-
-	@Override
-	public String toString()
-	{
-		return "Amount [amountID=" + amountID + ", value=" + value + ", user=" + user + "]";
-	}
+	private User user;
 }
