@@ -1,10 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /* @author "Jack Kern" */
@@ -14,9 +17,16 @@ import javax.persistence.Table;
 public class Ingredient
 {
 	private int ingredientID;
-	private int amountID;
-	private int unitID;
-	private int itemID;
+	private Amount amount;
+	private UnitOfMeasurement unitOfMeasurement;
+	private Item item;
+
+	public Ingredient()
+	{
+		amount = new Amount();
+		unitOfMeasurement = new UnitOfMeasurement();
+		item = new Item();
+	}
 
 	@Id
 	@Column(name = "ingredientID")
@@ -28,34 +38,37 @@ public class Ingredient
 	public void setIngredientID(int ingredientID)
 	{ this.ingredientID = ingredientID; }
 
-	@Column(name = "amountID")
-	public int getAmountID()
-	{ return amountID; }
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "amountID", referencedColumnName = "amountID")
+	public Amount getAmount()
+	{ return amount; }
 
-	// @param amountID the amountID to set
-	public void setAmountID(int amountID)
-	{ this.amountID = amountID; }
+	// @param amount the amount to set
+	public void setAmount(Amount amount)
+	{ this.amount = amount; }
 
-	@Column(name = "unitID")
-	public int getUnitID()
-	{ return unitID; }
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "unitOfMeasurementID", referencedColumnName = "unitOfMeasurementID")
+	public UnitOfMeasurement getUnitOfMeasurement()
+	{ return unitOfMeasurement; }
 
-	// @param unitID the unitID to set
-	public void setUnitID(int unitID)
-	{ this.unitID = unitID; }
+	// @param unitOfMeasurement the unitOfMeasurement to set
+	public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement)
+	{ this.unitOfMeasurement = unitOfMeasurement; }
 
-	@Column(name = "itemID")
-	public int getItemID()
-	{ return itemID; }
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
+	public Item getItem()
+	{ return item; }
 
-	// @param itemID the itemID to set
-	public void setItemID(int itemID)
-	{ this.itemID = itemID; }
+	// @param item the item to set
+	public void setItem(Item item)
+	{ this.item = item; }
 
 	@Override
 	public String toString()
 	{
-		return "Ingredient [ingredientID="	+ ingredientID + ", amountID=" + amountID + ", unitID=" + unitID
-				+ ", itemID=" + itemID + "]";
+		return "Ingredient [ingredientID="	+ ingredientID + ", amount=" + amount + ", unitOfMeasurement="
+				+ unitOfMeasurement + ", item=" + item + "]";
 	}
 }

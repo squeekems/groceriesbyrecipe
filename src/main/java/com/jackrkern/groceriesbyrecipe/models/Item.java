@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /* @author "Jack Kern" */
@@ -16,7 +18,12 @@ public class Item
 	private int itemID;
 	private String description;
 	private String aisle;
-	private int userID;
+	private User user;
+
+	public Item()
+	{
+		user = new User();
+	}
 
 	@Id
 	@Column(name = "itemID")
@@ -44,18 +51,18 @@ public class Item
 	public void setAisle(String aisle)
 	{ this.aisle = aisle; }
 
-	@Column(name = "userID")
-	public int getUserID()
-	{ return userID; }
+	@ManyToOne
+	@JoinColumn(name = "userID", nullable = false)
+	public User getUser()
+	{ return user; }
 
-	// @param userID the userID to set
-	public void setUserID(int userID)
-	{ this.userID = userID; }
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	@Override
 	public String toString()
 	{
-		return "Item [itemID="	+ itemID + ", description=" + description + ", aisle=" + aisle + ", userID=" + userID
-				+ "]";
+		return "Item [itemID=" + itemID + ", description=" + description + ", aisle=" + aisle + ", user=" + user + "]";
 	}
 }

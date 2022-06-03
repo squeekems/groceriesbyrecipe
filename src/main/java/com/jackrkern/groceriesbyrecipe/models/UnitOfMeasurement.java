@@ -12,35 +12,35 @@ import javax.persistence.Table;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "amounts")
-public class Amount
+@Table(name = "unitsOfMeasurement")
+public class UnitOfMeasurement
 {
-	private int amountID;
-	private String value;
+	private int unitOfMeasurementID;
+	private String name;
 	private User user;
 
-	public Amount()
+	public UnitOfMeasurement()
 	{
 		user = new User();
 	}
 
 	@Id
-	@Column(name = "amountID")
+	@Column(name = "unitOfMeasurementID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getAmountID()
-	{ return amountID; }
+	public int getUnitOfMeasurementID()
+	{ return unitOfMeasurementID; }
 
-	// @param amountID the amountID to set
-	public void setAmountID(int amountID)
-	{ this.amountID = amountID; }
+	// @param unitOfMeasurementID the unitOfMeasurementID to set
+	public void setUnitOfMeasurementID(int unitOfMeasurementID)
+	{ this.unitOfMeasurementID = unitOfMeasurementID; }
 
-	@Column(name = "value")
-	public String getValue()
-	{ return value; }
+	@Column(name = "name")
+	public String getName()
+	{ return name; }
 
-	// @param value the value to set
-	public void setValue(String value)
-	{ this.value = value; }
+	// @param name the name to set
+	public void setName(String name)
+	{ this.name = name; }
 
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
@@ -54,6 +54,6 @@ public class Amount
 	@Override
 	public String toString()
 	{
-		return "Amount [amountID=" + amountID + ", value=" + value + ", user=" + user + "]";
+		return "Amount [unitOfMeasurementID=" + unitOfMeasurementID + ", name=" + name + "]";
 	}
 }
