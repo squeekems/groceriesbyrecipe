@@ -12,11 +12,11 @@ import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 /* @author "Jack Kern" */
 
 @Service
-public class StoreItemsService
+public class ItemsService
 {
 	private final ItemRepository itemRepository;
 
-	public StoreItemsService(ItemRepository itemRepository)
+	public ItemsService(ItemRepository itemRepository)
 	{
 		this.itemRepository = itemRepository;
 	}
@@ -42,6 +42,17 @@ public class StoreItemsService
 			}
 		});
 		return itemList;
+	}
+
+	public void addItem(Item item)
+	{
+		if (item != null)
+		{
+			itemRepository.save(item);
+		} else
+		{
+			throw new RuntimeException("Item cannot be null");
+		}
 	}
 
 }

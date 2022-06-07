@@ -1,21 +1,26 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.jackrkern.groceriesbyrecipe.business.StoreItemsService;
+import com.jackrkern.groceriesbyrecipe.business.ItemsService;
+import com.jackrkern.groceriesbyrecipe.models.Item;
 
 /* @author "Jack Kern" */
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/items")
 public class StoreItemsController
 {
-	private final StoreItemsService storeItemsService;
+	private final ItemsService storeItemsService;
 
-	public StoreItemsController(StoreItemsService storeItemsService)
+	@Autowired
+	public StoreItemsController(ItemsService storeItemsService)
 	{
 		this.storeItemsService = storeItemsService;
 	}
@@ -23,7 +28,9 @@ public class StoreItemsController
 	@RequestMapping(method = RequestMethod.GET)
 	public String getStoreItems(Model model)
 	{
-		model.addAttribute("guests", this.storeItemsService.getStoreItems());
-		return "index";
+		List<Item> items = storeItemsService.getStoreItems();
+		model.addAttribute("items", items);
+		model.addAttribute("activePage", "items");
+		return "items";
 	}
 }

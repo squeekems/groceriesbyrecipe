@@ -21,8 +21,10 @@ public class Amount
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int amountID;
+
 	@Column
 	private String value;
+
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;

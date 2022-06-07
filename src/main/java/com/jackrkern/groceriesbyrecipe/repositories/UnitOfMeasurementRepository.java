@@ -8,7 +8,7 @@ import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
 /* @author "Jack Kern" */
 
 @Repository
-public interface UnitRepository extends CrudRepository<UnitOfMeasurement, Long>
+public interface UnitOfMeasurementRepository extends CrudRepository<UnitOfMeasurement, Long>
 {
 
 }
