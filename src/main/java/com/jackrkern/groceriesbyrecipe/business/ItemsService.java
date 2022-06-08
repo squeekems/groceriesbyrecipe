@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jackrkern.groceriesbyrecipe.models.Aisle;
 import com.jackrkern.groceriesbyrecipe.models.Item;
+import com.jackrkern.groceriesbyrecipe.repositories.AisleRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 
 /* @author "Jack Kern" */
@@ -14,11 +17,26 @@ import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 @Service
 public class ItemsService
 {
-	private final ItemRepository itemRepository;
+	@Autowired
+	private ItemRepository itemRepository;
 
-	public ItemsService(ItemRepository itemRepository)
+	@Autowired
+	private AisleRepository aisleRepository;
+
+	public List<Aisle> getAisles()
 	{
-		this.itemRepository = itemRepository;
+		Iterable<Aisle> aisles = aisleRepository.findAll();
+		List<Aisle> aisleList = new ArrayList<>();
+		aisles.forEach(aisle -> aisleList.add(aisle));
+		aisleList.sort(new Comparator<Aisle>()
+		{
+			@Override
+			public int compare(Aisle o1, Aisle o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		return aisleList;
 	}
 
 	public List<Item> getStoreItems()
