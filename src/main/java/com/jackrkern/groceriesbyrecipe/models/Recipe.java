@@ -24,7 +24,7 @@ public class Recipe
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int recipeID;
+	private Long recipeID;
 	@Column
 	private String name;
 	@Column

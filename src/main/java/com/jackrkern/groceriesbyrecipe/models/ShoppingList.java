@@ -17,12 +17,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "list")
+@Table(name = "shoppingList")
 public class ShoppingList
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int listID;
+	private Long shoppingListID;
 
 	@Column
 	private int count;

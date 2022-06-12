@@ -2,6 +2,7 @@ package com.jackrkern.groceriesbyrecipe.util;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
@@ -31,11 +32,13 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event)
 	{
-		Iterable<User> users = userRepository.findAll();
-		users.forEach(System.out::println);
-		Iterable<Item> items = itemRepository.findAll();
-		items.forEach(System.out::println);
-		Iterable<Aisle> aisles = aisleRepository.findAll();
-		aisles.forEach(System.out::println);
+//		Iterable<User> users = userRepository.findAll();
+//		Iterable<Item> items = itemRepository.findAll();
+//		Iterable<Aisle> aisles = aisleRepository.findAll();
+//		items.forEach(System.out::println);
+//		aisles.forEach(System.out::println);
+//		users.forEach(System.out::println);
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//		System.out.println(encoder.encode("password"));
 	}
 }

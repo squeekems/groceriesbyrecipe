@@ -20,7 +20,7 @@ public class Amount
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int amountID;
+	private Long amountID;
 
 	@Column
 	private String value;

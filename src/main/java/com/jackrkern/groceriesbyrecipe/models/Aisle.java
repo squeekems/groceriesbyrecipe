@@ -20,7 +20,7 @@ public class Aisle
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int aisleID;
+	private Long aisleID;
 
 	@Column
 	private String name;

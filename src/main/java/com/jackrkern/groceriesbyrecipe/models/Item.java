@@ -22,7 +22,7 @@ public class Item
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int itemID;
+	private Long itemID;
 
 	@Column
 	private String description;

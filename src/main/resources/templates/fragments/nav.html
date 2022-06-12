@@ -25,7 +25,7 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav">
-        <a class="navbar-brand" th:href="@{/}">Groceries by Recipe</a>
+        <a class="navbar-brand" th:href="@{/items}">Groceries by Recipe</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -49,9 +49,11 @@
               <a class="nav-link" th:href="@{/list}">Shopping List</a>
             </li>
           </ul>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Settings
-          </button>
+          <span>Welcome [[${#request.userPrincipal.principal.fullName}]]</span>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Settings</button>
+          <form th:action="@{/logout}" method="post">
+        	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+          </form>
         </div>
       </nav>
 	</body>

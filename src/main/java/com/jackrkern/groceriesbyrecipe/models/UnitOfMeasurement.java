@@ -20,7 +20,7 @@ public class UnitOfMeasurement
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int unitOfMeasurementID;
+	private Long unitOfMeasurementID;
 
 	@Column
 	private String name;

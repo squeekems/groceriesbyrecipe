@@ -15,7 +15,7 @@ import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 /* @author "Jack Kern" */
 
 @Service
-public class ItemsService
+public class ItemService
 {
 	@Autowired
 	private ItemRepository itemRepository;
@@ -39,7 +39,7 @@ public class ItemsService
 		return aisleList;
 	}
 
-	public List<Item> getStoreItems()
+	public List<Item> getItems()
 	{
 		Iterable<Item> items = this.itemRepository.findAll();
 		List<Item> itemList = new ArrayList<>();
