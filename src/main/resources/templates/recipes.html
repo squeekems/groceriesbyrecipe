@@ -14,13 +14,13 @@
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" th:href="@{style.css}" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" th:href="@{style.css}" />
     <title>Groceries by Recipe</title>
   </head>
   <body>
@@ -36,13 +36,13 @@
         </div>
       </div>
     </header>
-	<div class="row">
-	  <div class="col-4">
+	<div class="row m-0">
+	  <div class="col-4 pl-0">
 	    <div class="list-group" id="lstRecipe" role="tablist">
 	      <a class="list-group-item list-group-item-action" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID} + '-list'" data-toggle="list" th:href="'#lstRecipe-' + ${recipe.recipeID}" role="tab" th:attr="aria-controls=${recipe.recipeID}" th:text="${recipe.name}">Recipe Name</a>
 	    </div>
 	  </div>
-	  <div class="col-8">
+	  <div class="col-8 pt-e-15" id="recipe-content">
 	    <div class="tab-content" id="nav-tabContent">
 	   	  <div class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby='lstRecipe-' + ${recipe.recipeID} + '-list'">
 	        <ul>

@@ -7,6 +7,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Font Link CSS Style: "font-family: 'Source Code Pro', monospace;" -->
@@ -14,85 +19,84 @@
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" th:href="@{style.css}" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" th:href="@{style.css}" />
     <title>Groceries by Recipe</title>
   </head>
-  <body>
+  <body style="padding-top: 183px;">
+		<!-- Settings Modal -->
   	<div th:replace="~{fragments/settings :: settings}"></div>
-	<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="lblAddItem">Add Item</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	      	<form th:action="@{/items}" method="post" th:object="${formDTO}">
-	          <div class="form-group">
-	            <label for="cmbAisle">Aisle:</label>
-	            <select class="form-control" id="cmbAisle" th:field="*{field2}">
-			        <option th:each="aisle : ${aisles}" th:value="${aisle.name}" th:text="${aisle.name}">
-			    </select>
-	          </div>
-	          <div class="form-group">
-	            <label for="recipient-name" class="col-form-label">Description:</label>
-	            <input type="text" class="form-control" id="recipient-name" th:field="*{field1}">
-	          </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Add</button>
-		      </div>
-	        </form>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-    <header class="fixed-top">
-    <div th:replace="~{fragments/nav :: nav}"></div>
-    <div class="d-flex justify-content-center bg-white">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addItemModal">Add</button>
-      </div>
-    </div>
+		<!-- Add Item Modal -->
+		<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddItem">Add Item</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/items}" method="post" th:object="${formDTO}">
+							<div class="form-group">
+								<label for="cmbAisle">Aisle:</label>
+								<select class="form-control" id="cmbAisle" th:field="*{field2}">
+								<option th:each="aisle : ${aisles}" th:value="${aisle.name}" th:text="${aisle.name}">
+						</select>
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description:</label>
+								<input type="text" class="form-control" id="recipient-name" th:field="*{field1}">
+							</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Add</button>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header -->
+    <header class="fixed-top bg-white">
+			<!-- Nav Barr -->
+    	<div th:replace="~{fragments/nav :: nav}"></div>
+			<!-- Button Group -->
+    	<div class="d-flex justify-content-center bg-white">
+    		<div class="btn-group" role="group">
+        	   	<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addItemModal">Add</button>
+	           	<button type="button" class="btn btn-secondary disabled">Edit</button>
+	           	<button type="button" class="btn btn-secondary disabled">Remove</button>
+	           	<button type="button" class="btn btn-secondary disabled">Add To Shopping List</button>
+        	</div>
+        </div>
+			<!-- Search Input -->
+    	<input type="text" class="search-input form-control" placeholder="Search..." id="search-input">
+			<!-- Column Heads -->
+    	<table class="m-0 table table-hover w-auto">
+	    	<thead class="sticky-top bg-white">
+		    	<tr>
+		      		<th scope="col" class="text-right th-items-left-column">Aisle</th>
+		      		<th scope="col">Description</th>
+		    	</tr>
+		  	</thead>
+	  	</table>
     </header>
-    <input type="text" class="search-input form-control" placeholder="Search...">
-	<!-- https://www.educba.com/bootstrap-sort-table/ -->
-	<table class="table table-hover w-auto">
-	  <thead class="sticky-top bg-white">
-	    <tr>
-	      <th scope="col" class="text-right">Aisle</th>
-	      <th scope="col">Description</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr class="clickable-row" th:each="item : ${items}">
-	      <td th:text="${item.aisle.name}" class="text-right">AI</td>
-	      <td th:text="${item.description}">DESCRIPTION</td>
-	       <td class="hidden-btn justify-content-center">
-	         <div class="btn-group" role="group">
-	           <button type="button" class="btn btn-secondary disabled">Edit</button>
-	           <button type="button" class="btn btn-secondary disabled">Remove</button>
-	           <button type="button" class="btn btn-secondary disabled">Add To Shopping List</button>
-	         </div>
-	       </td>
-	    </tr>
-	  </tbody>
-	</table>
+		<!-- Body -->
+		<table class="table table-hover w-auto" id="tblItems">
+			<tbody>
+				<tr class="clickable-row searchable-row" th:each="item : ${items}">
+					<td th:text="${item.aisle.name}" class="text-right th-items-left-column">AI</td>
+					<td th:text="${item.description}">DESCRIPTION</td>
+				</tr>
+			</tbody>
+		</table>
   </body>
-  <script th:src="@{script.js}"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"
-  ></script>
   <script
     src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -103,4 +107,5 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
+  <script th:src="@{script.js}"></script>
 </html>
