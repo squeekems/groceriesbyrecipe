@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
+import com.jackrkern.groceriesbyrecipe.business.RecipeService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
+import com.jackrkern.groceriesbyrecipe.models.Amount;
 import com.jackrkern.groceriesbyrecipe.models.Item;
+import com.jackrkern.groceriesbyrecipe.models.Recipe;
+import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
 import com.jackrkern.groceriesbyrecipe.models.User;
+import com.jackrkern.groceriesbyrecipe.util.FormDTO;
 
 /* @author "Jack Kern" */
 
@@ -29,10 +34,14 @@ public class AppController
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private RecipeService recipeService;
+
 	@GetMapping("/list")
 	public String getList(Model model)
 	{
 		model.addAttribute("activePage", "list");
+		addSettingsAttributes(model);
 		return "list";
 	}
 
@@ -40,6 +49,9 @@ public class AppController
 	public String getRecipes(Model model)
 	{
 		model.addAttribute("activePage", "recipes");
+		List<Recipe> recipes = recipeService.getRecipes();
+		model.addAttribute("recipes", recipes);
+		addSettingsAttributes(model);
 		return "recipes";
 	}
 
@@ -63,23 +75,19 @@ public class AppController
 	{
 		String decodedPassword = user.getPassword();
 		userService.registerUser(user);
-		authWithHttpServletRequest(request, user.getEmail(), decodedPassword, model);
+		getItems(request, user.getEmail(), decodedPassword, model);
 		return "items";
 	}
 
 	@GetMapping("/items")
-	public String authWithHttpServletRequest(HttpServletRequest request, String username, String password, Model model)
+	public String getItems(HttpServletRequest request, String username, String password, Model model)
 	{
 		try
 		{
 			if (username != null)
 				request.login(username, password);
-			List<Aisle> aisles = itemService.getAisles();
-			model.addAttribute("aisles", aisles);
-
-			List<Item> items = itemService.getItems();
-			model.addAttribute("items", items);
-			model.addAttribute("activePage", "items");
+			addItemAttributes(model);
+			addSettingsAttributes(model);
 			return "items";
 		} catch (ServletException e)
 		{
@@ -88,14 +96,32 @@ public class AppController
 		}
 	}
 
-	public String getitems(Model model)
+	@PostMapping("/items")
+	public String addItem(Principal principal, FormDTO formDTO, Model model)
+	{
+		Item item = new Item(	formDTO.getField1(), itemService.getAisleByName(formDTO.getField2()),
+								userService.getByEmail(principal.getName()));
+		itemService.addItem(item);
+		addItemAttributes(model);
+		return "items";
+	}
+
+	private void addItemAttributes(Model model)
+	{
+
+		List<Item> items = itemService.getItems(userService.getPrincipal());
+		model.addAttribute("items", items);
+		model.addAttribute("activePage", "items");
+		model.addAttribute("formDTO", new FormDTO());
+	}
+
+	private void addSettingsAttributes(Model model)
 	{
 		List<Aisle> aisles = itemService.getAisles();
 		model.addAttribute("aisles", aisles);
-
-		List<Item> items = itemService.getItems();
-		model.addAttribute("items", items);
-		model.addAttribute("activePage", "items");
-		return "items";
+		List<UnitOfMeasurement> unitsOfMeasurement = recipeService.getUnitsOfMeasurement();
+		model.addAttribute("unitsOfMeasurement", unitsOfMeasurement);
+		List<Amount> amounts = recipeService.getAmounts();
+		model.addAttribute("amounts", amounts);
 	}
 }

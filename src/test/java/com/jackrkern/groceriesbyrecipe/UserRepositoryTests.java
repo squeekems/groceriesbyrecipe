@@ -30,11 +30,11 @@ public class UserRepositoryTests
 	public void testCreateUser()
 	{
 		User user = new User();
-		user.setEmail("rachel.wilk2413@gmail.com");
+		user.setEmail("email@gmail.com");
 		user.setPassword("password");
-		user.setUsername("Tinkerthorn");
-		user.setFirstName("Rachel");
-		user.setLastName("Wilk");
+		user.setUsername("username");
+		user.setFirstName("first");
+		user.setLastName("last");
 
 		User savedUser = userRepository.save(user);
 

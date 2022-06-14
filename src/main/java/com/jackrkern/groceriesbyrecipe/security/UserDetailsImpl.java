@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.jackrkern.groceriesbyrecipe.models.User;
 
 /* @author "Jack Kern" */
+@SuppressWarnings("serial")
 public class UserDetailsImpl implements UserDetails
 {
 	private User user;

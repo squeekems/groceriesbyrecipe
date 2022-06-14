@@ -26,3 +26,11 @@ body
     padding: 15px;
     margin: 0 auto;
 }
+.hidden-btn
+{
+  visibility: hidden;
+}
+.clickable-row:hover .hidden-btn
+{
+  visibility: visible;
+}

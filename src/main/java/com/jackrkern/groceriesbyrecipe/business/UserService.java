@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class UserService
 	@Autowired
 	private UserRepository userRepository;
 
+	public User getPrincipal()
+	{ return getByEmail(SecurityContextHolder.getContext().getAuthentication().getName()); }
+
 	public void registerUser(User user)
 	{
 		if (user != null)
@@ -25,5 +29,10 @@ public class UserService
 			userRepository.save(user);
 		} else
 			throw new RuntimeException("User cannot be null");
+	}
+
+	public User getByEmail(String email)
+	{
+		return userRepository.findByEmail(email);
 	}
 }

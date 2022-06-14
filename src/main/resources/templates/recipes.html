@@ -24,21 +24,35 @@
     <title>Groceries by Recipe</title>
   </head>
   <body>
+  	<div th:replace="~{fragments/settings :: settings}"></div>
     <header class="fixed-top">
       <div th:replace="~{fragments/nav :: nav}"></div>
       <div class="d-flex justify-content-center bg-white">
-        <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary">Add</button>
           <button type="button" class="btn btn-secondary disabled">Edit</button>
           <button type="button" class="btn btn-secondary disabled">Remove</button>
-          <button type="button" class="btn btn-secondary disabled">
-            Add To Shopping List
-          </button>
+          <button type="button" class="btn btn-secondary disabled">Add To Shopping List</button>
         </div>
       </div>
     </header>
-    <h1>RECIPES</h1>
-    
+	<div class="row">
+	  <div class="col-4">
+	    <div class="list-group" id="lstRecipe" role="tablist">
+	      <a class="list-group-item list-group-item-action" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID} + '-list'" data-toggle="list" th:href="'#lstRecipe-' + ${recipe.recipeID}" role="tab" th:attr="aria-controls=${recipe.recipeID}" th:text="${recipe.name}">Recipe Name</a>
+	    </div>
+	  </div>
+	  <div class="col-8">
+	    <div class="tab-content" id="nav-tabContent">
+	   	  <div class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby='lstRecipe-' + ${recipe.recipeID} + '-list'">
+	        <ul>
+	      	  <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">Recipe Ingredient</li>	      	
+	        </ul>
+	        <p th:text="${recipe.instructions}">Recipe Instructions</p>
+	   	  </div>
+	    </div>
+	  </div>
+	</div>
   </body>
   <script th:src="@{script.js}"></script>
   <script

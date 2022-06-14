@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
 import com.jackrkern.groceriesbyrecipe.models.Item;
+import com.jackrkern.groceriesbyrecipe.models.User;
 import com.jackrkern.groceriesbyrecipe.repositories.AisleRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 
@@ -39,9 +40,14 @@ public class ItemService
 		return aisleList;
 	}
 
-	public List<Item> getItems()
+	public Aisle getAisleByName(String name)
 	{
-		Iterable<Item> items = this.itemRepository.findAll();
+		return aisleRepository.findByName(name);
+	}
+
+	public List<Item> getItems(User userID)
+	{
+		Iterable<Item> items = this.itemRepository.findAllByUser(userID);
 		List<Item> itemList = new ArrayList<>();
 		items.forEach(item ->
 		{
@@ -72,5 +78,4 @@ public class ItemService
 			throw new RuntimeException("Item cannot be null");
 		}
 	}
-
 }

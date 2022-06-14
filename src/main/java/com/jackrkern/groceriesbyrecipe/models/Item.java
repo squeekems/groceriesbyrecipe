@@ -34,4 +34,14 @@ public class Item
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	public Item()
+	{}
+
+	public Item(String description, Aisle aisle, User user)
+	{
+		this.description = description;
+		this.aisle = aisle;
+		this.user = user;
+	}
 }
