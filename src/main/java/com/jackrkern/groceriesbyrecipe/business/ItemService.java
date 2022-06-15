@@ -78,4 +78,15 @@ public class ItemService
 			throw new RuntimeException("Item cannot be null");
 		}
 	}
+
+	public void deleteItem(Long itemID)
+	{
+		try
+		{
+			itemRepository.deleteById(itemID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
