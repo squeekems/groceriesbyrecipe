@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
@@ -114,12 +115,21 @@ public class AppController
 		return "items";
 	}
 
-	@DeleteMapping("/items")
-	public String deleteItem(Long itemID, Model model)
+//	@DeleteMapping("/items")
+//	public String deleteItem(Long itemID, Model model)
+//	{
+//		itemService.deleteItem(itemID);
+//		addItemAttributes(model);
+//		return "items";
+//	}
+
+	@GetMapping("/items/{itemID}")
+	public String deleteItem(@PathVariable(value = "itemID")
+	Long itemID)
 	{
 		itemService.deleteItem(itemID);
-		addItemAttributes(model);
-		return "items";
+		System.out.println("This is delete");
+		return "redirect:/items";
 	}
 
 	private void addItemAttributes(Model model)

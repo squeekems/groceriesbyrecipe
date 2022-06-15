@@ -92,9 +92,12 @@
 		<table class="table table-hover w-auto" id="tblItems">
 			<tbody>
 				<tr class="clickable-row searchable-row" th:each="item : ${items}">
-					<td th:text="${item.itemID}" hidden>ID</td>
+					<td th:text="${item.itemID}" class="itemID" hidden>ID</td>
 					<td th:text="${item.aisle.name}" class="text-right items-left-column">AI</td>
 					<td th:text="${item.description}">DESCRIPTION</td>
+	           		<td><a th:href="@{/items/{itemID}(itemID=${item.itemID})}" 
+	           				class="item-buttons btn btn-danger disabled" 
+	           				onclick="return confirm('Are you sure you want to delete this item?')">Remove</a></td>
 				</tr>
 			</tbody>
 		</table>

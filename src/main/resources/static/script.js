@@ -1,27 +1,31 @@
+let selectedItemID = -1;
+
 $(function()
 {
-  let getSelectedRow = function()
-  {
-    return $('tr.bg-info');
-  }
-
   $('#tblItems').on('click', '.clickable-row', function(event)
   {
     $(this).toggleClass('bg-info').siblings().removeClass('bg-info');
-
-    let rows = getSelectedRow();
-    console.log(rows);
-    console.log(rows.prop("classList"));
-    console.log(rows != undefined);
-    console.log(rows != null);
-    if (rows.prop("classList") != undefined)
+    if ($('tr.bg-info').prop("classList") != undefined)
     {
       $('.item-buttons').removeClass('disabled');
+      selectedItemID = document.getElementsByClassName('bg-info')[0].firstChild.nextSibling.innerHTML;
+      console.log(selectedItemID);
     }else
     {
       $('.item-buttons').addClass('disabled');
+      selectedItemID = -1;
+      console.log(selectedItemID);
     }
   });
+
+  $('#RemoveItem').on('click', null, selectedItemID, function(event)
+  {
+    let blnDelete = confirm('Are you sure you want to delete this item?');
+    if (blnDelete)
+    {
+
+    }
+  })
 
   $('#addItemModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget) // Button that triggered the modal

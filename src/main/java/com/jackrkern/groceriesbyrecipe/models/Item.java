@@ -27,7 +27,7 @@ public class Item
 	@Column
 	private String description;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "aisleID", referencedColumnName = "aisleID")
 	private Aisle aisle;
 
