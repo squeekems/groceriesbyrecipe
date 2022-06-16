@@ -1,5 +1,7 @@
 let selectedItemID = -1;
 
+
+
 $(function()
 {
   $('#tblItems').on('click', '.clickable-row', function(event)
@@ -18,14 +20,23 @@ $(function()
     }
   });
 
-  $('#RemoveItem').on('click', null, selectedItemID, function(event)
+  $('#cmdRemoveItem').on('click', null, selectedItemID, function()
   {
     let blnDelete = confirm('Are you sure you want to delete this item?');
     if (blnDelete)
     {
-
+      fetch(`/items/${selectedItemID}`)
+        .then(res =>
+        {
+          console.log(res)
+          location.reload();
+        })
+        .catch(err =>
+        {
+          console.log(err)
+        });
     }
-  })
+  });
 
   $('#addItemModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget) // Button that triggered the modal
@@ -34,7 +45,17 @@ $(function()
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     const modal = $(this)
   });
+
+  // $('#cmdAddItem').on('click', function()
+  // {
+  //   location.reload(true);
+  // });
 });
+
+// document.getElementById('cmdAddItem').addEventListener("click", function ()
+// {
+//   window.location.href = "/items";
+// });
 
 document.addEventListener("DOMContentLoaded", () =>
 {

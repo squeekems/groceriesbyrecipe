@@ -13,4 +13,7 @@ public interface AisleRepository extends CrudRepository<Aisle, Long>
 {
 	@Query("SELECT a FROM Aisle a WHERE a.name = ?1")
 	Aisle findByName(String name);
+
+	@Query("SELECT a FROM Aisle a WHERE a.aisleID = ?1")
+	Aisle findByAisleId(Long aisleID);
 }
