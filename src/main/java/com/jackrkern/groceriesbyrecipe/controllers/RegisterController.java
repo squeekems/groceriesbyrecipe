@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.User;
@@ -30,19 +31,18 @@ public class RegisterController
 	}
 
 	@PostMapping("/register")
-	public String processRegistration(HttpServletRequest request, User user, Model model)
+	public RedirectView processRegistration(HttpServletRequest request, User user)
 	{
 		String decodedPassword = user.getPassword();
 		userService.registerUser(user);
 		try
 		{
-			if (user.getEmail() != null)
-				request.login(user.getEmail(), decodedPassword);
+			request.login(user.getEmail(), decodedPassword);
+			return new RedirectView("/items");
 		} catch (ServletException e)
 		{
 			e.printStackTrace();
-			return "login";
+			return new RedirectView("login");
 		}
-		return "items";
 	}
 }

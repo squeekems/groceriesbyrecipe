@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;
@@ -47,14 +48,14 @@ public class ItemsController
 
 	// Add
 	@PostMapping("/items")
-	public String addItem(Principal principal, Item item, @RequestParam(value = "cmbAisle")
+	public RedirectView addItem(Principal principal, Item item, @RequestParam(value = "cmbAisle")
 	Long aisleID)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.addItem(item);
 		System.out.println(item + " Added");
-		return "items";
+		return new RedirectView("/items");
 	}
 
 	// Delete

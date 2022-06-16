@@ -42,7 +42,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form th:action="@{/items}" method="post" th:object="${item}">
+						<form id="frmAddItem" th:action="@{/items}" method="post" th:object="${item}">
 							<div class="form-group">
 								<label for="cmbAisle">Aisle:</label>
 								<select class="form-control" name="cmbAisle" id="cmbAisle">
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Header -->
+	<!-- Header -->
     <header class="fixed-top bg-white">
 			<!-- Nav Barr -->
     	<div th:replace="~{fragments/nav :: nav}"></div>

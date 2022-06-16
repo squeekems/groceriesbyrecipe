@@ -46,10 +46,11 @@ $(function()
     const modal = $(this)
   });
 
-  // $('#cmdAddItem').on('click', function()
-  // {
-  //   location.reload(true);
-  // });
+  $('#cmdAddItem').on('click', function(event)
+  {
+    event.preventDefault();
+    $("#frmAddItem").submit();
+  });
 });
 
 // document.getElementById('cmdAddItem').addEventListener("click", function ()
