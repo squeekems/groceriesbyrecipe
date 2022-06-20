@@ -1,32 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Font Link CSS Style: "font-family: 'Source Code Pro', monospace;" -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" th:href="@{style.css}" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <title>Groceries by Recipe</title>
-  </head>
+  <!-- Head -->
+  <div th:replace="~{fragments/head :: head}"></div>
   <body>
   	<div th:replace="~{fragments/settings :: settings}"></div>
-    <header class="fixed-top">
+    <header class="fixed-top bg-white">
+	  <!-- Alert Box -->
+      <div th:replace="~{fragments/alert-success :: alert-success}"></div>
+	  <!-- Nav Bar -->
       <div th:replace="~{fragments/nav :: nav}"></div>
+	  <!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary disabled">Print</button>
@@ -36,24 +19,33 @@
           <button type="button" class="btn btn-secondary disabled">Remove</button>
         </div>
       </div>
+	  <!-- Column Heads -->
+      <table class="m-0 table table-hover w-auto">
+	    <thead class="sticky-top bg-white">
+		  <tr>
+			<th scope="col" hidden>ID</th>
+			<th scope="col"></th>
+			<th scope="col">Count</th>
+			<th scope="col" style="cursor: pointer;" onclick="sortTable(1)" class="text-right items-left-column">Aisle</th>
+			<th scope="col" style="cursor: pointer;" onclick="sortTable(2)">Description</th>
+		  </tr>
+		</thead>
+	 </table>
     </header>
-    <h1>LIST</h1>
-    
+	<!-- Body -->
+	<table class="table table-hover w-auto" id="tblShoppingLists">
+		<tbody>
+			<tr class="clickable-row searchable-row" th:each="shoppingList : ${shoppingLists}">
+				<td th:text="${shoppingList.item.itemID}" class="itemID" hidden>ID</td>
+				<td><input type="checkbox"></td>
+				<td th:text="${shoppingList.count}">COUNT</td>
+				<td th:text="${shoppingList.item.aisle.name}" class="text-right items-left-column">AI</td>
+				<td th:text="${shoppingList.item.description}">DESCRIPTION</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- Script Imports -->
+	<div th:replace="~{fragments/script-imports :: script-imports}"></div>
+    <script th:src="@{script/script.js}"></script>
   </body>
-  <script th:src="@{script.js}"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"
-  ></script>
 </html>

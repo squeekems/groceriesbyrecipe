@@ -1,9 +1,8 @@
 let selectedItemID = -1;
 
-
-
 $(function()
 {
+  // Makes the table selectable and sets the value of selectedItemID
   $('#tblItems').on('click', '.clickable-row', function(event)
   {
     $(this).toggleClass('bg-info').siblings().removeClass('bg-info');
@@ -11,72 +10,82 @@ $(function()
     {
       $('.item-buttons').removeClass('disabled');
       selectedItemID = document.getElementsByClassName('bg-info')[0].firstChild.nextSibling.innerHTML;
+      // $('#cmdEditItem').attr('data-selectedIndex', selectedItemID);
       console.log(selectedItemID);
     }else
     {
       $('.item-buttons').addClass('disabled');
       selectedItemID = -1;
+      // $('#cmdEditItem').attr('data-selectedIndex', selectedItemID);
       console.log(selectedItemID);
     }
   });
 
-  $('#cmdRemoveItem').on('click', null, selectedItemID, function()
+  // Onclick Remove item
+  $('#cmdRemoveItem').on('click', null, selectedItemID, function(event)
   {
-    let blnDelete = confirm('Are you sure you want to delete this item?');
-    if (blnDelete)
+    if (selectedItemID === -1)
     {
-      fetch(`/items/${selectedItemID}`)
-        .then(res =>
-        {
-          console.log(res)
-          location.reload();
-        })
-        .catch(err =>
-        {
-          console.log(err)
-        });
-    }
-  });
-
-  $('#addItemModal').on('show.bs.modal', function (event) {
-    const button = $(event.relatedTarget) // Button that triggered the modal
-    const recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    const modal = $(this)
-  });
-
-  $('#cmdAddItem').on('click', function(event)
-  {
-    event.preventDefault();
-    $("#frmAddItem").submit();
-  });
-});
-
-// document.getElementById('cmdAddItem').addEventListener("click", function ()
-// {
-//   window.location.href = "/items";
-// });
-
-document.addEventListener("DOMContentLoaded", () =>
-{
-  const inputField = document.getElementById("search-input");
-  const tblItems = document.getElementById("tblItems");
-  const tableRows = tblItems.querySelectorAll("tbody tr");
-  inputField?.addEventListener("input", () =>
-  {
-    const searchQuery = inputField.value.toLowerCase();
-    for (const tableCell of (tableRows))
+      event.preventDefault();
+      alert('You need to select an item to remove first.');
+    }else
     {
-      const row = tableCell.closest("tr");
-      const value = tableCell.textContent.toLowerCase().replace(",","");
-      row.style.visibility = null;
-      if (value.search(searchQuery) === -1)
+      let blnDelete = confirm('Are you sure you want to delete this item?');
+      if (blnDelete)
       {
-        row.style.visibility = "collapse";
+        fetch(`/items/remove/${selectedItemID}`)
+          .then(res =>
+          {
+            console.log(res)
+            location.reload();
+          })
+          .catch(err =>
+          {
+            console.log(err)
+          });
       }
     }
   });
+
+  // Populate Edit Modal
+  $('#editItemModal').on('show.bs.modal', function (event)
+  {
+    if (selectedItemID === -1)
+    {
+      event.preventDefault();
+      alert('You need to select an item to edit first.');
+    }else
+    {
+      const href = "/items/getItemByID/" + selectedItemID;
+      $.get(href, function(item, status)
+      {
+        $('#txtEditID').val(item.itemID);
+        $('#cmbEditAisle').val(item.aisle.aisleID);
+        $('#txtEditDescription').val(item.description);
+      });
+
+      $('#editItemModal').modal();
+    }
+  });
+});
+
+// Search Table Text
+const inputField = document.getElementById("search-input"); // Find the search text
+const tblItems = document.getElementById("tblItems"); // Find the table
+const tableRows = tblItems.querySelectorAll("tbody tr"); // Find the rows on the table
+inputField.addEventListener("input", () =>
+{
+  const searchQuery = inputField.value.toLowerCase(); // Set query based on the search text
+  for (const tableCell of (tableRows)) // Iterate through all the rows
+  {
+    const row = tableCell.closest("tr"); // Find the current row
+    const value = tableCell.textContent.toLowerCase().replace(",",""); //Set the value of the row
+    row.style.visibility = null; // Reset the visibility of the row
+    if (value.search(searchQuery) === -1) // If the row does not have any match on the row
+    {
+      row.style.visibility = "collapse"; // Hide the row
+    }
+  }
 });
 
 function sortTable(n)

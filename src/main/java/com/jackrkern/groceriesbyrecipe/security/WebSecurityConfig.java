@@ -47,8 +47,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests().antMatchers("/items", "/recipes", "/list").authenticated().anyRequest().permitAll()
-			.and().formLogin().loginPage("/login").usernameParameter("email").defaultSuccessUrl("/items").permitAll()
-			.and().logout().logoutSuccessUrl("/").permitAll();
+		http.anonymous().principal("User").authorities("GUEST_ROLE").and()
+			.authorizeRequests()							// 
+			.antMatchers(	"/items",						// 
+			             	"/items/all",					// 
+			             	"/items/edit",					// 
+			             	"/items/add",					// 
+			             	"/items/remove", 				// 
+			             	"/items/getItemByID",			// 
+							"/recipes",						// 
+							"/list").authenticated()		// 
+			.anyRequest().permitAll()						// 
+			.and()											// 
+			.formLogin()									// 
+			.loginPage("/login")							// 
+				.usernameParameter("email")					// 
+				.defaultSuccessUrl("/items")				// 
+				.permitAll()								// 
+			.and()											// 
+			.logout().logoutSuccessUrl("/").permitAll();	// 
 	}
 }

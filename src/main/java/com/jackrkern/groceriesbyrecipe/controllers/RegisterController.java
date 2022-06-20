@@ -42,7 +42,7 @@ public class RegisterController
 		} catch (ServletException e)
 		{
 			e.printStackTrace();
-			return new RedirectView("login");
+			return new RedirectView("/login");
 		}
 	}
 }

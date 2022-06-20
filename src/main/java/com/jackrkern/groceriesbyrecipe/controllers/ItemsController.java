@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
-import java.security.Principal;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
@@ -20,6 +25,7 @@ import com.jackrkern.groceriesbyrecipe.models.Item;
 /* @author "Jack Kern" */
 
 @Controller
+@RequestMapping("/items")
 public class ItemsController
 {
 	@Autowired
@@ -31,41 +37,62 @@ public class ItemsController
 	@Autowired
 	private RecipeService recipeService;
 
-	@GetMapping("/items")
+	@GetMapping
 	public String getItems(HttpServletRequest request, String username, String password, Model model)
 	{
 		model.addAttribute("items", itemService.getItems(userService.getPrincipal()));
-
 		model.addAttribute("item", new Item());
-
 		model.addAttribute("activePage", "items");
-
 		model.addAttribute("aisles", itemService.getAisles());
 		model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
 		model.addAttribute("amounts", recipeService.getAmounts());
 		return "items";
 	}
 
+	@RequestMapping("/getItemByID/{itemID}")
+	@ResponseBody
+	public Optional<Item> getItemByID(@PathVariable(value = "itemID")
+	Long itemID)
+	{
+		return itemService.getItemByID(itemID);
+	}
+
 	// Add
-	@PostMapping("/items")
-	public RedirectView addItem(Principal principal, Item item, @RequestParam(value = "cmbAisle")
-	Long aisleID)
+	@PostMapping("/add")
+	public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
+	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
-		itemService.addItem(item);
-		System.out.println(item + " Added");
+		itemService.saveItem(item);
+		System.out.println(item.getDescription() + " Added");
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
+		return new RedirectView("/items");
+	}
+
+	// Edit
+	@RequestMapping(value = "/edit", method = { RequestMethod.PUT, RequestMethod.GET })
+	public RedirectView editItem(Item item, @RequestParam(value = "cmbEditAisle")
+	Long aisleID, RedirectAttributes redirectAttributes)
+	{
+		item.setAisle(itemService.getAisleByID(aisleID));
+		item.setUser(userService.getPrincipal());
+		itemService.saveItem(item);
+		System.out.println(item + " Edited");
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
 		return new RedirectView("/items");
 	}
 
 	// Delete
-	@GetMapping("/items/{itemID}")
-	public String deleteItem(@PathVariable(value = "itemID")
-	Long itemID)
+	@GetMapping("/remove/{itemID}")
+	public RedirectView deleteItem(@PathVariable(value = "itemID")
+	Long itemID, RedirectAttributes redirectAttributes)
 	{
+		Item item = itemService.getItemByID(itemID).get();
 		itemService.deleteItem(itemID);
-		System.out.println(itemID + " Deleted");
-		return "items";
+		System.out.println(item.getDescription() + " Removed");
+		redirectAttributes.addFlashAttribute(item.getDescription() + " Removed");
+		return new RedirectView("/items");
 	}
 
 //	@GetMapping("/items/selected")

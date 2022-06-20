@@ -31,6 +31,16 @@ body
   position: fixed;
   margin-left: 33.333333%;
 }
+.alert
+{
+  text-align: center;
+  width: 380px;
+  position: absolute;
+  left: 50%;
+  margin-left: -190px;
+  top: 1rem;
+  z-index: 1050;
+}
 .items-left-column
 {
   width: 15%;
