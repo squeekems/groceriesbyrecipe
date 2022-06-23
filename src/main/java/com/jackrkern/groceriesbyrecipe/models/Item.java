@@ -1,6 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class Item
 	@Column
 	private String description;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@OneToOne
 	@JoinColumn(name = "aisleID", referencedColumnName = "aisleID")
 	private Aisle aisle;
 

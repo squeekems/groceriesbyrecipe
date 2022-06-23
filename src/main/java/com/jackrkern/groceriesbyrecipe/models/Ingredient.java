@@ -1,6 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,15 +21,15 @@ public class Ingredient
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ingredientID;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "amountID", referencedColumnName = "amountID")
 	private Amount amount;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "unitOfMeasurementID", referencedColumnName = "unitOfMeasurementID")
 	private UnitOfMeasurement unitOfMeasurement;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
 	private Item item;
 

@@ -27,7 +27,7 @@ public class Recipe
 	private Long recipeID;
 	@Column
 	private String name;
-	@Column
+	@Column(length = 2047)
 	private String instructions;
 	@ManyToMany(targetEntity = Ingredient.class)
 	@JoinTable(	name = "recipes_ingredients", joinColumns = { @JoinColumn(name = "recipeID") },

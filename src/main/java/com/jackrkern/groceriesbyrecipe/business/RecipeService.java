@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jackrkern.groceriesbyrecipe.models.Amount;
 import com.jackrkern.groceriesbyrecipe.models.Recipe;
 import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
+import com.jackrkern.groceriesbyrecipe.models.User;
 import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.RecipeRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
@@ -30,9 +31,9 @@ public class RecipeService
 	@Autowired
 	private UnitOfMeasurementRepository unitOfMeasurementRepository;
 
-	public List<Recipe> getRecipes()
+	public List<Recipe> getRecipes(User userID)
 	{
-		Iterable<Recipe> recipes = recipeRepository.findAll();
+		Iterable<Recipe> recipes = recipeRepository.findAllByUser(userID);
 		List<Recipe> recipeList = new ArrayList<>();
 		recipes.forEach(recipe -> recipeList.add(recipe));
 		return recipeList;

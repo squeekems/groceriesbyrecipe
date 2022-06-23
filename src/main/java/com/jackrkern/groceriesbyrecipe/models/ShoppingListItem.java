@@ -1,6 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class ShoppingListItem
 	@Column
 	private int count;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
 	private Item item;
 

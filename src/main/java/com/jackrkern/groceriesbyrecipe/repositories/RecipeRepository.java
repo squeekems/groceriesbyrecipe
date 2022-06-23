@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.jackrkern.groceriesbyrecipe.models.Recipe;
+import com.jackrkern.groceriesbyrecipe.models.User;
 
 /* @author "Jack Kern" */
 
@@ -18,4 +19,6 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long>
 
 	@Query(value = "SELECT ingredientID FROM recipes_ingredients WHERE recipeID = ?1", nativeQuery = true)
 	Set<Long> findIngredientsByRecipeID(Long recipeID);
+
+	List<Recipe> findAllByUser(User userID);
 }

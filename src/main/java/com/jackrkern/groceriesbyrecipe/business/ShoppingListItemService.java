@@ -67,4 +67,49 @@ public class ShoppingListItemService
 			throw new RuntimeException("ShoppingListItem cannot be null");
 		}
 	}
+
+	public void removeShoppingListItem(Long shoppingListItemID, int count)
+	{
+		ShoppingListItem shoppingListItem = shoppingListItemRepository.findById(shoppingListItemID).get();
+		shoppingListItem.setCount(shoppingListItem.getCount() - count);
+		if (shoppingListItem.getCount() < 1)
+		{
+			try
+			{
+				shoppingListItemRepository.deleteById(shoppingListItemID);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("");
+			}
+		} else
+		{
+			shoppingListItemRepository.save(shoppingListItem);
+		}
+	}
+
+	public ShoppingListItem getByID(Long shoppingListItemID)
+	{
+		return shoppingListItemRepository.findById(shoppingListItemID).get();
+	}
+
+	public void deleteShoppingListItem(Long shoppingListItemID)
+	{
+		try
+		{
+			shoppingListItemRepository.deleteById(shoppingListItemID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void clearShoppingList(User userID)
+	{
+		Iterable<ShoppingListItem> items = shoppingListItemRepository.findAllByUser(userID);
+		items.forEach(item ->
+		{
+			shoppingListItemRepository.deleteById(item.getShoppingListID());
+		});
+	}
 }

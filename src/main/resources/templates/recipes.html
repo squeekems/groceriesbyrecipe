@@ -12,10 +12,10 @@
 	  <!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-secondary">Add</button>
-          <button type="button" class="btn btn-secondary disabled">Edit</button>
-          <button type="button" class="btn btn-secondary disabled">Remove</button>
-          <button type="button" class="btn btn-secondary disabled">Add To Shopping List</button>
+          <button type="button" class="btn btn-primary">Add</button>
+          <button type="button" class="recipe-buttons btn btn-warning disabled">Edit</button>
+          <button type="button" class="recipe-buttons btn btn-danger disabled">Remove</button>
+          <button type="button" class="recipe-buttons btn btn-success disabled">Add To Shopping List</button>
         </div>
       </div>
     </header>
@@ -38,5 +38,6 @@
 	</div>
 	<!-- Script Imports -->
 	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+  <script th:src="@{script/scriptRecipes.js}"></script>
   </body>
 </html>

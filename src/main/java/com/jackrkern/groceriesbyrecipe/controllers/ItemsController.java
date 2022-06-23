@@ -40,6 +40,7 @@ public class ItemsController
 	/**/private RecipeService recipeService;
 	/**/// Should be in my Settings Controller
 
+	// Read
 	@GetMapping
 	public String getItems(Model model)
 	{
@@ -56,16 +57,7 @@ public class ItemsController
 		return "items";
 	}
 
-	// Gets Item to be Editted or Added to Shopping List
-	@RequestMapping("/getItemByID/{itemID}")
-	@ResponseBody
-	public Item getItemByID(@PathVariable(value = "itemID")
-	Long itemID)
-	{
-		return itemService.getItemByID(itemID);
-	}
-
-	// Add
+	// Create
 	@PostMapping("/add")
 	public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
 	Long aisleID, RedirectAttributes redirectAttributes)
@@ -78,9 +70,9 @@ public class ItemsController
 		return new RedirectView("/items");
 	}
 
-	// Edit
+	// Update
 	@RequestMapping(value = "/edit", method = { RequestMethod.PUT, RequestMethod.GET })
-	public RedirectView editItem(Item item, @RequestParam(value = "cmbEditAisle")
+	public RedirectView updateItem(Item item, @RequestParam(value = "cmbEditAisle")
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
@@ -102,6 +94,15 @@ public class ItemsController
 		System.out.println(item.getDescription() + " Removed");
 		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
 		return new RedirectView("/items");
+	}
+
+	// Gets Item to be Editted or Added to Shopping List
+	@RequestMapping("/getItemByID/{itemID}")
+	@ResponseBody
+	public Item getItemByID(@PathVariable(value = "itemID")
+	Long itemID)
+	{
+		return itemService.getItemByID(itemID);
 	}
 
 	// AddToShoppingList
