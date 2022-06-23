@@ -33,4 +33,9 @@ public class Aisle
 	{
 		return name.compareTo(aisle.getName());
 	}
+
+	public String toString()
+	{
+		return name;
+	}
 }

@@ -2,59 +2,54 @@ package com.jackrkern.groceriesbyrecipe;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
-import com.jackrkern.groceriesbyrecipe.models.User;
-import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
+import com.jackrkern.groceriesbyrecipe.models.Recipe;
+import com.jackrkern.groceriesbyrecipe.repositories.RecipeRepository;
 
 /* @author "Jack Kern" */
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class UserRepositoryTests
+public class RecipeRepositoryTests
 {
 	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private TestEntityManager entityManager;
+	private RecipeRepository recipeRepository;
 
 	@Test
-	public void testSave()
+	public void testFindByIngredients_IngredientID()
 	{
-		User user = new User();
-		user.setEmail("Test@api.jupiter.junit.org");
-		user.setPassword("password");
+		Long ingredientID = (long) 1;
 
-		User savedUser = userRepository.save(user);
-
-		User existUser = entityManager.find(User.class, savedUser.getUserID());
+		List<Recipe> ingredientRecipes = recipeRepository.findByIngredients_IngredientID(ingredientID);
 
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println(existUser.getEmail() + " = " + user.getEmail());
+		ingredientRecipes.forEach(System.out::println);
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-		assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
+		assertThat(ingredientRecipes).isNotNull();
 	}
 
 	@Test
-	public void testFindUserByEmail()
+	public void testFindIngredientsByRecipeId()
 	{
-		String email = "jackrkern@gmail.com";
+		Long recipeID = (long) 1;
 
-		User user = userRepository.findByEmail(email);
+		Set<Long> ingredientIDs = recipeRepository.findIngredientsByRecipeID(recipeID);
 
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println(user);
+		ingredientIDs.forEach(System.out::println);
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-		assertThat(user).isNotNull();
+		assertThat(ingredientIDs).isNotNull();
 	}
 }

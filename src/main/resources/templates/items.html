@@ -2,112 +2,143 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body style="padding-top: 183px;">
-	<!-- Settings Modal -->
-  	<div th:replace="~{fragments/settings :: settings}"></div>
-	<!-- Add Item Modal -->
-	<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="lblAddItem">Add Item</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form id="frmAddItem" th:action="@{/items/add}" method="POST" th:object="${item}">
-						<div class="form-group">
-							<label for="cmbAisle">Aisle:</label>
-							<select class="form-control" name="cmbAddAisle" id="cmbAddAisle">
-								<option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}">
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Description:</label>
-							<input type="text" class="form-control" id="txtAddDescription" placeholder="Description" th:field="*{description}">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" id="cmdAddItem">Add</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Edit Item Modal -->
-	<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="lblEditItem" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="lblEditItem">Edit Item</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form id="frmEditItem" th:action="@{/items/edit}" method="PUT" th:object="${item}">
-						<input class="txtEditID" name="txtEditID" id="txtEditID" hidden th:field="*{itemID}">
-						<div class="form-group">
-							<label for="cmbAisle">Aisle:</label>
-							<select class="form-control" name="cmbEditAisle" id="cmbEditAisle">
-								<option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}">
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Description:</label>
-							<input type="text" class="form-control" name="txtEditDescription" id="txtEditDescription" th:field="*{description}">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" id="cmdEditItem">Edit</button>
-						</div>
-					</form>
+  <body style="padding-top: 191px;">
+		<!-- Settings Modal -->
+		<div th:replace="~{fragments/settings :: settings}"></div>
+		<!-- Add Item Modal -->
+		<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddItem">Add Item</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmAddItem" th:action="@{/items/add}" method="POST" th:object="${item}">
+							<div class="form-group">
+								<label for="cmbAisle">Aisle:</label>
+								<select class="form-control" name="cmbAddAisle" id="cmbAddAisle">
+									<option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}">
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description:</label>
+								<input type="text" class="form-control" id="txtAddDescription" placeholder="Description" th:field="*{description}">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" id="cmdAddItem">Add</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Header -->
-    <header class="fixed-top bg-white">
-		<!-- Alert Box -->
-    	<div th:replace="~{fragments/alert-success :: alert-success}"></div>
-		<!-- Nav Bar -->
-    	<div th:replace="~{fragments/nav :: nav}"></div>
-		<!-- Button Group -->
-    	<div class="d-flex justify-content-center bg-white">
-    		<div class="btn-group" role="group">
-        	   	<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addItemModal">Add</button>
-	           	<button type="button" class="item-buttons btn btn-warning disabled" id="cmdEditItem" data-toggle="modal" data-target="#editItemModal">Edit</button>
-	           	<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveItem">Remove</button>
-	           	<button type="button" class="item-buttons btn btn-secondary disabled" id="cmdAddToShoppingList">Add To Shopping List</button>
-        	</div>
-        </div>
-		<!-- Search Input -->
-    	<input type="text" class="search-input form-control" placeholder="Search..." id="search-input">
-		<!-- Column Heads -->
-    	<table class="m-0 table table-hover w-auto">
-	    	<thead class="sticky-top bg-white">
-		    	<tr>
+		<!-- Edit Item Modal -->
+		<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="lblEditItem" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblEditItem">Edit Item</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmEditItem" th:action="@{/items/edit}" method="PUT" th:object="${item}">
+							<input class="txtEditID" name="txtEditID" id="txtEditID" hidden th:field="*{itemID}">
+							<div class="form-group">
+								<label for="cmbAisle">Aisle:</label>
+								<select class="form-control" name="cmbEditAisle" id="cmbEditAisle">
+									<option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}">
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description:</label>
+								<input type="text" class="form-control" name="txtEditDescription" id="txtEditDescription" th:field="*{description}">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" id="cmdEditItem">Edit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Add To Shopping List Modal -->
+		<div class="modal fade" id="addToShoppingListModal" tabindex="-1" role="dialog" aria-labelledby="lblAddToShoppingList" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddToShoppingList">Items to be added to the shopping list:</h5>
+						<button type="button" class="close close-add-to-shopping-list-modal" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/items/addToShoppingList}" method="POST" th:object="${shoppingList}">
+							<table class="table w-auto">
+								<thead>
+									<tr>
+										<th scope="col" hidden>ID</th>
+										<th scope="col">Description</th>
+										<th scope="col">How many?</th>
+									</tr>
+								</thead>
+								<tbody id="tblAddToShoppingList"></tbody>
+							</table>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary close-add-to-shopping-list-modal" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Confirm</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header -->
+		<header class="fixed-top bg-white">
+			<!-- Alert Box -->
+			<div th:replace="~{fragments/alert_success :: alert_success}"></div>
+			<!-- Nav Bar -->
+			<div th:replace="~{fragments/nav :: nav}"></div>
+			<!-- Button Group -->
+			<div class="d-flex justify-content-center bg-white">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">Add</button>
+					<button type="button" class="item-buttons btn btn-warning disabled" id="cmdEditItem" data-toggle="modal" data-target="#editItemModal">Edit</button>
+					<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveItem">Remove</button>
+					<button type="button" class="item-buttons btn btn-success disabled" id="cmdAddToShoppingList">Add To Shopping List</button>
+				</div>
+			</div>
+			<!-- Search Input -->
+			<input type="text" class="search-input form-control" placeholder="Search..." id="search-input">
+			<!-- Column Heads -->
+			<table class="m-0 table table-hover w-auto">
+				<thead class="sticky-top bg-white">
+					<tr>
 					<th scope="col" hidden>ID</th>
 					<th scope="col" style="cursor: pointer;" onclick="sortTable(1)" class="text-right items-left-column">Aisle</th>
 					<th scope="col" style="cursor: pointer;" onclick="sortTable(2)">Description</th>
-		    	</tr>
-		  	</thead>
-	  	</table>
-    </header>
-	<!-- Body -->
-	<table class="table table-hover w-auto" id="tblItems">
-		<tbody>
-			<tr class="clickable-row searchable-row" th:each="item : ${items}">
-				<td th:text="${item.itemID}" class="itemID" hidden>ID</td>
-				<td th:text="${item.aisle.name}" class="text-right items-left-column">AI</td>
-				<td th:text="${item.description}">DESCRIPTION</td>
-			</tr>
-		</tbody>
-	</table>
-	<!-- Script Imports -->
-	<div th:replace="~{fragments/script-imports :: script-imports}"></div>
-    <script th:src="@{script/scriptItems.js}"></script>
+					</tr>
+				</thead>
+			</table>
+		</header>
+		<!-- Body -->
+		<table class="table table-hover w-auto" id="tblItems">
+			<tbody>
+				<tr class="clickable-row searchable-row" th:each="item : ${items}">
+					<td th:text="${item.itemID}" class="itemID" hidden>ID</td>
+					<td th:text="${item.aisle.name}" class="text-right items-left-column">AI</td>
+					<td th:text="${item.description}">DESCRIPTION</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+		<script th:src="@{script/scriptItems.js}"></script>
   </body>
 </html>

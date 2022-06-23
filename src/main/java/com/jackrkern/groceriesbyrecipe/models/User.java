@@ -34,4 +34,23 @@ public class User
 
 	@Column
 	private String firstName;
+
+	public String toString()
+	{
+		String fullName;
+		if (firstName != null)
+		{
+			fullName = firstName;
+			if (lastName != null)
+			{
+				fullName += " " + lastName;
+			}
+		} else if (lastName != null)
+			fullName = lastName;
+		else if (username != null)
+			fullName = username;
+		else
+			fullName = email;
+		return fullName;
+	}
 }

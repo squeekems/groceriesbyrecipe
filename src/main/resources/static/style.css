@@ -31,6 +31,12 @@ body
   position: fixed;
   margin-left: 33.333333%;
 }
+
+#search-input
+{
+  width: 95vw;
+  margin: 4px auto;
+}
 .alert
 {
   text-align: center;
@@ -49,4 +55,10 @@ body
 .pt-e-15
 {
 	padding-top: 15px;
+}
+
+.modal-header
+{
+  border-bottom: none;
+  padding-bottom: 0;
 }

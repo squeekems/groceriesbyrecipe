@@ -50,16 +50,14 @@ public class UserDetailsImpl implements UserDetails
 	public String getFullName()
 	{
 		String fullName;
-		if (user.getFirstName() != null)
+		if (user.getFirstName() != null && user.getFirstName() != "" && !user.getFirstName().isEmpty())
 		{
 			fullName = user.getFirstName();
-			if (user.getLastName() != null)
-			{
+			if (user.getLastName() != null && user.getLastName() != "" && !user.getLastName().isEmpty())
 				fullName += " " + user.getLastName();
-			}
-		} else if (user.getLastName() != null)
+		} else if (user.getLastName() != null && user.getLastName() != "" && !user.getLastName().isEmpty())
 			fullName = user.getLastName();
-		else if (user.getUsername() != null)
+		else if (user.getUsername() != null && user.getUsername() != "" && !user.getUsername().isEmpty())
 			fullName = user.getUsername();
 		else
 			fullName = user.getEmail();

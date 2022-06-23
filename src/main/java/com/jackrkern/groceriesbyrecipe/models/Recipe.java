@@ -36,4 +36,9 @@ public class Recipe
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	public String toString()
+	{
+		return name;
+	}
 }

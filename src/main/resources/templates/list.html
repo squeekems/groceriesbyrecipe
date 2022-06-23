@@ -2,21 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body>
+  <body style="padding-top: 144px;">
   	<div th:replace="~{fragments/settings :: settings}"></div>
     <header class="fixed-top bg-white">
 	  <!-- Alert Box -->
-      <div th:replace="~{fragments/alert-success :: alert-success}"></div>
+      <div th:replace="~{fragments/alert_success :: alert_success}"></div>
 	  <!-- Nav Bar -->
       <div th:replace="~{fragments/nav :: nav}"></div>
 	  <!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-secondary disabled">Print</button>
-          <button type="button" class="btn btn-secondary disabled">Email</button>
-          <button type="button" class="btn btn-secondary disabled">Clear</button>
-          <button type="button" class="btn btn-secondary">Add</button>
-          <button type="button" class="btn btn-secondary disabled">Remove</button>
+          <button type="button" class="btn btn-primary">Add</button>
+          <button type="button" class="btn btn-warning disabled" id="cmdRemoveItem">Remove</button>
+          <button type="button" class="btn btn-danger disabled">Clear</button>
         </div>
       </div>
 	  <!-- Column Heads -->
@@ -26,26 +24,26 @@
 			<th scope="col" hidden>ID</th>
 			<th scope="col"></th>
 			<th scope="col">Count</th>
-			<th scope="col" style="cursor: pointer;" onclick="sortTable(1)" class="text-right items-left-column">Aisle</th>
-			<th scope="col" style="cursor: pointer;" onclick="sortTable(2)">Description</th>
+			<th scope="col" style="cursor: pointer;" class="text-right items-left-column">Aisle</th>
+			<th scope="col" style="cursor: pointer;">Description</th>
 		  </tr>
 		</thead>
 	 </table>
     </header>
 	<!-- Body -->
-	<table class="table table-hover w-auto" id="tblShoppingLists">
+	<table class="table table-hover w-auto" id="tblShoppingListItems">
 		<tbody>
-			<tr class="clickable-row searchable-row" th:each="shoppingList : ${shoppingLists}">
-				<td th:text="${shoppingList.item.itemID}" class="itemID" hidden>ID</td>
+			<tr class="clickable-row searchable-row" th:each="shoppingListItem : ${shoppingList}">
+				<td th:text="${shoppingListItem.item.itemID}" class="itemID" hidden>ID</td>
 				<td><input type="checkbox"></td>
-				<td th:text="${shoppingList.count}">COUNT</td>
-				<td th:text="${shoppingList.item.aisle.name}" class="text-right items-left-column">AI</td>
-				<td th:text="${shoppingList.item.description}">DESCRIPTION</td>
+				<td th:text="${shoppingListItem.count}">COUNT</td>
+				<td th:text="${shoppingListItem.item.aisle.name}" class="text-right items-left-column">AI</td>
+				<td th:text="${shoppingListItem.item.description}">DESCRIPTION</td>
 			</tr>
 		</tbody>
 	</table>
 	<!-- Script Imports -->
-	<div th:replace="~{fragments/script-imports :: script-imports}"></div>
-    <script th:src="@{script/script.js}"></script>
+	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+    <script th:src="@{script/scriptShoppingList.js}"></script>
   </body>
 </html>

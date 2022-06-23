@@ -33,4 +33,9 @@ public class Ingredient
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
 	private Item item;
+
+	public String toString()
+	{
+		return amount.getValue() + " " + unitOfMeasurement.getName() + " " + item.getDescription();
+	}
 }

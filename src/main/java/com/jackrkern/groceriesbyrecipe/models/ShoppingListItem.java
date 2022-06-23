@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "shoppingList")
-public class ShoppingList
+public class ShoppingListItem
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +34,12 @@ public class ShoppingList
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	public String toString()
+	{
+		if (count > 1)
+			return item.getDescription() + " (x" + count + ")";
+		else
+			return item.getDescription();
+	}
 }

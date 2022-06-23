@@ -10,17 +10,36 @@ $(function()
     {
       $('.item-buttons').removeClass('disabled');
       selectedItemID = document.getElementsByClassName('bg-info')[0].firstChild.nextSibling.innerHTML;
-      // $('#cmdEditItem').attr('data-selectedIndex', selectedItemID);
       console.log(selectedItemID);
     }else
     {
       $('.item-buttons').addClass('disabled');
       selectedItemID = -1;
-      // $('#cmdEditItem').attr('data-selectedIndex', selectedItemID);
       console.log(selectedItemID);
     }
   });
-
+  
+  // Populate Edit Modal
+  $('#editItemModal').on('show.bs.modal', function (event)
+  {
+    if (selectedItemID === -1)
+    {
+      event.preventDefault();
+      alert('You need to select an item to edit first.');
+    }else
+    {
+      const href = "/items/getItemByID/" + selectedItemID;
+      $.get(href, function(item, status)
+      {
+        $('#txtEditID').val(item.itemID);
+        $('#cmbEditAisle').val(item.aisle.aisleID);
+        $('#txtEditDescription').val(item.description);
+      });
+      
+      $('#editItemModal').modal();
+    }
+  });
+  
   // Onclick Remove item
   $('#cmdRemoveItem').on('click', null, selectedItemID, function(event)
   {
@@ -46,25 +65,66 @@ $(function()
       }
     }
   });
-
-  // Populate Edit Modal
-  $('#editItemModal').on('show.bs.modal', function (event)
+  
+  // Onclick Add to Shopping List
+  $('#cmdAddToShoppingList').on('click', null, selectedItemID, function (event)
   {
     if (selectedItemID === -1)
     {
       event.preventDefault();
-      alert('You need to select an item to edit first.');
+      alert('You need to select an item to add to the shopping list first.');
     }else
     {
       const href = "/items/getItemByID/" + selectedItemID;
       $.get(href, function(item, status)
       {
-        $('#txtEditID').val(item.itemID);
-        $('#cmbEditAisle').val(item.aisle.aisleID);
-        $('#txtEditDescription').val(item.description);
-      });
+        // Table
+        const table = document.getElementById('tblAddToShoppingList');
 
-      $('#editItemModal').modal();
+        // tr
+        let row = table.insertRow();
+
+        // td for ID
+        let tdID = row.insertCell(0);
+        let txtID = document.createElement('input');
+        tdID.setAttribute('style', 'display: none;');
+        txtID.setAttribute('id', 'txtID');
+        txtID.setAttribute('name', 'txtID');
+        txtID.setAttribute('value', selectedItemID);
+        txtID.setAttribute('th:value', selectedItemID)
+
+        // txtID
+        tdID.appendChild(txtID);
+
+        // td for Description
+        let tdDescription = row.insertCell(1);
+        tdDescription.innerHTML = item.description;
+
+        // td for Count
+        let tdCount = row.insertCell(2);
+        let numCount = document.createElement('input');
+        numCount.type = 'number';
+        numCount.min = 1;
+        numCount.max = 99;
+        numCount.value = 1;
+        numCount.setAttribute('id', 'numCount');
+        numCount.setAttribute('name', 'numCount');
+
+        // NumericUpDown
+        tdCount.appendChild(numCount);
+      });
+    
+      $('#addToShoppingListModal').modal();
+    }
+  });
+
+  //Onlick Close Add to Shopping List
+  $('.close-add-to-shopping-list-modal').on('click', null, null, function(event)
+  {
+    const table = document.getElementById('tblAddToShoppingList');
+    while (table.hasChildNodes())
+    {
+      table.removeChild(table.lastChild);
     }
   });
 });

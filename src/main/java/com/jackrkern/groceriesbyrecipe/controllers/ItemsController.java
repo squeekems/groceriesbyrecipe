@@ -1,9 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +15,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;
+import com.jackrkern.groceriesbyrecipe.business.ShoppingListItemService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.Item;
+import com.jackrkern.groceriesbyrecipe.models.ShoppingListItem;
 
 /* @author "Jack Kern" */
 
@@ -35,23 +33,33 @@ public class ItemsController
 	private UserService userService;
 
 	@Autowired
-	private RecipeService recipeService;
+	private ShoppingListItemService shoppingListItemService;
+
+	/**/// Should be in my Settings Controller
+	/**/@Autowired
+	/**/private RecipeService recipeService;
+	/**/// Should be in my Settings Controller
 
 	@GetMapping
-	public String getItems(HttpServletRequest request, String username, String password, Model model)
+	public String getItems(Model model)
 	{
 		model.addAttribute("items", itemService.getItems(userService.getPrincipal()));
 		model.addAttribute("item", new Item());
 		model.addAttribute("activePage", "items");
 		model.addAttribute("aisles", itemService.getAisles());
-		model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
-		model.addAttribute("amounts", recipeService.getAmounts());
+		model.addAttribute("shoppingList", new ShoppingListItem());
+		/**/// Should be in my Settings Controller
+		/**/model.addAttribute("aisles", itemService.getAisles());
+		/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
+		/**/model.addAttribute("amounts", recipeService.getAmounts());
+		/**/// Should be in my Settings Controller
 		return "items";
 	}
 
+	// Gets Item to be Editted or Added to Shopping List
 	@RequestMapping("/getItemByID/{itemID}")
 	@ResponseBody
-	public Optional<Item> getItemByID(@PathVariable(value = "itemID")
+	public Item getItemByID(@PathVariable(value = "itemID")
 	Long itemID)
 	{
 		return itemService.getItemByID(itemID);
@@ -88,25 +96,27 @@ public class ItemsController
 	public RedirectView deleteItem(@PathVariable(value = "itemID")
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
-		Item item = itemService.getItemByID(itemID).get();
+		// create item object to use in feedback
+		Item item = itemService.getItemByID(itemID);
 		itemService.deleteItem(itemID);
 		System.out.println(item.getDescription() + " Removed");
-		redirectAttributes.addFlashAttribute(item.getDescription() + " Removed");
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
 		return new RedirectView("/items");
 	}
 
-//	@GetMapping("/items/selected")
-//	public String passItemID(Model model)
-//	{
-//		model.att
-//		return "items";
-//	}
-
-//	@DeleteMapping("/items")
-//	public String deleteItem(Long itemID, Model model)
-//	{
-//		itemService.deleteItem(itemID);
-//		addItemAttributes(model);
-//		return "items";
-//	}
+	// AddToShoppingList
+	@PostMapping("/addToShoppingList")
+	public RedirectView addItemToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = "txtID")
+	Long itemID, @RequestParam(value = "numCount")
+	int count, RedirectAttributes redirectAttributes)
+	{
+		shoppingListItem.setItem(itemService.getItemByID(itemID));
+		shoppingListItem.setUser(userService.getPrincipal());
+		shoppingListItem.setCount(count);
+		shoppingListItemService.saveShoppingListItem(shoppingListItem);
+		System.out.println(shoppingListItem.getItem().getDescription() + " Added to Shopping List");
+		redirectAttributes.addFlashAttribute("success", shoppingListItem.getItem().getDescription()
+														+ " Added to Shopping List");
+		return new RedirectView("/items");
+	}
 }

@@ -3,7 +3,6 @@ package com.jackrkern.groceriesbyrecipe.business;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +42,7 @@ public class ItemService
 
 	public Aisle getAisleByID(Long aisleID)
 	{
-		return aisleRepository.findByAisleId(aisleID);
+		return aisleRepository.findById(aisleID).get();
 	}
 
 	public Aisle getAisleByName(String name)
@@ -51,14 +50,14 @@ public class ItemService
 		return aisleRepository.findByName(name);
 	}
 
-	public Optional<Item> getItemByID(Long itemID)
+	public Item getItemByID(Long itemID)
 	{
-		return itemRepository.findById(itemID);
+		return itemRepository.findById(itemID).get();
 	}
 
 	public List<Item> getItems(User userID)
 	{
-		Iterable<Item> items = this.itemRepository.findAllByUser(userID);
+		Iterable<Item> items = itemRepository.findAllByUser(userID);
 		List<Item> itemList = new ArrayList<>();
 		items.forEach(item ->
 		{

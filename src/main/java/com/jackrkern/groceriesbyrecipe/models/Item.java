@@ -44,4 +44,9 @@ public class Item
 		this.aisle = aisle;
 		this.user = user;
 	}
+
+	public String toString()
+	{
+		return description;
+	}
 }

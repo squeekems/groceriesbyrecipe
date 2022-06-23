@@ -31,9 +31,13 @@
 	    </li>
 	  </ul>
 	  <span sec:authorize="isAuthenticated()" class="pr-1">Welcome [[${#request.userPrincipal.principal.fullName}]]</span>
-	  <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-	    <button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#settingsModal">Settings</button>
-		<button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
-	  </form>
+	  <div class="d-flex">
+	    <form sec:authorize="isAuthenticated()" class="pr-1" th:action="@{/settings}" method="GET">
+	      <button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#settingsModal">Settings</button>
+	    </form>
+	    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
+		  <button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+	    </form>
+	  </div>
 	</div>
 </nav>
