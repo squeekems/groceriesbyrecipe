@@ -21,11 +21,11 @@
       <table class="m-0 table table-hover w-auto">
 	    <thead class="sticky-top bg-white">
 		  <tr>
-			<th scope="col" hidden>ID</th>
-			<th scope="col"></th>
-			<th scope="col">Count</th>
-			<th scope="col" style="cursor: pointer;" class="text-right items-left-column">Aisle</th>
-			<th scope="col" style="cursor: pointer;">Description</th>
+				<th scope="col" hidden>ID</th>
+				<th scope="col" class="list-column-1"></th>
+				<th scope="col" class="list-column-2 text-right">Count</th>
+				<th scope="col" class="list-column-3 text-right">Aisle</th>
+				<th scope="col">Description</th>
 		  </tr>
 		</thead>
 	 </table>
@@ -35,9 +35,9 @@
 		<tbody>
 			<tr class="clickable-row searchable-row" th:each="shoppingListItem : ${shoppingList}">
 				<td th:text="${shoppingListItem.shoppingListID}" class="shoppingListID" hidden>ID</td>
-				<td><input type="checkbox"></td>
-				<td th:text="${shoppingListItem.count}">COUNT</td>
-				<td th:text="${shoppingListItem.item.aisle.name}" class="text-right items-left-column">AI</td>
+				<td class="list-column-1"><input type="checkbox"></td>
+				<td th:text="${shoppingListItem.count}" class="list-column-2 text-right">COUNT</td>
+				<td th:text="${shoppingListItem.item.aisle.name}" class="list-column-3 text-right">AI</td>
 				<td th:text="${shoppingListItem.item.description}">DESCRIPTION</td>
 			</tr>
 		</tbody>

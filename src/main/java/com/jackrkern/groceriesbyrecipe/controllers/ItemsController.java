@@ -78,7 +78,7 @@ public class ItemsController
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
-		System.out.println(item + " Edited");
+		System.out.println(item.getDescription() + " Edited");
 		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
 		return new RedirectView("/items");
 	}

@@ -54,4 +54,20 @@ public class RecipeService
 		unitsOfMeasurement.forEach(UnitOfMeasurement -> unitOfMeasurementList.add(UnitOfMeasurement));
 		return unitOfMeasurementList;
 	}
+
+	public void saveRecipe(Recipe recipe)
+	{
+		if (recipe != null)
+		{
+			recipeRepository.save(recipe);
+		} else
+		{
+			throw new RuntimeException("Recipe cannot be null");
+		}
+	}
+
+	public Recipe getRecipeByID(Long recipeID)
+	{
+		return recipeRepository.findById(recipeID).get();
+	}
 }

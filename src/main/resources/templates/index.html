@@ -15,8 +15,8 @@
 	      		<img class="mb-4" src="/images/grocery_basket.svg" alt="" width="72" height="72">
     			<h1 class="display-4">Groceries by Recipe</h1>
     			<p>This is a fully customizable shopping list populating tool!</p>
-		        <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Login</a>
-		        <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/register}">Register</a>
+		        <a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Login</a>
+		        <a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 my-sm-0" th:href="@{/register}">Register</a>
     		</div>
     	</div>
     </main>

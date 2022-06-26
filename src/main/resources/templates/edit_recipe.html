@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <!-- Head -->
+  <div th:replace="~{fragments/head :: head}"></div>
+  <body>
+		<!-- Add Ingredient Modal -->
+		<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="lblAddIngredient" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddIngredient">Add Ingredient</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<form id="frmAddIngredient">
+								<label for="cmbAddAmount">Amount:</label>
+								<select class="form-control" name="cmbAddAmount" id="cmbAddAmount">
+									<option th:each="amount : ${amounts}" th:value="${amount.amountID}" th:text="${amount.value}">
+								</select>
+								<label for="cmbAddUnitOfMeasurement">Unit of Measurement:</label>
+								<select class="form-control" name="cmbAddUnitOfMeasurement" id="cmbAddUnitOfMeasurement">
+									<option th:each="unitOfMeasurement : ${unitsOfMeasurement}" th:value="${unitOfMeasurement.unitOfMeasurementID}" th:text="${unitOfMeasurement.name}">
+								</select>
+								<label for="cmbAddItem">Item:</label>
+								<select class="form-control" name="cmbAddItem" id="cmbAddItem">
+									<option th:each="item : ${items}" th:value="${item.itemID}" th:text="${item.description}">
+								</select>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" id="cmdAddIngredient">Add Ingredient</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <header class="fixed-top bg-white">
+	  	<!-- Nav Bar -->
+			<div th:replace="~{fragments/nav :: nav}"></div>
+			<!-- Button Group -->
+			<div class="d-flex justify-content-center bg-white">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addIngredientModal">Add</button>
+					<button type="button" class="item-buttons btn btn-warning disabled" id="cmdEditIngredient" data-toggle="modal" data-target="#editIngredientModal">Edit</button>
+					<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveItem">Remove</button>
+					<button type="button" class="btn btn-success" id="cmdSaveRecipe">Save Recipe</button>
+				</div>
+			</div>
+		</header>
+		<!-- Body -->
+		<div class="mx-3">
+			<div class="form-group">
+				<label for="txtName" class="col-form-label">Name:</label>
+				<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:value="${recipe.name}">
+			</div>
+			<table class="table table-hover w-auto" id="tblIngredients">
+				<tbody>
+					<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
+						<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
+						<td th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">INGREDIENT</td>
+						<td th:text="${ingredient.toString()}">INGREDIENT2</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="form-group">
+				<label for="txtInstructions" class="col-form-label">Instructions:</label>
+				<textarea class="form-control" name="txtInstructions" id="txtInstructions" placeholder="Instructions" rows="15" th:text="${recipe.instructions}"></textarea>
+			</div>
+		</div>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+		<script th:src="@{script/scriptRecipes.js}"></script>
+  </body>
+</html>

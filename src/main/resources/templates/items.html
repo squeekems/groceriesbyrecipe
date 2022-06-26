@@ -24,8 +24,8 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Description:</label>
-								<input type="text" class="form-control" id="txtAddDescription" placeholder="Description" th:field="*{description}">
+								<label for="txtAddDescription" class="col-form-label">Description:</label>
+								<input type="text" class="form-control" name="txtAddDescription" id="txtAddDescription" placeholder="Description" th:field="*{description}">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -56,7 +56,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Description:</label>
+								<label for="txtEditDescription" class="col-form-label">Description:</label>
 								<input type="text" class="form-control" name="txtEditDescription" id="txtEditDescription" th:field="*{description}">
 							</div>
 							<div class="modal-footer">

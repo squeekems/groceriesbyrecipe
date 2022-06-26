@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Recipe
 	private String name;
 	@Column(length = 2047)
 	private String instructions;
-	@ManyToMany(targetEntity = Ingredient.class)
+	@ManyToMany(targetEntity = Ingredient.class, fetch = FetchType.EAGER)
 	@JoinTable(	name = "recipes_ingredients", joinColumns = { @JoinColumn(name = "recipeID") },
 				inverseJoinColumns = { @JoinColumn(name = "ingredientID") })
 	private Set<Ingredient> ingredients;

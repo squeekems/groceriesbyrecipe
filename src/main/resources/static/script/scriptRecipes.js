@@ -3,19 +3,32 @@ let selectedRecipeID = -1;
 $(function()
 {
   // Makes the table selectable and sets the value of selectedItemID
-  $('#tblShoppingListItems').on('click', '.clickable-row', function(event)
+  $('.list-group-item.list-group-item-action').on('click', function(event)
   {
-    $(this).toggleClass('bg-info').siblings().removeClass('bg-info');
-    if ($('tr.bg-info').prop("classList") != undefined)
+    selectedRecipeID = $(this).attr('id');
+    console.log(selectedRecipeID);
+    $('.recipe-buttons').removeClass('disabled');
+  });
+  
+  // Edit Recipe
+  $('#cmdEditRecipe').on('click', function (event)
+  {
+    if (selectedRecipeID === -1)
     {
-      $('.recipe-buttons').removeClass('disabled');
-      selectedShoppingListItemID = document.getElementsByClassName('bg-info')[0].firstChild.nextSibling.innerHTML;
-      console.log(selectedShoppingListItemID);
+      event.preventDefault();
+      alert('You need to select a recipe to edit first.');
     }else
     {
-      $('.recipe-buttons').addClass('disabled');
-      selectedShoppingListItemID = -1;
-      console.log(selectedShoppingListItemID);
+      $.get(`/recipes/edit/${selectedRecipeID}`);
+      // fetch(`/recipes/edit/${selectedRecipeID}`)
+      // .then(res =>
+      // {
+      //   console.log(res)
+      // })
+      // .catch(err =>
+      // {
+      //   console.log(err)
+      // });
     }
   });
 });

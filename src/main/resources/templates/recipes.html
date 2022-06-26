@@ -4,7 +4,32 @@
   <div th:replace="~{fragments/head :: head}"></div>
   <body>
   	<div th:replace="~{fragments/settings :: settings}"></div>
-    <header class="fixed-top bg-white">
+		<!-- Add Recipe Modal -->
+		<div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="lblAddRecipe" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddRecipe">Add Recipe</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmAddRecipe" th:action="@{/recipes/add}" method="POST" th:object="${recipe}">
+							<div class="form-group">
+								<label for="txtName" class="col-form-label">Name:</label>
+								<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:field="*{name}">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" id="cmdAddRecipe">Add</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<header class="fixed-top bg-white">
 	  <!-- Alert Box -->
       <div th:replace="~{fragments/alert_success :: alert_success}"></div>
 	  <!-- Nav Bar -->
@@ -12,22 +37,30 @@
 	  <!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary">Add</button>
-          <button type="button" class="recipe-buttons btn btn-warning disabled">Edit</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipeModal">Add</button>
+          <button type="button" class="recipe-buttons btn btn-warning disabled" id="cmdEditRecipe">Edit</button>
           <button type="button" class="recipe-buttons btn btn-danger disabled">Remove</button>
           <button type="button" class="recipe-buttons btn btn-success disabled">Add To Shopping List</button>
         </div>
       </div>
     </header>
+		<!-- Body -->
 	<div class="row m-0">
 	  <div class="col-4 pl-0">
 	    <div class="list-group" id="lstRecipe" role="tablist">
-	      <a class="list-group-item list-group-item-action" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID} + '-list'" data-toggle="list" th:href="'#lstRecipe-' + ${recipe.recipeID}" role="tab" th:attr="aria-controls=${recipe.recipeID}" th:text="${recipe.name}">Recipe Name</a>
+	      <a class="list-group-item list-group-item-action"
+						th:each="recipe : ${recipes}"
+						th:id="${recipe.recipeID}"
+						data-toggle="list"
+						th:href="'#lstRecipe-' + ${recipe.recipeID}"
+						role="tab"
+						th:attr="aria-controls=${recipe.recipeID}"
+						th:text="${recipe.name}">Recipe Name</a>
 	    </div>
 	  </div>
 	  <div class="col-8 pt-e-15" id="recipe-content">
 	    <div class="tab-content" id="nav-tabContent">
-	   	  <div class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby='lstRecipe-' + ${recipe.recipeID} + '-list'">
+	   	  <div class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby=${recipe.recipeID}">
 	        <ul>
 	      	  <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">Recipe Ingredient</li>	      	
 	        </ul>
