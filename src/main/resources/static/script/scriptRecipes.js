@@ -9,9 +9,9 @@ $(function()
     console.log(selectedRecipeID);
     $('.recipe-buttons').removeClass('disabled');
   });
-  
-  // Edit Recipe
-  $('#cmdEditRecipe').on('click', function (event)
+
+  // Populate Edit Modal
+  $('#editRecipeModal').on('show.bs.modal', function (event)
   {
     if (selectedRecipeID === -1)
     {
@@ -19,16 +19,14 @@ $(function()
       alert('You need to select a recipe to edit first.');
     }else
     {
-      $.get(`/recipes/edit/${selectedRecipeID}`);
-      // fetch(`/recipes/edit/${selectedRecipeID}`)
-      // .then(res =>
-      // {
-      //   console.log(res)
-      // })
-      // .catch(err =>
-      // {
-      //   console.log(err)
-      // });
+      const href = "/recipes/getRecipeByID/" + selectedRecipeID;
+      $.get(href, function(recipe, status)
+      {
+        $('#txtEditID').val(recipe.recipeID);
+        $('#txtEditName').val(recipe.name);
+      });
+      
+      $('#editRecipeModal').modal();
     }
   });
 });

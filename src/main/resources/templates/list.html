@@ -3,7 +3,55 @@
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
   <body style="padding-top: 144px;">
+		<!-- Settings Modal -->
   	<div th:replace="~{fragments/settings :: settings}"></div>
+		<!-- Add Item Modal -->
+		<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddItem">Add Item</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmAddExistingItem" th:action="@{/list}" method="POST" th:object="${shoppingListItem}">
+							<div class="form-group">
+								<label for="cmbItem">Existing Item:</label>
+								<select class="form-control" name="cmbAddItem" id="cmbAddItem">
+									<option th:each="item : ${items}" th:value="${item.itemID}" th:text="${item.description}">
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="form-label" for="numCount">How many?</label>
+								<input type="number" value="1" class="form-control text-right" min="1" max="99" id="numCount" name="numCount">
+							</div>
+							<div class="modal-footer" style="border-bottom: 1px;">
+								<button type="submit" class="btn btn-primary" id="cmdAddExistingItem">Add</button>
+							</div>
+						</form>
+						<form id="frmAddItem" th:action="@{/list/add}" method="POST" th:object="${item}">
+							<div class="form-group">
+								<label for="cmbAisle">Aisle:</label>
+								<select class="form-control" name="cmbAddAisle" id="cmbAddAisle">
+									<option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}">
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="txtAddDescription" class="col-form-label">Description:</label>
+								<input type="text" class="form-control" name="txtAddDescription" id="txtAddDescription" placeholder="Description" th:field="*{description}">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" id="cmdAddItem">Add</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header -->
     <header class="fixed-top bg-white">
 	  <!-- Alert Box -->
       <div th:replace="~{fragments/alert_success :: alert_success}"></div>
@@ -12,7 +60,7 @@
 	  <!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary">Add</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">Add</button>
           <button type="button" class="shoppingListItem-buttons btn btn-warning disabled" id="cmdRemoveShoppingListItem">Remove</button>
           <button type="button" class="btn btn-danger" id="cmdClearShoppingList">Clear</button>
         </div>

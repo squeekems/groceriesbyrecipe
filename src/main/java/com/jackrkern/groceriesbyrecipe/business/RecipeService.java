@@ -2,15 +2,18 @@ package com.jackrkern.groceriesbyrecipe.business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jackrkern.groceriesbyrecipe.models.Amount;
+import com.jackrkern.groceriesbyrecipe.models.Ingredient;
 import com.jackrkern.groceriesbyrecipe.models.Recipe;
 import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
 import com.jackrkern.groceriesbyrecipe.models.User;
 import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
+import com.jackrkern.groceriesbyrecipe.repositories.IngredientRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.RecipeRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
 
@@ -19,9 +22,6 @@ import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
 @Service
 public class RecipeService
 {
-//	@Autowired
-//	private IngredientRepository ingredientRepository;
-
 	@Autowired
 	private RecipeRepository recipeRepository;
 
@@ -30,6 +30,9 @@ public class RecipeService
 
 	@Autowired
 	private UnitOfMeasurementRepository unitOfMeasurementRepository;
+
+	@Autowired
+	private IngredientRepository ingredientRepository;
 
 	public List<Recipe> getRecipes(User userID)
 	{
@@ -66,8 +69,27 @@ public class RecipeService
 		}
 	}
 
+	public void saveRecipe(Recipe recipe, Ingredient ingredient)
+	{
+		ingredientRepository.save(ingredient);
+		Set<Ingredient> ingredients = recipe.getIngredients();
+		ingredients.add(ingredient);
+		recipe.setIngredients(ingredients);
+		saveRecipe(recipe);
+	}
+
 	public Recipe getRecipeByID(Long recipeID)
 	{
 		return recipeRepository.findById(recipeID).get();
+	}
+
+	public Amount getAmountByID(Long amountID)
+	{
+		return amountRepository.findById(amountID).get();
+	}
+
+	public UnitOfMeasurement getUnitOfMeasurementByID(Long unitOfMeasurementID)
+	{
+		return unitOfMeasurementRepository.findById(unitOfMeasurementID).get();
 	}
 }

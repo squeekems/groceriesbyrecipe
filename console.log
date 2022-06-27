@@ -1,0 +1,2630 @@
+2022-06-27 01:44:53.483  INFO 15692 --- [main] c.j.g.GroceriesByRecipeApplication       : Starting GroceriesByRecipeApplication using Java 17.0.2 on DESKTOP-MEU5URT with PID 15692 (C:\Users\Owner\eclipse-workspace\GroceriesByRecipe\target\classes started by Owner in C:\Users\Owner\eclipse-workspace\GroceriesByRecipe)
+2022-06-27 01:44:53.485  INFO 15692 --- [main] c.j.g.GroceriesByRecipeApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-06-27 01:44:53.918  INFO 15692 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-27 01:44:53.972  INFO 15692 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 8 JPA repository interfaces.
+2022-06-27 01:44:54.340  INFO 15692 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-06-27 01:44:54.346  INFO 15692 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-06-27 01:44:54.346  INFO 15692 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-06-27 01:44:54.431  INFO 15692 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-06-27 01:44:54.431  INFO 15692 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 916 ms
+2022-06-27 01:44:54.553  INFO 15692 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-27 01:44:54.590  INFO 15692 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-27 01:44:54.708  INFO 15692 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-27 01:44:54.782  INFO 15692 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-27 01:44:54.828  INFO 15692 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-27 01:44:54.841  INFO 15692 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB53Dialect
+2022-06-27 01:44:55.343  INFO 15692 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-27 01:44:55.350  INFO 15692 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-27 01:44:55.646  WARN 15692 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-27 01:44:55.756  INFO 15692 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@510a2c7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@14fe085b, org.springframework.security.web.context.SecurityContextPersistenceFilter@41463c56, org.springframework.security.web.header.HeaderWriterFilter@47994b51, org.springframework.security.web.csrf.CsrfFilter@8091d80, org.springframework.security.web.authentication.logout.LogoutFilter@293ecff6, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@59043741, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@629de8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@34d5eac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ea19c97, org.springframework.security.web.session.SessionManagementFilter@5020e5ab, org.springframework.security.web.access.ExceptionTranslationFilter@5b324447, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@64908ab9]
+2022-06-27 01:44:55.856  INFO 15692 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-06-27 01:44:56.005  INFO 15692 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-06-27 01:44:56.012  INFO 15692 --- [main] c.j.g.GroceriesByRecipeApplication       : Started GroceriesByRecipeApplication in 2.81 seconds (JVM running for 3.228)
+2022-06-27 01:45:16.845  INFO 15692 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-27 01:45:16.845  INFO 15692 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-06-27 01:45:16.846  INFO 15692 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-06-27 01:45:19.836 DEBUG 15692 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:19.920 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:19.924 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_,
+        item0_.aisleID as aisleid3_3_,
+        item0_.description as descript2_3_,
+        item0_.userID as userid4_3_ 
+    from
+        items item0_ 
+    where
+        item0_.userID=?
+2022-06-27 01:45:19.934 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.937 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.939 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.940 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.941 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.942 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.943 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.944 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.945 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.945 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.946 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.946 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.947 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.948 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.948 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.949 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.949 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.950 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.950 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.951 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:19.962 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:19.965 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:19.968 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        unitofmeas0_.unitOfMeasurementID as unitofme1_7_,
+        unitofmeas0_.name as name2_7_,
+        unitofmeas0_.userID as userid3_7_ 
+    from
+        unitsOfMeasurement unitofmeas0_
+2022-06-27 01:45:19.970 DEBUG 15692 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        amount0_.amountID as amountid1_1_,
+        amount0_.userID as userid3_1_,
+        amount0_.value as value2_1_ 
+    from
+        amounts amount0_
+2022-06-27 01:45:47.969 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:48.895 DEBUG 15692 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:48.896 DEBUG 15692 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:48.898 DEBUG 15692 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        shoppingli0_.shoppingListID as shopping1_6_,
+        shoppingli0_.count as count2_6_,
+        shoppingli0_.itemID as itemid3_6_,
+        shoppingli0_.userID as userid4_6_ 
+    from
+        shoppingList shoppingli0_ 
+    where
+        shoppingli0_.itemID=? 
+        and shoppingli0_.userID=?
+2022-06-27 01:45:48.907 DEBUG 15692 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        shoppingList
+        (count, itemID, userID) 
+    values
+        (?, ?, ?)
+2022-06-27 01:45:48.923 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:48.924 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_,
+        item0_.aisleID as aisleid3_3_,
+        item0_.description as descript2_3_,
+        item0_.userID as userid4_3_ 
+    from
+        items item0_ 
+    where
+        item0_.userID=?
+2022-06-27 01:45:48.926 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.927 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.927 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.928 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.929 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.930 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.930 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.930 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.931 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.932 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.932 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.933 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.933 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.934 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.934 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.935 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.935 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.935 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.936 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.936 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:48.938 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:48.940 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:48.941 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        unitofmeas0_.unitOfMeasurementID as unitofme1_7_,
+        unitofmeas0_.name as name2_7_,
+        unitofmeas0_.userID as userid3_7_ 
+    from
+        unitsOfMeasurement unitofmeas0_
+2022-06-27 01:45:48.942 DEBUG 15692 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        amount0_.amountID as amountid1_1_,
+        amount0_.userID as userid3_1_,
+        amount0_.value as value2_1_ 
+    from
+        amounts amount0_
+2022-06-27 01:45:50.385 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:50.388 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        recipe0_.recipeID as recipeid1_4_,
+        recipe0_.instructions as instruct2_4_,
+        recipe0_.name as name3_4_,
+        recipe0_.userID as userid4_4_ 
+    from
+        recipes recipe0_ 
+    where
+        recipe0_.userID=?
+2022-06-27 01:45:50.393 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.396 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.398 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.399 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.400 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.401 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.402 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.404 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.405 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.406 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.407 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.408 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.409 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.411 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        ingredient0_.recipeID as recipeid1_5_0_,
+        ingredient0_.ingredientID as ingredie2_5_0_,
+        ingredient1_.ingredientID as ingredie1_2_1_,
+        ingredient1_.amountID as amountid2_2_1_,
+        ingredient1_.itemID as itemid3_2_1_,
+        ingredient1_.unitOfMeasurementID as unitofme4_2_1_,
+        amount2_.amountID as amountid1_1_2_,
+        amount2_.userID as userid3_1_2_,
+        amount2_.value as value2_1_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_,
+        item4_.itemID as itemid1_3_4_,
+        item4_.aisleID as aisleid3_3_4_,
+        item4_.description as descript2_3_4_,
+        item4_.userID as userid4_3_4_,
+        aisle5_.aisleID as aisleid1_0_5_,
+        aisle5_.name as name2_0_5_,
+        aisle5_.userID as userid3_0_5_,
+        user6_.userID as userid1_8_6_,
+        user6_.email as email2_8_6_,
+        user6_.firstName as firstnam3_8_6_,
+        user6_.lastName as lastname4_8_6_,
+        user6_.password as password5_8_6_,
+        user6_.username as username6_8_6_,
+        unitofmeas7_.unitOfMeasurementID as unitofme1_7_7_,
+        unitofmeas7_.name as name2_7_7_,
+        unitofmeas7_.userID as userid3_7_7_,
+        user8_.userID as userid1_8_8_,
+        user8_.email as email2_8_8_,
+        user8_.firstName as firstnam3_8_8_,
+        user8_.lastName as lastname4_8_8_,
+        user8_.password as password5_8_8_,
+        user8_.username as username6_8_8_ 
+    from
+        recipes_ingredients ingredient0_ 
+    inner join
+        ingredients ingredient1_ 
+            on ingredient0_.ingredientID=ingredient1_.ingredientID 
+    left outer join
+        amounts amount2_ 
+            on ingredient1_.amountID=amount2_.amountID 
+    left outer join
+        users user3_ 
+            on amount2_.userID=user3_.userID 
+    left outer join
+        items item4_ 
+            on ingredient1_.itemID=item4_.itemID 
+    left outer join
+        aisles aisle5_ 
+            on item4_.aisleID=aisle5_.aisleID 
+    left outer join
+        users user6_ 
+            on item4_.userID=user6_.userID 
+    left outer join
+        unitsOfMeasurement unitofmeas7_ 
+            on ingredient1_.unitOfMeasurementID=unitofmeas7_.unitOfMeasurementID 
+    left outer join
+        users user8_ 
+            on unitofmeas7_.userID=user8_.userID 
+    where
+        ingredient0_.recipeID=?
+2022-06-27 01:45:50.412 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:50.413 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        unitofmeas0_.unitOfMeasurementID as unitofme1_7_,
+        unitofmeas0_.name as name2_7_,
+        unitofmeas0_.userID as userid3_7_ 
+    from
+        unitsOfMeasurement unitofmeas0_
+2022-06-27 01:45:50.414 DEBUG 15692 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        amount0_.amountID as amountid1_1_,
+        amount0_.userID as userid3_1_,
+        amount0_.value as value2_1_ 
+    from
+        amounts amount0_
+2022-06-27 01:45:51.828 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:51.830 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        shoppingli0_.shoppingListID as shopping1_6_,
+        shoppingli0_.count as count2_6_,
+        shoppingli0_.itemID as itemid3_6_,
+        shoppingli0_.userID as userid4_6_ 
+    from
+        shoppingList shoppingli0_ 
+    where
+        shoppingli0_.userID=?
+2022-06-27 01:45:51.831 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.831 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.832 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.832 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.833 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.833 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.834 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.834 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.835 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.835 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_0_,
+        item0_.aisleID as aisleid3_3_0_,
+        item0_.description as descript2_3_0_,
+        item0_.userID as userid4_3_0_,
+        aisle1_.aisleID as aisleid1_0_1_,
+        aisle1_.name as name2_0_1_,
+        aisle1_.userID as userid3_0_1_,
+        user2_.userID as userid1_8_2_,
+        user2_.email as email2_8_2_,
+        user2_.firstName as firstnam3_8_2_,
+        user2_.lastName as lastname4_8_2_,
+        user2_.password as password5_8_2_,
+        user2_.username as username6_8_2_,
+        user3_.userID as userid1_8_3_,
+        user3_.email as email2_8_3_,
+        user3_.firstName as firstnam3_8_3_,
+        user3_.lastName as lastname4_8_3_,
+        user3_.password as password5_8_3_,
+        user3_.username as username6_8_3_ 
+    from
+        items item0_ 
+    left outer join
+        aisles aisle1_ 
+            on item0_.aisleID=aisle1_.aisleID 
+    left outer join
+        users user2_ 
+            on aisle1_.userID=user2_.userID 
+    inner join
+        users user3_ 
+            on item0_.userID=user3_.userID 
+    where
+        item0_.itemID=?
+2022-06-27 01:45:51.836 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        user0_.userID as userid1_8_,
+        user0_.email as email2_8_,
+        user0_.firstName as firstnam3_8_,
+        user0_.lastName as lastname4_8_,
+        user0_.password as password5_8_,
+        user0_.username as username6_8_ 
+    from
+        users user0_ 
+    where
+        user0_.email=?
+2022-06-27 01:45:51.837 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        item0_.itemID as itemid1_3_,
+        item0_.aisleID as aisleid3_3_,
+        item0_.description as descript2_3_,
+        item0_.userID as userid4_3_ 
+    from
+        items item0_ 
+    where
+        item0_.userID=?
+2022-06-27 01:45:51.838 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.839 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.839 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.840 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.840 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.840 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.841 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.841 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.842 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.842 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.842 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.843 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.843 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_0_,
+        aisle0_.name as name2_0_0_,
+        aisle0_.userID as userid3_0_0_,
+        user1_.userID as userid1_8_1_,
+        user1_.email as email2_8_1_,
+        user1_.firstName as firstnam3_8_1_,
+        user1_.lastName as lastname4_8_1_,
+        user1_.password as password5_8_1_,
+        user1_.username as username6_8_1_ 
+    from
+        aisles aisle0_ 
+    inner join
+        users user1_ 
+            on aisle0_.userID=user1_.userID 
+    where
+        aisle0_.aisleID=?
+2022-06-27 01:45:51.845 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        aisle0_.aisleID as aisleid1_0_,
+        aisle0_.name as name2_0_,
+        aisle0_.userID as userid3_0_ 
+    from
+        aisles aisle0_
+2022-06-27 01:45:51.846 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        unitofmeas0_.unitOfMeasurementID as unitofme1_7_,
+        unitofmeas0_.name as name2_7_,
+        unitofmeas0_.userID as userid3_7_ 
+    from
+        unitsOfMeasurement unitofmeas0_
+2022-06-27 01:45:51.847 DEBUG 15692 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        amount0_.amountID as amountid1_1_,
+        amount0_.userID as userid3_1_,
+        amount0_.value as value2_1_ 
+    from
+        amounts amount0_
+2022-06-27 01:47:31.569  INFO 15692 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-06-27 01:47:31.607  INFO 15692 --- [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-27 01:47:31.608  INFO 15692 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-06-27 01:47:31.610  INFO 15692 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-06-27 01:47:33.235  INFO 12000 --- [main] c.j.g.GroceriesByRecipeApplication       : Starting GroceriesByRecipeApplication using Java 17.0.2 on DESKTOP-MEU5URT with PID 12000 (C:\Users\Owner\eclipse-workspace\GroceriesByRecipe\target\classes started by Owner in C:\Users\Owner\eclipse-workspace\GroceriesByRecipe)
+2022-06-27 01:47:33.237  INFO 12000 --- [main] c.j.g.GroceriesByRecipeApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-06-27 01:47:33.672  INFO 12000 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-27 01:47:33.726  INFO 12000 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 8 JPA repository interfaces.
+2022-06-27 01:47:34.097  INFO 12000 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-06-27 01:47:34.109  INFO 12000 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-06-27 01:47:34.110  INFO 12000 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-06-27 01:47:34.192  INFO 12000 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-06-27 01:47:34.193  INFO 12000 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 925 ms
+2022-06-27 01:47:34.313  INFO 12000 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-27 01:47:34.352  INFO 12000 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-27 01:47:34.471  INFO 12000 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-27 01:47:34.549  INFO 12000 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-27 01:47:34.595  INFO 12000 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-27 01:47:34.610  INFO 12000 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB53Dialect
+2022-06-27 01:47:35.110  INFO 12000 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-27 01:47:35.116  INFO 12000 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-27 01:47:35.419  WARN 12000 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-27 01:47:35.526  INFO 12000 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7d563c13, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@510a2c7, org.springframework.security.web.context.SecurityContextPersistenceFilter@161c9468, org.springframework.security.web.header.HeaderWriterFilter@19f99aaf, org.springframework.security.web.csrf.CsrfFilter@78f4d15d, org.springframework.security.web.authentication.logout.LogoutFilter@70eb94d7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@744db9fb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b32b678, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c1a95a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@14fe085b, org.springframework.security.web.session.SessionManagementFilter@19f1f330, org.springframework.security.web.access.ExceptionTranslationFilter@2ffcdc9b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62e586a6]
+2022-06-27 01:47:35.624  INFO 12000 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-06-27 01:47:35.778  INFO 12000 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-06-27 01:47:35.784  INFO 12000 --- [main] c.j.g.GroceriesByRecipeApplication       : Started GroceriesByRecipeApplication in 2.831 seconds (JVM running for 3.229)
+2022-06-27 01:49:35.244  INFO 12000 --- [RMI TCP Connection(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-06-27 01:49:35.256  INFO 12000 --- [RMI TCP Connection(10)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-27 01:49:35.257  INFO 12000 --- [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-06-27 01:49:35.260  INFO 12000 --- [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-06-27 01:50:28.270  INFO 20068 --- [main] c.j.g.GroceriesByRecipeApplication       : Starting GroceriesByRecipeApplication using Java 17.0.2 on DESKTOP-MEU5URT with PID 20068 (C:\Users\Owner\eclipse-workspace\GroceriesByRecipe\target\classes started by Owner in C:\Users\Owner\eclipse-workspace\GroceriesByRecipe)
+2022-06-27 01:50:28.276  INFO 20068 --- [main] c.j.g.GroceriesByRecipeApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-06-27 01:50:28.712  INFO 20068 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-27 01:50:28.764  INFO 20068 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 8 JPA repository interfaces.
+2022-06-27 01:50:29.136  INFO 20068 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-06-27 01:50:29.143  INFO 20068 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-06-27 01:50:29.143  INFO 20068 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-06-27 01:50:29.227  INFO 20068 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-06-27 01:50:29.228  INFO 20068 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 921 ms
+2022-06-27 01:50:29.349  INFO 20068 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-27 01:50:29.389  INFO 20068 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-06-27 01:50:29.508  INFO 20068 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-27 01:50:29.585  INFO 20068 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-27 01:50:29.631  INFO 20068 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-27 01:50:29.644  INFO 20068 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB53Dialect
+2022-06-27 01:50:30.152  INFO 20068 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-27 01:50:30.158  INFO 20068 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-27 01:50:30.462  WARN 20068 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-27 01:50:30.572  INFO 20068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14fe085b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ea19c97, org.springframework.security.web.context.SecurityContextPersistenceFilter@161c9468, org.springframework.security.web.header.HeaderWriterFilter@19f99aaf, org.springframework.security.web.csrf.CsrfFilter@78f4d15d, org.springframework.security.web.authentication.logout.LogoutFilter@70eb94d7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@31940d6b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b32b678, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c1a95a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@525b9df4, org.springframework.security.web.session.SessionManagementFilter@19f1f330, org.springframework.security.web.access.ExceptionTranslationFilter@2ffcdc9b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1b06dc57]
+2022-06-27 01:50:30.670  INFO 20068 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-06-27 01:50:30.825  INFO 20068 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-06-27 01:50:30.831  INFO 20068 --- [main] c.j.g.GroceriesByRecipeApplication       : Started GroceriesByRecipeApplication in 2.842 seconds (JVM running for 3.243)
+2022-06-27 01:58:01.409  INFO 20068 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-27 01:58:01.409  INFO 20068 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-06-27 01:58:01.410  INFO 20068 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

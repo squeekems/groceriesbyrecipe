@@ -29,6 +29,32 @@
 				</div>
 			</div>
 		</div>
+		<!-- Edit Recipe Modal -->
+		<div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="lblEditRecipe" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblEditRecipe">Confirm Edit Recipe</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmEditRecipe" th:action="@{/recipes/edit}" method="GET" th:object="${recipe}">
+							<input class="txtEditID" name="txtEditID" id="txtEditID" hidden th:field="*{recipeID}">
+							<div class="form-group">
+								<label for="txtEditName" class="col-form-label">Name:</label>
+								<input type="text" class="form-control" name="txtEditName" id="txtEditName" th:field="*{Name}" readonly>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" id="cmdEditRecipe">Confirm</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		<header class="fixed-top bg-white">
 	  <!-- Alert Box -->
       <div th:replace="~{fragments/alert_success :: alert_success}"></div>
@@ -38,7 +64,7 @@
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipeModal">Add</button>
-          <button type="button" class="recipe-buttons btn btn-warning disabled" id="cmdEditRecipe">Edit</button>
+          <button type="button" class="recipe-buttons btn btn-warning disabled" data-toggle="modal" data-target="#editRecipeModal">Edit</button>
           <button type="button" class="recipe-buttons btn btn-danger disabled">Remove</button>
           <button type="button" class="recipe-buttons btn btn-success disabled">Add To Shopping List</button>
         </div>
@@ -58,13 +84,13 @@
 						th:text="${recipe.name}">Recipe Name</a>
 	    </div>
 	  </div>
-	  <div class="col-8 pt-e-15" id="recipe-content">
-	    <div class="tab-content" id="nav-tabContent">
-	   	  <div class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby=${recipe.recipeID}">
+	  <div style="height: 100%;" class="col-8 pt-e-15" id="recipe-content">
+	    <div style="height: 100%;" class="tab-content" id="nav-tabContent">
+	   	  <div style="height: 100%;" class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby=${recipe.recipeID}">
 	        <ul>
 	      	  <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">Recipe Ingredient</li>	      	
 	        </ul>
-	        <p th:text="${recipe.instructions}">Recipe Instructions</p>
+	        <textarea readonly class="readonly" th:text="${recipe.instructions}">Recipe Instructions</textarea>
 	   	  </div>
 	    </div>
 	  </div>

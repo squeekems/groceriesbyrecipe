@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -61,13 +63,21 @@ public class RecipesController
 		return new RedirectView("/edit_recipe");
 	}
 
-	// Update
-	@GetMapping(value = "/edit/{recipeID}")
-	public String updateRecipe(@PathVariable(value = "recipeID")
-	Long recipeID, Model model)
+	// Gets Recipe to be Editted
+	@GetMapping("/getRecipeByID/{recipeID}")
+	@ResponseBody
+	public Recipe getRecipeByID(@PathVariable(value = "recipeID")
+	Long recipeID)
 	{
-		model.addAttribute("recipe", recipeService.getRecipeByID(recipeID));
-		System.out.println(recipeService.getRecipeByID(recipeID));
-		return "edit_recipe";
+		return recipeService.getRecipeByID(recipeID);
+	}
+
+	// Update
+	@GetMapping("/edit")
+	public RedirectView updateRecipe(@RequestParam(value = "recipeID")
+	Long recipeID, RedirectAttributes redirectAttributes)
+	{
+		redirectAttributes.addFlashAttribute("recipe", recipeService.getRecipeByID(recipeID));
+		return new RedirectView("/edit_recipe");
 	}
 }

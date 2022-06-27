@@ -15,7 +15,8 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<form id="frmAddIngredient">
+							<form id="frmAddIngredient" th:action="@{/edit_recipe/addIngredient}" method="POST" th:object="${ingredient}">
+								<input type="number" class="txtAddIngredientRecipeID" name="txtAddIngredientRecipeID" id="txtAddIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
 								<label for="cmbAddAmount">Amount:</label>
 								<select class="form-control" name="cmbAddAmount" id="cmbAddAmount">
 									<option th:each="amount : ${amounts}" th:value="${amount.amountID}" th:text="${amount.value}">
@@ -39,6 +40,8 @@
 			</div>
 		</div>
     <header class="fixed-top bg-white">
+			<!-- Alert Box -->
+			<div th:replace="~{fragments/alert_success :: alert_success}"></div>
 	  	<!-- Nav Bar -->
 			<div th:replace="~{fragments/nav :: nav}"></div>
 			<!-- Button Group -->
@@ -46,30 +49,32 @@
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addIngredientModal">Add</button>
 					<button type="button" class="item-buttons btn btn-warning disabled" id="cmdEditIngredient" data-toggle="modal" data-target="#editIngredientModal">Edit</button>
-					<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveItem">Remove</button>
-					<button type="button" class="btn btn-success" id="cmdSaveRecipe">Save Recipe</button>
+					<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveIngredient">Remove</button>
+					<button form = "frmSaveRecipe" type="submit" class="btn btn-success" id="cmdSaveRecipe">Save Recipe</button>
 				</div>
 			</div>
 		</header>
 		<!-- Body -->
 		<div class="mx-3">
-			<div class="form-group">
-				<label for="txtName" class="col-form-label">Name:</label>
-				<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:value="${recipe.name}">
-			</div>
-			<table class="table table-hover w-auto" id="tblIngredients">
-				<tbody>
-					<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
-						<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
-						<td th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">INGREDIENT</td>
-						<td th:text="${ingredient.toString()}">INGREDIENT2</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="form-group">
-				<label for="txtInstructions" class="col-form-label">Instructions:</label>
-				<textarea class="form-control" name="txtInstructions" id="txtInstructions" placeholder="Instructions" rows="15" th:text="${recipe.instructions}"></textarea>
-			</div>
+			<form id="frmSaveRecipe" th:action="@{/edit_recipe}" method="POST">
+				<input type="number" class="txtSaveRecipeRecipeID" name="txtSaveRecipeRecipeID" id="txtSaveRecipeRecipeID" th:value="${recipe.recipeID}" hidden="true">
+				<div class="form-group">
+					<label for="txtName" class="col-form-label">Name:</label>
+					<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:value="${recipe.name}">
+				</div>
+				<table class="table table-hover w-auto" id="tblIngredients">
+					<tbody>
+						<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
+							<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
+							<td th:text="${ingredient.toString()}">INGREDIENT</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="form-group">
+					<label for="txtInstructions" class="col-form-label">Instructions:</label>
+					<textarea class="form-control" name="txtInstructions" id="txtInstructions" placeholder="Instructions" rows="15" th:text="${recipe.instructions}"></textarea>
+				</div>
+			</form>
 		</div>
 		<!-- Script Imports -->
 		<div th:replace="~{fragments/script_imports :: script_imports}"></div>

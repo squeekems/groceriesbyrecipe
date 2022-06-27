@@ -28,7 +28,7 @@ public class RecipeRepositoryTests
 	@Test
 	public void testFindByIngredients_IngredientID()
 	{
-		Long ingredientID = (long) 1;
+		Long ingredientID = (long) 6;
 
 		List<Recipe> ingredientRecipes = recipeRepository.findByIngredients_IngredientID(ingredientID);
 
@@ -42,7 +42,7 @@ public class RecipeRepositoryTests
 	@Test
 	public void testFindIngredientsByRecipeId()
 	{
-		Long recipeID = (long) 1;
+		Long recipeID = (long) 2;
 
 		Set<Long> ingredientIDs = recipeRepository.findIngredientsByRecipeID(recipeID);
 

@@ -68,6 +68,24 @@ public class ShoppingListItemService
 		}
 	}
 
+	public void saveShoppingListItem(Item item)
+	{
+		ShoppingListItem shoppingListItem = shoppingListItemRepository.findByItemAndUser(item, item.getUser());
+
+		if (shoppingListItem != null)
+		{
+			shoppingListItem.setCount(shoppingListItem.getCount() + 1);
+			shoppingListItemRepository.save(shoppingListItem);
+		} else
+		{
+			shoppingListItem = new ShoppingListItem();
+			shoppingListItem.setItem(item);
+			shoppingListItem.setUser(item.getUser());
+			shoppingListItem.setCount(1);
+			shoppingListItemRepository.save(shoppingListItem);
+		}
+	}
+
 	public void removeShoppingListItem(Long shoppingListItemID, int count)
 	{
 		ShoppingListItem shoppingListItem = shoppingListItemRepository.findById(shoppingListItemID).get();

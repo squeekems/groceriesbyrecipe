@@ -17,7 +17,7 @@ import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Rollback(false)
+@Rollback
 public class UserRepositoryTests
 {
 	@Autowired

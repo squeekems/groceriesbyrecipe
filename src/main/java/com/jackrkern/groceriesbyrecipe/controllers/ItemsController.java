@@ -44,7 +44,7 @@ public class ItemsController
 	@GetMapping
 	public String getItems(Model model)
 	{
-		model.addAttribute("items", itemService.getItems(userService.getPrincipal()));
+		model.addAttribute("items", itemService.getItemsSortedByAisle(userService.getPrincipal()));
 		model.addAttribute("item", new Item());
 		model.addAttribute("activePage", "items");
 		model.addAttribute("aisles", itemService.getAisles());

@@ -55,7 +55,7 @@ public class ItemService
 		return itemRepository.findById(itemID).get();
 	}
 
-	public List<Item> getItems(User userID)
+	public List<Item> getItemsSortedByAisle(User userID)
 	{
 		Iterable<Item> items = itemRepository.findAllByUser(userID);
 		List<Item> itemList = new ArrayList<>();
@@ -73,6 +73,29 @@ public class ItemService
 					return o1.getDescription().compareTo(o2.getDescription());
 				}
 				return o1.getAisle().compareTo(o2.getAisle());
+			}
+		});
+		return itemList;
+	}
+
+	public List<Item> getItemsSortedByDescription(User userID)
+	{
+		Iterable<Item> items = itemRepository.findAllByUser(userID);
+		List<Item> itemList = new ArrayList<>();
+		items.forEach(item ->
+		{
+			itemList.add(item);
+		});
+		itemList.sort(new Comparator<Item>()
+		{
+			@Override
+			public int compare(Item o1, Item o2)
+			{
+				if (o1.getDescription().equals(o2.getDescription()))
+				{
+					return o1.getAisle().compareTo(o2.getAisle());
+				}
+				return o1.getDescription().compareTo(o2.getDescription());
 			}
 		});
 		return itemList;
