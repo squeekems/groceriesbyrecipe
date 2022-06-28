@@ -60,7 +60,7 @@
     - @Table(name = "shoppingList")  
 ## Database, ORM, and Hibernate  
   - Include a schema diagram of the tables and the SQL you used for the database
-    - ![Entity Relationship Diagram](https://user-images.githubusercontent.com/3833611/176085339-a86b14e0-485a-42f5-85c6-b60ef6a84084.png)
+    ![Entity Relationship Diagram](https://user-images.githubusercontent.com/3833611/176085339-a86b14e0-485a-42f5-85c6-b60ef6a84084.png)
     - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/SQL) to view my SQL files.
     - Your application should include examples for all four CRUD operations (Create, Read, Update, and Delete)
 ```java
