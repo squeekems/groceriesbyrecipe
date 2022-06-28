@@ -1,7 +1,13 @@
+-- Dumping data for table grocery.users: ~3 rows (approximately)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
 REPLACE INTO `users` (`userID`, `email`, `firstName`, `lastName`, `password`, `username`) VALUES
 	(1, 'jackrkern@gmail.com', 'Jack', 'Kern', '$2a$10$qKOVRdX4XLu3AU8aSAO2LeCZMtzFKSN1qzCNzxXmdXeVkeL7DKkOO', 'Squeekems'),
 	(2, 'rachel.wilk2413@gmail.com', 'Rachel', 'Wilk', '$2a$10$JxXuFRYhbvBO/YYOBB0kxepa29fL9AleC/61PQaWJVb45gc00vEdy', 'Tinkerthorn'),
 	(3, 'sjwilk2@gmail.com', 'Sandy', 'Wilk', '$2a$10$R0oNrDMJVhHk/EBWZoyQ5eo5jScERB6ZpVRKUZ8WQeZx9nARpxoEq', 'Grandy');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Dumping data for table grocery.aisles: ~21 rows (approximately)
+/*!40000 ALTER TABLE `aisles` DISABLE KEYS */;
 REPLACE INTO `aisles` (`aisleID`, `name`, `userID`) VALUES
 	(1, '00', 1),
 	(2, '01', 1),
@@ -24,6 +30,10 @@ REPLACE INTO `aisles` (`aisleID`, `name`, `userID`) VALUES
 	(19, '18', 1),
 	(20, '19', 1),
 	(21, '20', 1);
+/*!40000 ALTER TABLE `aisles` ENABLE KEYS */;
+
+-- Dumping data for table grocery.items: ~149 rows (approximately)
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
 REPLACE INTO `items` (`itemID`, `description`, `aisleID`, `userID`) VALUES
 	(1, 'Bread Crumbs', 1, 1),
 	(2, 'Lemon Juice', 1, 1),
@@ -57,7 +67,7 @@ REPLACE INTO `items` (`itemID`, `description`, `aisleID`, `userID`) VALUES
 	(30, 'Olive Oil', 4, 1),
 	(31, 'Pepperoncini', 4, 1),
 	(32, 'Pepperoni', 4, 1),
-	(33, 'Pickle (Hamburger Sliced)', 4, 1),
+	(33, 'Bread and Butter Pickle (Hamburger Sliced)', 4, 1),
 	(34, 'Poppy Seed', 4, 1),
 	(35, 'Shrimp', 4, 1),
 	(36, 'Soy', 4, 1),
@@ -168,15 +178,16 @@ REPLACE INTO `items` (`itemID`, `description`, `aisleID`, `userID`) VALUES
 	(141, 'Romaine Lettuce', 21, 1),
 	(142, 'Shallot', 21, 1),
 	(143, 'Strawberries', 21, 1),
-	(144, 'Zucchini', 21, 1);
-REPLACE INTO `unitsofmeasurement` (`unitOfMeasurementID`, `name`, `userID`) VALUES
-	(1, '', 1),
-	(2, 'tsp', 1),
-	(3, 'TBS', 1),
-	(4, 'oz.', 1),
-	(5, 'lb.', 1),
-	(6, 'Cup', 1),
-	(7, 'Slice', 1);
+	(144, 'Zucchini', 21, 1),
+	(145, 'Relish', 4, 1),
+	(163, 'Ostrich Egg', 1, 1);
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+
+ALTER TABLE `amounts`
+  CHANGE `value` `value` VARCHAR(255) 
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Dumping data for table grocery.amounts: ~29 rows (approximately)
+/*!40000 ALTER TABLE `amounts` DISABLE KEYS */;
 REPLACE INTO `amounts` (`amountID`, `value`, `userID`) VALUES
 	(1, '¼', 1),
 	(2, '⅓', 1),
@@ -207,6 +218,22 @@ REPLACE INTO `amounts` (`amountID`, `value`, `userID`) VALUES
 	(27, '22', 1),
 	(28, '23', 1),
 	(29, '24', 1);
+/*!40000 ALTER TABLE `amounts` ENABLE KEYS */;
+
+-- Dumping data for table grocery.unitsofmeasurement: ~7 rows (approximately)
+/*!40000 ALTER TABLE `unitsofmeasurement` DISABLE KEYS */;
+REPLACE INTO `unitsofmeasurement` (`unitOfMeasurementID`, `name`, `userID`) VALUES
+	(1, '', 1),
+	(2, 'tsp', 1),
+	(3, 'TBS', 1),
+	(4, 'oz.', 1),
+	(5, 'lb.', 1),
+	(6, 'Cup', 1),
+	(7, 'Slice', 1);
+/*!40000 ALTER TABLE `unitsofmeasurement` ENABLE KEYS */;
+
+-- Dumping data for table grocery.ingredients: ~101 rows (approximately)
+/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
 REPLACE INTO `ingredients` (`ingredientID`, `amountID`, `itemID`, `unitOfMeasurementID`) VALUES
 	(1, 9, 112, 1),
 	(2, 13, 15, 7),
@@ -302,21 +329,39 @@ REPLACE INTO `ingredients` (`ingredientID`, `amountID`, `itemID`, `unitOfMeasure
 	(92, 6, 4, 5),
 	(93, 3, 50, 5),
 	(94, 7, 47, 3),
-	(95, 6, 61, 3);
+	(95, 6, 61, 3),
+	(96, 1, 5, 5),
+	(97, 6, 53, 6),
+	(98, 20, 112, 7),
+	(99, 8, 18, 6),
+	(105, 1, 17, 2),
+	(107, 14, 163, 5);
+/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
+
+ALTER TABLE `recipes`
+  CHANGE `instructions` `instructions` VARCHAR(2047)
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Dumping data for table grocery.recipes: ~15 rows (approximately)
+/*!40000 ALTER TABLE `recipes` DISABLE KEYS */;
 REPLACE INTO `recipes` (`recipeID`, `instructions`, `name`, `userID`) VALUES
-	(1, '"Preheat the oven to 350°.\nCombine ¼ Cup Milk & 11 ozs Cream of Mushroom Soup.\nGrease 13""x9"" baking dish.\nPlace Chicken\nTop each Chicken with 2 Slices Provolone.\nSpread Soup over Provolone.\nSprinkle 6 ozs Chicken Stuffing over Soup.\nCover with foil and bake for 45 minutes.\nRemove foil and bake for 15 minutes.\nServe over rice or noodles."', 'Stuffed Chicken', 1),
-	(2, '"Heat 1 TBS Vegetable Oil.\nAdd Salt and Pepper to Chicken.\nDip Chicken in Flour.\nAdd Chicken to Vegetable Oil.\nAdd Garlic, Honey, Soy, and Vinegar."', 'Honey Garlic Chicken', 1),
-	(3, '"Melt 4 TBSs Butter\nAdd diced Shallot translucent\nAdd 2 Cups Light Cream\nAdd 2 TBSs Maple Syrup stirring\nAdd 1 tsp Thyme"', 'Butternut Squash Raviolis', 1),
-	(4, '"Preheat the oven to 350°.\nMix 1½ lb.s Beef, Egg, 1 Cup Milk, & 1 Cup Bread Crumbs together.\nMix 2 TBSs Brown Sugar, 2 TBSs Mustard, & ⅓ Cup Ketchup together.\nBake for 1 hour."', 'Meatloaf', 1),
-	(5, '"Mix ¼ Cup Soy, ¼ Cup Water, 2 TBSs Brown Sugar, & 2 TBSs Lemon Juice together.\nCook 2 TBSs Olive Oil with Garlic Powder & Onion Powder for 1 minute.\nAdd Stirfry Vegetables to oil.\nAdd Mix & bring to boil.\nTop with ½ Cup Cashews."', 'Vegetable Stirfry', 1),
-	(6, '"Preheat the oven to 350°.\nCook Beef in Pan\nCook Rice in Pot\nWhen Both Rice and Beef are done, Mix Together With Sauce and Half of Cheese\nCut Tops off Green Peppers and Hollow them out\nFill Green Peppers with Beef/Rice/Sauce mixture\nTop off with rest of Mozzarella Cheese\nPlace stuffed Peppers in 13x9 in Pan\nBake in Oven for 10-20 minutes until desired tenderness"', 'Stuffed Peppers', 1),
+	(1, 'Preheat the oven to 350°.\nCombine ¼ Cup Milk & 11 ozs Cream of Mushroom Soup.\nGrease 13""x9"" baking dish.\nPlace Chicken\nTop each Chicken with 2 Slices Provolone.\nSpread Soup over Provolone.\nSprinkle 6 ozs Chicken Stuffing over Soup.\nCover with foil and bake for 45 minutes.\nRemove foil and bake for 15 minutes.\nServe over rice or noodles.', 'Stuffed Chicken', 1),
+	(2, 'Heat 1 TBS Vegetable Oil.\nAdd Salt and Pepper to Chicken.\nDip Chicken in Flour.\nAdd Chicken to Vegetable Oil.\nAdd Garlic, Honey, Soy, and Vinegar.', 'Honey Garlic Chicken', 1),
+	(3, 'Melt 4 TBSs Butter\nAdd diced Shallot translucent\nAdd 2 Cups Light Cream\nAdd 2 TBSs Maple Syrup stirring\nAdd 1 tsp Thyme', 'Butternut Squash Raviolis', 1),
+	(4, 'Preheat the oven to 350°.\nMix 1½ lb.s Beef, Egg, 1 Cup Milk, & 1 Cup Bread Crumbs together.\nMix 2 TBSs Brown Sugar, 2 TBSs Mustard, & ⅓ Cup Ketchup together.\nBake for 1 hour.', 'Meatloaf', 1),
+	(5, 'Mix ¼ Cup Soy, ¼ Cup Water, 2 TBSs Brown Sugar, & 2 TBSs Lemon Juice together.\nCook 2 TBSs Olive Oil with Garlic Powder & Onion Powder for 1 minute.\nAdd Stirfry Vegetables to oil.\nAdd Mix & bring to boil.\nTop with ½ Cup Cashews.', 'Vegetable Stirfry', 1),
+	(6, 'Preheat the oven to 350°.\nCook Beef in Pan\nCook Rice in Pot\nWhen Both Rice and Beef are done, Mix Together With Sauce and Half of Cheese\nCut Tops off Green Peppers and Hollow them out\nFill Green Peppers with Beef/Rice/Sauce mixture\nTop off with rest of Mozzarella Cheese\nPlace stuffed Peppers in 13x9 in Pan\nBake in Oven for 10-20 minutes until desired tenderness', 'Stuffed Peppers', 1),
 	(7, 'Chop up the ingredients and put em in a bowl!', 'Garden Salad', 1),
-	(8, '"Scramble Egg with ¼ Cup Milk (2%).\nButter a pan and pour the scrambled egg into the pan.\nAdd Mozzarella Cheese.\nAdd ¼ Diced Green Pepper.\nAdd 4 Slices of Pepperoni.\nFlip the scrambled egg and add 1 Slice American Cheese.\nToast Bagel. Put 1 Slice American Cheese in between 2 halves of the toasted bagel immediately after toasting.\nPut Hashbrown in airfryer for 8 minutes @ 400°.\nPlace Hashbrown on top of the bottom half of Bagel.\nAdd Frank\'s Red Hot Sauce to Hashbrown.\nPlace scrambled egg on Hashbrown.\nEnjoy."', 'Jack\'s Famous Egg Sandwich', 1),
-	(9, '"Cook half a stick of butter in a pan.\nAdd shrimp to the butter.\nEvenly coat shrimp in Lemon Powder and stir.\nAdd Frozen Pepper Strips and Italian Blend Stirfry Vegetables to the pan and cover.\nAdd more Lemon Powder and stir.\nServe over rice or Egg Noodles."', 'Shrimp Stirfry', 1),
-	(10, '"Preheat the oven to 350°.\nBoil Raviolis.\nCook Beef with Onion Powder. Stir in Crushed Tomato with Italian Seasoning.\nMix Ricotta w/ 1 Cup of Mozzarella and Egg.\nSpread 1 Cup of Tomato mixture in baking dish.\nTop with layer of Raviolis.\nSpread ½ Ricotta mixture over Raviolis.\nAdd 1 Cup of Mozzarella.\nDo steps 5-9 again.\nTop w/ remaining Tomato mixture, Raviolis, and Mozzarella.\nSprinkle Parmesan on top.\nCook in oven for 35-45 minutes.\nLet cool 15 minutes.\nEnjoy!"', 'Jack\'s Ravioli Lasagna', 1),
-	(11, '"Dice the Slice of Green Pepper.\nFry the egg. Pop the yoke. Stir in the diced Green Pepper and Mozzarella.\nToast the Bread Thin.\nSpread the Peanut Butter and Concord Grape Jelly on the Bread Thin."', 'Rachel\'s "Usual" Breakfast', 1),
-	(12, '"Use 1 serving size of Fruit\nUse ½ serving size of Cauliflower\nUse ½ serving size of Broccoli\nUse 1 serving size of Yogurt\nUse 1 serving size of Whey\nFill Ninja cup to the Max Liquid line with Water\nBlend and let sit for half a day before consuming."', 'Rachel\'s Smoothie', 1),
-	(13, '"Set Water to boil with 1 TBS Olive Oil and 1 tsp Salt.\nOil the pan.\nPut 1 TBS Butter in the pan.\nMix 1 tsp Crushed Red Pepper.\nMix 1 tsp Garlic.\nAdd 2 TBS Soy and 2 TBS Honey.\nPut Filet in pan Skin-side down.\nStrain Fettuccine\nAdd 1 TBS Butter, 1 TBS Crushed Red Pepper, and Basil Pesto to Fettuccine"', 'Honey Encrusted Salmon', 1);
+	(8, 'Scramble Egg with ¼ Cup Milk (2%).\nButter a pan and pour the scrambled egg into the pan.\nAdd Mozzarella Cheese.\nAdd ¼ Diced Green Pepper.\nAdd 4 Slices of Pepperoni.\nFlip the scrambled egg and add 1 Slice American Cheese.\nToast Bagel. Put 1 Slice American Cheese in between 2 halves of the toasted bagel immediately after toasting.\nPut Hashbrown in airfryer for 8 minutes @ 400°.\nPlace Hashbrown on top of the bottom half of Bagel.\nAdd Frank\'s Red Hot Sauce to Hashbrown.\nPlace scrambled egg on Hashbrown.\nEnjoy.', 'Jack\'s Famous Egg Sandwich', 1),
+	(9, 'Cook half a stick of butter in a pan.\nAdd shrimp to the butter.\nEvenly coat shrimp in Lemon Powder and stir.\nAdd Frozen Pepper Strips and Italian Blend Stirfry Vegetables to the pan and cover.\nAdd more Lemon Powder and stir.\nServe over rice or Egg Noodles.', 'Shrimp Stirfry', 1),
+	(10, 'Preheat the oven to 350°.\nBoil Raviolis.\nCook Beef with Onion Powder. Stir in Crushed Tomato with Italian Seasoning.\nMix Ricotta w/ 1 Cup of Mozzarella and Egg.\nSpread 1 Cup of Tomato mixture in baking dish.\nTop with layer of Raviolis.\nSpread ½ Ricotta mixture over Raviolis.\nAdd 1 Cup of Mozzarella.\nDo steps 5-9 again.\nTop w/ remaining Tomato mixture, Raviolis, and Mozzarella.\nSprinkle Parmesan on top.\nCook in oven for 35-45 minutes.\nLet cool 15 minutes.\nEnjoy!', 'Jack\'s Ravioli Lasagna', 1),
+	(11, 'Dice the Slice of Green Pepper.\nFry the egg. Pop the yoke. Stir in the diced Green Pepper and Mozzarella.\nToast the Bread Thin.\nSpread the Peanut Butter and Concord Grape Jelly on the Bread Thin.', 'Rachel\'s "Usual" Breakfast', 1),
+	(12, 'Use 1 serving size of Fruit\nUse ½ serving size of Cauliflower\nUse ½ serving size of Broccoli\nUse 1 serving size of Yogurt\nUse 1 serving size of Whey\nFill Ninja cup to the Max Liquid line with Water\nBlend and let sit for half a day before consuming.', 'Rachel\'s Smoothie', 1),
+	(13, 'Set Water to boil with 1 TBS Olive Oil and 1 tsp Salt.\nOil the pan.\nPut 1 TBS Butter in the pan.\nMix 1 tsp Crushed Red Pepper.\nMix 1 tsp Garlic.\nAdd 2 TBS Soy and 2 TBS Honey.\nPut Filet in pan Skin-side down.\nStrain Fettuccine\nAdd 1 TBS Butter, 1 TBS Crushed Red Pepper, and Basil Pesto to Fettuccine', 'Honey Encrusted Salmon', 1),
+	(42, 'This is an unrecipe.\r\nDo not add American Cheese to your Waffles.\r\nDefinitely do not pour Apple Juice on your Waffles.\r\nMaybe use the American Cheese with the Chicken.\r\nLiquify bagels and fry over medium heat until golden brown.\r\nMix Bagels with Ostrich Egg.\r\nBeware.\r\nBacon is good on everything.', 'Waffles', 1);
+/*!40000 ALTER TABLE `recipes` ENABLE KEYS */;
+
+-- Dumping data for table grocery.recipes_ingredients: ~101 rows (approximately)
+/*!40000 ALTER TABLE `recipes_ingredients` DISABLE KEYS */;
 REPLACE INTO `recipes_ingredients` (`recipeID`, `ingredientID`) VALUES
 	(1, 1),
 	(1, 2),
@@ -412,4 +457,11 @@ REPLACE INTO `recipes_ingredients` (`recipeID`, `ingredientID`) VALUES
 	(13, 92),
 	(13, 93),
 	(13, 94),
-	(13, 95);
+	(13, 95),
+	(42, 96),
+	(42, 97),
+	(42, 98),
+	(42, 99),
+	(42, 105),
+	(42, 107);
+/*!40000 ALTER TABLE `recipes_ingredients` ENABLE KEYS */;

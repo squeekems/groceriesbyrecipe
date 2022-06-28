@@ -30,6 +30,8 @@ import com.jackrkern.groceriesbyrecipe.models.Recipe;
 @RequestMapping("/edit_recipe")
 public class EditRecipeController
 {
+	final private String EDITRECIPE = "/edit_recipe";
+
 	@Autowired
 	private RecipeService recipeService;
 
@@ -66,7 +68,7 @@ public class EditRecipeController
 		recipeService.saveRecipe(recipe);
 		redirectAttributes.addFlashAttribute("success", recipe.getName() + " Saved");
 		redirectAttributes.addFlashAttribute("recipe", recipe);
-		return new RedirectView("/edit_recipe");
+		return new RedirectView(EDITRECIPE);
 	}
 
 	// Create
@@ -83,7 +85,7 @@ public class EditRecipeController
 		ingredient.setItem(itemService.getItemByID(itemID));
 		recipeService.saveRecipe(recipe, ingredient);
 		redirectAttributes.addFlashAttribute("recipe", recipe);
-		return new RedirectView("/edit_recipe");
+		return new RedirectView(EDITRECIPE);
 	}
 
 	// Gets Ingredient to be Editted
@@ -112,7 +114,7 @@ public class EditRecipeController
 		recipeService.saveRecipe(recipe, ingredient);
 		redirectAttributes.addFlashAttribute("success", ingredient.getItem().getDescription() + " Edited");
 		redirectAttributes.addFlashAttribute("recipe", recipe);
-		return new RedirectView("/edit_recipe");
+		return new RedirectView(EDITRECIPE);
 	}
 
 	// Delete
@@ -124,6 +126,6 @@ public class EditRecipeController
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
 		recipeService.deleteIngredient(ingredientID, recipeID);
 		redirectAttributes.addFlashAttribute("recipe", recipe);
-		return new RedirectView("/edit_recipe");
+		return new RedirectView(EDITRECIPE);
 	}
 }
