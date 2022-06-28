@@ -27,5 +27,5 @@
 
 ### Technical Requirements:  
 ## Project Structure, Standardization, and Conventions  
-The project package structure should be shown in class where the models, DAO/repositories, services, controllers, exceptions, etc., have a package.
-[Project Package Structure](https://user-images.githubusercontent.com/3833611/176082844-20c8c652-d73b-43cf-906d-6de2a39b1fec.png)
+The project package structure should be shown in class where the models, DAO/repositories, services, controllers, exceptions, etc., have a package.  
+![Project Package Structure](https://user-images.githubusercontent.com/3833611/176082844-20c8c652-d73b-43cf-906d-6de2a39b1fec.png)
