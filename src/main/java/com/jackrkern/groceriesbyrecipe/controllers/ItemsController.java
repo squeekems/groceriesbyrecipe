@@ -65,7 +65,6 @@ public class ItemsController
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
-		System.out.println(item.getDescription() + " Added");
 		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
 		return new RedirectView("/items");
 	}
@@ -78,7 +77,6 @@ public class ItemsController
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
-		System.out.println(item.getDescription() + " Edited");
 		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
 		return new RedirectView("/items");
 	}
@@ -91,7 +89,6 @@ public class ItemsController
 		// create item object to use in feedback
 		Item item = itemService.getItemByID(itemID);
 		itemService.deleteItem(itemID);
-		System.out.println(item.getDescription() + " Removed");
 		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
 		return new RedirectView("/items");
 	}
@@ -115,7 +112,6 @@ public class ItemsController
 		shoppingListItem.setUser(userService.getPrincipal());
 		shoppingListItem.setCount(count);
 		shoppingListItemService.saveShoppingListItem(shoppingListItem);
-		System.out.println(shoppingListItem.getItem().getDescription() + " Added to Shopping List");
 		redirectAttributes.addFlashAttribute("success", shoppingListItem.getItem().getDescription()
 														+ " Added to Shopping List");
 		return new RedirectView("/items");

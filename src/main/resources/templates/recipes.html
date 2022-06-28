@@ -55,6 +55,38 @@
 				</div>
 			</div>
 		</div>
+		<!-- Add To Shopping List Modal -->
+		<div class="modal fade" id="addToShoppingListModal" tabindex="-1" role="dialog" aria-labelledby="lblAddToShoppingList" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblAddToShoppingList">Items to add to the shopping list:</h5>
+						<button type="button" class="close close-add-to-shopping-list-modal" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/recipes/addToShoppingList}" method="POST" th:object="${jRecipe}">
+							<input type="hidden" id="txtJSON" name="txtJSON" th:field="*{instructions}">
+							<table class="table w-auto">
+								<thead>
+									<tr>
+										<th scope="col" hidden>ID</th>
+										<th scope="col">Description</th>
+										<th scope="col">How many?</th>
+									</tr>
+								</thead>
+								<tbody id="tblAddToShoppingList"></tbody>
+							</table>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary close-add-to-shopping-list-modal" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Confirm</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		<header class="fixed-top bg-white">
 	  <!-- Alert Box -->
       <div th:replace="~{fragments/alert_success :: alert_success}"></div>
@@ -65,8 +97,8 @@
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipeModal">Add</button>
           <button type="button" class="recipe-buttons btn btn-warning disabled" data-toggle="modal" data-target="#editRecipeModal">Edit</button>
-          <button type="button" class="recipe-buttons btn btn-danger disabled">Remove</button>
-          <button type="button" class="recipe-buttons btn btn-success disabled">Add To Shopping List</button>
+          <button type="button" class="recipe-buttons btn btn-danger disabled" id="cmdRemoveRecipe">Remove</button>
+          <button type="button" class="recipe-buttons btn btn-success disabled" id="cmdAddToShoppingList">Add To Shopping List</button>
         </div>
       </div>
     </header>

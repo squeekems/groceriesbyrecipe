@@ -35,4 +35,22 @@ public class UserServiceTests
 
 		assertThat(user).isNotNull();
 	}
+
+	@Test
+	public void testRegisterUser()
+	{
+		User user = new User();
+		user.setEmail("Test@api.jupiter.junit.org");
+		user.setPassword("password");
+
+		userService.registerUser(user);
+
+		User existUser = userService.getByEmail(user.getEmail());
+
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println(existUser.getEmail() + " = " + user.getEmail());
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+		assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
+	}
 }

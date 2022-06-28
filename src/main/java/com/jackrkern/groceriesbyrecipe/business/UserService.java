@@ -19,14 +19,14 @@ public class UserService
 	public User getPrincipal()
 	{ return getByEmail(SecurityContextHolder.getContext().getAuthentication().getName()); }
 
-	public void registerUser(User user)
+	public User registerUser(User user)
 	{
 		if (user != null)
 		{
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encodedPassword = encoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
-			userRepository.save(user);
+			return userRepository.save(user);
 		} else
 			throw new RuntimeException("User cannot be null");
 	}

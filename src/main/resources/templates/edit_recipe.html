@@ -39,6 +39,76 @@
 				</div>
 			</div>
 		</div>
+		<!-- Edit Ingredient Modal -->
+		<div class="modal fade" id="editIngredientModal" tabindex="-1" role="dialog" aria-labelledby="lblEditIngredient" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblEditIngredient">Edit Ingredient</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<form id="frmEditIngredient" th:action="@{/edit_recipe/editIngredient}" method="PUT" th:object="${ingredient}">
+								<input type="number" class="txtEditIngredientRecipeID" name="txtEditIngredientRecipeID" id="txtEditIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
+								<input type="number" class="txtEditID" name="txtEditID" id="txtEditID" hidden="true">
+								<label for="cmbEditAmount">Amount:</label>
+								<select class="form-control" name="cmbEditAmount" id="cmbEditAmount">
+									<option th:each="amount : ${amounts}" th:value="${amount.amountID}" th:text="${amount.value}">
+								</select>
+								<label for="cmbEditUnitOfMeasurement">Unit of Measurement:</label>
+								<select class="form-control" name="cmbEditUnitOfMeasurement" id="cmbEditUnitOfMeasurement">
+									<option th:each="unitOfMeasurement : ${unitsOfMeasurement}" th:value="${unitOfMeasurement.unitOfMeasurementID}" th:text="${unitOfMeasurement.name}">
+								</select>
+								<label for="cmbEditItem">Item:</label>
+								<select class="form-control" name="cmbEditItem" id="cmbEditItem">
+									<option th:each="item : ${items}" th:value="${item.itemID}" th:text="${item.description}">
+								</select>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" id="cmdEditIngredient">Edit Ingredient</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Remove Ingredient Modal -->
+		<div class="modal fade" id="removeIngredientModal" tabindex="-1" role="dialog" aria-labelledby="lblRemoveIngredient" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="lblRemoveIngredient">Remove Ingredient?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<form id="frmRemoveIngredient" th:action="@{/edit_recipe/removeIngredient}" method="GET">
+								<input type="number" class="txtRemoveIngredientRecipeID" name="txtRemoveIngredientRecipeID" id="txtRemoveIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
+								<table class="table w-auto m-0">
+									<thead>
+										<tr>
+											<th scope="col" hidden>ID</th>
+											<th scope="col">Ingredient</th>
+										</tr>
+									</thead>
+									<tbody id="tblRemoveIngredient"></tbody>
+								</table>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" id="cmdRemoveIngredient">Remove Ingredient</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     <header class="fixed-top bg-white">
 			<!-- Alert Box -->
 			<div th:replace="~{fragments/alert_success :: alert_success}"></div>
@@ -48,8 +118,8 @@
 			<div class="d-flex justify-content-center bg-white">
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addIngredientModal">Add</button>
-					<button type="button" class="item-buttons btn btn-warning disabled" id="cmdEditIngredient" data-toggle="modal" data-target="#editIngredientModal">Edit</button>
-					<button type="button" class="item-buttons btn btn-danger disabled" id="cmdRemoveIngredient">Remove</button>
+					<button type="button" class="ingredient-buttons btn btn-warning disabled" id="cmdEditIngredient" data-toggle="modal" data-target="#editIngredientModal">Edit</button>
+					<button type="button" class="ingredient-buttons btn btn-danger disabled" id="cmdRemoveIngredient" data-toggle="modal" data-target="#removeIngredientModal">Remove</button>
 					<button form = "frmSaveRecipe" type="submit" class="btn btn-success" id="cmdSaveRecipe">Save Recipe</button>
 				</div>
 			</div>
@@ -62,7 +132,7 @@
 					<label for="txtName" class="col-form-label">Name:</label>
 					<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:value="${recipe.name}">
 				</div>
-				<table class="table table-hover w-auto" id="tblIngredients">
+				<table class="table table-hover w-auto m-0" id="tblIngredients">
 					<tbody>
 						<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
 							<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
@@ -78,6 +148,6 @@
 		</div>
 		<!-- Script Imports -->
 		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
-		<script th:src="@{script/scriptRecipes.js}"></script>
+		<script th:src="@{script/scriptEdit_Recipe.js}"></script>
   </body>
 </html>

@@ -15,8 +15,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;
+import com.jackrkern.groceriesbyrecipe.business.ShoppingListItemService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.Recipe;
+
+import com.github.cliftonlabs.json_simple.JsonException;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 
 /* @author "Jack Kern" */
 
@@ -31,6 +36,9 @@ public class RecipesController
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private ShoppingListItemService shoppingListItemService;
+
 	/**/// Should be in my Settings Controller
 	/**/@Autowired
 	/**/private ItemService itemService;
@@ -43,6 +51,8 @@ public class RecipesController
 		model.addAttribute("activePage", "recipes");
 		model.addAttribute("recipes", recipeService.getRecipes(userService.getPrincipal()));
 		model.addAttribute("recipe", new Recipe());
+		model.addAttribute("jRecipe", new Recipe());
+
 		/**/// Should be in my Settings Controller
 		/**/model.addAttribute("aisles", itemService.getAisles());
 		/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
@@ -58,7 +68,6 @@ public class RecipesController
 	{
 		recipe.setUser(userService.getPrincipal());
 		recipeService.saveRecipe(recipe);
-		System.out.println(recipe.getName() + " Added");
 		redirectAttributes.addFlashAttribute("recipe", recipe);
 		return new RedirectView("/edit_recipe");
 	}
@@ -79,5 +88,28 @@ public class RecipesController
 	{
 		redirectAttributes.addFlashAttribute("recipe", recipeService.getRecipeByID(recipeID));
 		return new RedirectView("/edit_recipe");
+	}
+
+	// AddToShoppingList
+	@PostMapping("/addToShoppingList")
+	public RedirectView addItemToShoppingList(	Recipe jRecipe,
+												RedirectAttributes redirectAttributes) throws JsonException
+	{
+		//
+		shoppingListItemService.saveShoppingListItemsFromRecipeJSON((JsonObject) Jsoner.deserialize(jRecipe.getInstructions()));
+		redirectAttributes.addFlashAttribute("success", "Items Added to Shopping List");
+		return new RedirectView("/recipes");
+	}
+
+	// Delete
+	@GetMapping("/remove/{recipeID}")
+	public RedirectView deleteItem(@PathVariable(value = "recipeID")
+	Long recipeID, RedirectAttributes redirectAttributes)
+	{
+		// create recipe object to use in feedback
+		Recipe recipe = recipeService.getRecipeByID(recipeID);
+		recipeService.deleteRecipe(recipeID);
+		redirectAttributes.addFlashAttribute("success", recipe.getName() + " Removed");
+		return new RedirectView("/recipes");
 	}
 }

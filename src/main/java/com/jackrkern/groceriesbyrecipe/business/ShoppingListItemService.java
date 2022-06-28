@@ -1,5 +1,6 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -7,9 +8,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
 import com.jackrkern.groceriesbyrecipe.models.Item;
 import com.jackrkern.groceriesbyrecipe.models.ShoppingListItem;
 import com.jackrkern.groceriesbyrecipe.models.User;
+import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.ShoppingListItemRepository;
 
 /* @author "Jack Kern" */
@@ -19,6 +23,9 @@ public class ShoppingListItemService
 {
 	@Autowired
 	ShoppingListItemRepository shoppingListItemRepository;
+
+	@Autowired
+	private ItemRepository itemRepository;
 
 	public List<ShoppingListItem> getShoppingList(User userID)
 	{
@@ -84,6 +91,23 @@ public class ShoppingListItemService
 			shoppingListItem.setCount(1);
 			shoppingListItemRepository.save(shoppingListItem);
 		}
+	}
+
+	public void saveShoppingListItemsFromRecipeJSON(JsonObject jsonObject)
+	{
+		JsonArray ingredients = (JsonArray) jsonObject.get("ingredients");
+		ingredients.forEach(ingredient ->
+		{
+			JsonObject jIngredient = (JsonObject) ingredient;
+			JsonObject jItem = (JsonObject) jIngredient.get("item");
+			BigDecimal bdItemID = (BigDecimal) jItem.get("itemID");
+			Long itemID = bdItemID.longValue();
+			ShoppingListItem shoppingListItem = new ShoppingListItem();
+			shoppingListItem.setItem(itemRepository.findById(itemID).get());
+			shoppingListItem.setUser(shoppingListItem.getItem().getUser());
+			shoppingListItem.setCount(1);
+			shoppingListItemRepository.save(shoppingListItem);
+		});
 	}
 
 	public void removeShoppingListItem(Long shoppingListItemID, int count)

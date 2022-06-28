@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -71,11 +72,42 @@ public class RecipeService
 
 	public void saveRecipe(Recipe recipe, Ingredient ingredient)
 	{
-		ingredientRepository.save(ingredient);
 		Set<Ingredient> ingredients = recipe.getIngredients();
-		ingredients.add(ingredient);
-		recipe.setIngredients(ingredients);
+		if (!ingredients.contains(ingredient))
+		{
+			ingredientRepository.save(ingredient);
+			saveRecipe(recipe);
+			ingredients.add(ingredient);
+			recipe.setIngredients(ingredients);
+		}
+		ingredientRepository.save(ingredient);
 		saveRecipe(recipe);
+	}
+
+	public void deleteIngredient(Long ingredientID, Long recipeID)
+	{
+		Recipe recipe = getRecipeByID(recipeID);
+		recipe.getIngredients().remove(getIngredientByID(ingredientID));
+		ingredientRepository.deleteById(ingredientID);
+		recipeRepository.save(recipe);
+	}
+
+	public void deleteRecipe(Long recipeID)
+	{
+		try
+		{
+			Recipe recipe = getRecipeByID(recipeID);
+			for (Iterator<Ingredient> iterator = recipe.getIngredients().iterator(); iterator.hasNext();)
+			{
+				Ingredient ingredient = iterator.next();
+				recipe.getIngredients().remove(ingredient);
+				ingredientRepository.deleteById(ingredient.getIngredientID());
+			}
+			recipeRepository.deleteById(recipeID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public Recipe getRecipeByID(Long recipeID)
@@ -91,5 +123,10 @@ public class RecipeService
 	public UnitOfMeasurement getUnitOfMeasurementByID(Long unitOfMeasurementID)
 	{
 		return unitOfMeasurementRepository.findById(unitOfMeasurementID).get();
+	}
+
+	public Ingredient getIngredientByID(Long ingredientID)
+	{
+		return ingredientRepository.findById(ingredientID).get();
 	}
 }

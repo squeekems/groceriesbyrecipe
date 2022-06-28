@@ -124,8 +124,8 @@ $(function()
     }
   });
   
-  // Onclick Remove item
-  $('#cmdRemoveItem').on('click', null, function(event)
+  // Onclick Remove Item
+  $('#cmdRemoveItem').on('click', function(event)
   {
     if (selectedItemID === -1)
     {
@@ -136,22 +136,14 @@ $(function()
       let blnDelete = confirm('Are you sure you want to delete this item?');
       if (blnDelete)
       {
-        fetch(`/items/remove/${selectedItemID}`)
-          .then(res =>
-          {
-            console.log(res)
-            location.reload();
-          })
-          .catch(err =>
-          {
-            console.log(err)
-          });
+        const href = "/items/remove/" + selectedItemID;
+        window.location.href = href;
       }
     }
   });
   
   // Onclick Add to Shopping List
-  $('#cmdAddToShoppingList').on('click', null, selectedItemID, function (event)
+  $('#cmdAddToShoppingList').on('click', selectedItemID, function (event)
   {
     if (selectedItemID === -1)
     {

@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
@@ -61,13 +64,12 @@ public class EditRecipeController
 		recipe.setInstructions(instructions);
 		recipe.setUser(userService.getPrincipal());
 		recipeService.saveRecipe(recipe);
-		System.out.println(recipe.getName() + " Saved");
 		redirectAttributes.addFlashAttribute("success", recipe.getName() + " Saved");
 		redirectAttributes.addFlashAttribute("recipe", recipe);
 		return new RedirectView("/edit_recipe");
 	}
 
-	// Post
+	// Create
 	@PostMapping("/addIngredient")
 	public RedirectView addIngredient(Ingredient ingredient, @RequestParam(value = "txtAddIngredientRecipeID")
 	Long recipeID, @RequestParam(value = "cmbAddAmount")
@@ -80,6 +82,47 @@ public class EditRecipeController
 		ingredient.setUnitOfMeasurement(recipeService.getUnitOfMeasurementByID(unitOfMeasurementID));
 		ingredient.setItem(itemService.getItemByID(itemID));
 		recipeService.saveRecipe(recipe, ingredient);
+		redirectAttributes.addFlashAttribute("recipe", recipe);
+		return new RedirectView("/edit_recipe");
+	}
+
+	// Gets Ingredient to be Editted
+	@RequestMapping("/getIngredientByID/{ingredientID}")
+	@ResponseBody
+	public Ingredient getItemByID(@PathVariable(value = "ingredientID")
+	Long ingredientID)
+	{
+		return recipeService.getIngredientByID(ingredientID);
+	}
+
+	// Update
+	@RequestMapping(value = "/editIngredient", method = { RequestMethod.PUT, RequestMethod.GET })
+	public RedirectView updateItem(Ingredient ingredient, @RequestParam(value = "txtEditIngredientRecipeID")
+	Long recipeID, @RequestParam(value = "txtEditID")
+	Long ingredientID, @RequestParam(value = "cmbEditAmount")
+	Long amountID, @RequestParam(value = "cmbEditUnitOfMeasurement")
+	Long unitOfMeasurementID, @RequestParam(value = "cmbEditItem")
+	Long itemID, RedirectAttributes redirectAttributes)
+	{
+		Recipe recipe = recipeService.getRecipeByID(recipeID);
+		ingredient.setIngredientID(ingredientID);
+		ingredient.setAmount(recipeService.getAmountByID(amountID));
+		ingredient.setUnitOfMeasurement(recipeService.getUnitOfMeasurementByID(unitOfMeasurementID));
+		ingredient.setItem(itemService.getItemByID(itemID));
+		recipeService.saveRecipe(recipe, ingredient);
+		redirectAttributes.addFlashAttribute("success", ingredient.getItem().getDescription() + " Edited");
+		redirectAttributes.addFlashAttribute("recipe", recipe);
+		return new RedirectView("/edit_recipe");
+	}
+
+	// Delete
+	@GetMapping("/removeIngredient")
+	public RedirectView deleteItem(@RequestParam(value = "txtID")
+	Long ingredientID, @RequestParam(value = "txtRemoveIngredientRecipeID")
+	Long recipeID, RedirectAttributes redirectAttributes)
+	{
+		Recipe recipe = recipeService.getRecipeByID(recipeID);
+		recipeService.deleteIngredient(ingredientID, recipeID);
 		redirectAttributes.addFlashAttribute("recipe", recipe);
 		return new RedirectView("/edit_recipe");
 	}
