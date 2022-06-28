@@ -61,65 +61,65 @@
 ## Database, ORM, and Hibernate  
   - Include a schema diagram of the tables and the SQL you used for the database
     ![Entity Relationship Diagram](https://user-images.githubusercontent.com/3833611/176085339-a86b14e0-485a-42f5-85c6-b60ef6a84084.png)
-    - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/SQL) to view my SQL files.
-    - Your application should include examples for all four CRUD operations (Create, Read, Update, and Delete)
-```java
-// Create
-@PostMapping("/add")
-public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
-Long aisleID, RedirectAttributes redirectAttributes)
-{
-	item.setAisle(itemService.getAisleByID(aisleID));
-	item.setUser(userService.getPrincipal());
-	itemService.saveItem(item);
-	redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
-	return new RedirectView("/items");
-}
-```
-```java
-// Read
-@GetMapping
-public String getItems(Model model)
-{
-	model.addAttribute("items", itemService.getItemsSortedByAisle(userService.getPrincipal()));
-	model.addAttribute("item", new Item());
-	model.addAttribute("activePage", "items");
-	model.addAttribute("aisles", itemService.getAisles());
-	model.addAttribute("shoppingList", new ShoppingListItem());
-	/**/// Should be in my Settings Controller
-	/**/model.addAttribute("aisles", itemService.getAisles());
-	/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
-	/**/model.addAttribute("amounts", recipeService.getAmounts());
-	/**/// Should be in my Settings Controller
-	return "items";
-}
-```
-```java
-// Update
-@RequestMapping(value = "/edit", method = { RequestMethod.PUT, RequestMethod.GET })
-public RedirectView updateItem(Item item, @RequestParam(value = "cmbEditAisle")
-Long aisleID, RedirectAttributes redirectAttributes)
-{
-	item.setAisle(itemService.getAisleByID(aisleID));
-	item.setUser(userService.getPrincipal());
-	itemService.saveItem(item);
-	redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
-	return new RedirectView("/items");
-}
-```
-```java
-// Delete
-@GetMapping("/remove/{itemID}")
-public RedirectView deleteItem(@PathVariable(value = "itemID")
-Long itemID, RedirectAttributes redirectAttributes)
-{
-	// create item object to use in feedback
-	Item item = itemService.getItemByID(itemID);
-	itemService.deleteItem(itemID);
-	redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
-	return new RedirectView("/items");
-}
-```
+  - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/SQL) to view my SQL files.
+  - Your application should include examples for all four CRUD operations (Create, Read, Update, and Delete)
+	```java
+	// Create
+	@PostMapping("/add")
+	public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
+	Long aisleID, RedirectAttributes redirectAttributes)
+	{
+		item.setAisle(itemService.getAisleByID(aisleID));
+		item.setUser(userService.getPrincipal());
+		itemService.saveItem(item);
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
+		return new RedirectView("/items");
+	}
+	```
+	```java
+	// Read
+	@GetMapping
+	public String getItems(Model model)
+	{
+		model.addAttribute("items", itemService.getItemsSortedByAisle(userService.getPrincipal()));
+		model.addAttribute("item", new Item());
+		model.addAttribute("activePage", "items");
+		model.addAttribute("aisles", itemService.getAisles());
+		model.addAttribute("shoppingList", new ShoppingListItem());
+		/**/// Should be in my Settings Controller
+		/**/model.addAttribute("aisles", itemService.getAisles());
+		/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
+		/**/model.addAttribute("amounts", recipeService.getAmounts());
+		/**/// Should be in my Settings Controller
+		return "items";
+	}
+	```
+	```java
+	// Update
+	@RequestMapping(value = "/edit", method = { RequestMethod.PUT, RequestMethod.GET })
+	public RedirectView updateItem(Item item, @RequestParam(value = "cmbEditAisle")
+	Long aisleID, RedirectAttributes redirectAttributes)
+	{
+		item.setAisle(itemService.getAisleByID(aisleID));
+		item.setUser(userService.getPrincipal());
+		itemService.saveItem(item);
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
+		return new RedirectView("/items");
+	}
+	```
+	```java
+	// Delete
+	@GetMapping("/remove/{itemID}")
+	public RedirectView deleteItem(@PathVariable(value = "itemID")
+	Long itemID, RedirectAttributes redirectAttributes)
+	{
+		// create item object to use in feedback
+		Item item = itemService.getItemByID(itemID);
+		itemService.deleteItem(itemID);
+		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
+		return new RedirectView("/items");
+	}
+	```
 ## Front-end Development  
 - Use CSS to style the Web pages. Use an external CSS stylesheet (internal styling may be used along with frameworks such as Bootstrap, but you must still include and utilize a custom CSS external file)  
   - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/src/main/resources/static/style) to view my external CSS stylesheets.
