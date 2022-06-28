@@ -25,11 +25,11 @@
 - As a user, I would like to add items to my store list.
 - As a user, I would like to add recipes to my recipe list.
 
-### Technical Requirements:  
-## Project Structure, Standardization, and Conventions  
+## Technical Requirements:  
+### Project Structure, Standardization, and Conventions  
 - Project Package Structure:  
 ![Project Package Structure](https://user-images.githubusercontent.com/3833611/176082844-20c8c652-d73b-43cf-906d-6de2a39b1fec.png)  
-## Standard Java naming conventions should be followed  
+### Standard Java naming conventions should be followed  
 - Classes should be written in Pascal case  
   - **UnitOfMeasurement**.java  
 - Variables, methods, and URLs should be written in the camel case  
@@ -42,7 +42,7 @@
   - **com.jackrkern.groceriesbyrecipe**
 - Packages should include the name of your project and your name (e.g., “org.johndoe.myprojectname”)
   - **com.jackrkern.groceriesbyrecipe**
-## Core Java and Models  
+### Core Java and Models  
 - Utilize Java classes with constant variables (i.e., variables that never change from their initial value). The value of these variables can be requested parameters, SQL queries used in the DAO, names of HTML pages, or URL patterns to forward a request to - 2%.
   ```java
   class EditRecipeController
@@ -72,7 +72,7 @@
   @Table(name = "shoppingList")
   public class ShoppingListItem 
   ```
-## Database, ORM, and Hibernate  
+### Database, ORM, and Hibernate  
   - Include a schema diagram of the tables and the SQL you used for the database
     ![Entity Relationship Diagram](https://user-images.githubusercontent.com/3833611/176085339-a86b14e0-485a-42f5-85c6-b60ef6a84084.png)
   - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/SQL) to view my SQL files.
@@ -134,7 +134,7 @@
 		return new RedirectView("/items");
 	}
 	```
-## Front-end Development  
+### Front-end Development  
 - Use CSS to style the Web pages. Use an external CSS stylesheet (internal styling may be used along with frameworks such as Bootstrap, but you must still include and utilize a custom CSS external file)  
   - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/src/main/resources/static/style) to view my external CSS stylesheets.
 - Your application should include six different views/pages  
@@ -143,4 +143,4 @@
   - Click [here](https://github.com/squeekems/groceriesbyrecipe/tree/main/src/main/resources/static/script) to view my external script files.
 - Include a navigation section that is included across multiple pages
   - Click [here](https://github.com/squeekems/groceriesbyrecipe/blob/main/src/main/resources/templates/fragments/nav.html) to view my navbar fragment used on most of my templates.
-## Spring Framework
+### Spring Framework
