@@ -44,20 +44,34 @@
   - **com.jackrkern.groceriesbyrecipe**
 ## Core Java and Models  
 - Utilize Java classes with constant variables (i.e., variables that never change from their initial value). The value of these variables can be requested parameters, SQL queries used in the DAO, names of HTML pages, or URL patterns to forward a request to - 2%.
-  - class EditRecipeController  
-    - final private String EDITRECIPE = "/edit_recipe";  
-  - public interface RecipeRepository extends CrudRepository<Recipe, Long>  
-    - @Query(value = "SELECT ingredientID FROM recipes_ingredients WHERE recipeID = ?1", nativeQuery = true)  
-	    - Set<Long> findIngredientsByRecipeID(Long recipeID);  
+  ```java
+  class EditRecipeController
+  {
+  final private String EDITRECIPE = "/edit_recipe";
+  ```
+  ```java
+  public interface RecipeRepository extends CrudRepository<Recipe, Long>
+  {
+    @Query(value = "SELECT ingredientID FROM recipes_ingredients WHERE recipeID = ?1", nativeQuery = true)
+    Set<Long> findIngredientsByRecipeID(Long recipeID);
+  ```
 - Have at least four models and corresponding tables in a relational database  
-  - public class User  
-    - @Table(name = "users")  
-  - public class Item  
-    - @Table(name = "items")  
-  - public class Recipe  
-    - @Table(name = "recipes")  
-  - public class ShoppingListItem  
-    - @Table(name = "shoppingList")  
+  ```java
+  @Table(name = "users")
+  public class User
+  ```
+  ```java
+  @Table(name = "items") 
+  public class Item 
+  ```
+  ```java
+  @Table(name = "recipes")
+  public class Recipe
+  ```
+  ```java
+  @Table(name = "shoppingList")
+  public class ShoppingListItem 
+  ```
 ## Database, ORM, and Hibernate  
   - Include a schema diagram of the tables and the SQL you used for the database
     ![Entity Relationship Diagram](https://user-images.githubusercontent.com/3833611/176085339-a86b14e0-485a-42f5-85c6-b60ef6a84084.png)
