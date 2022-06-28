@@ -27,7 +27,7 @@
 
 ### Technical Requirements:  
 ## Project Structure, Standardization, and Conventions  
-- Project Package Structure: 
+- Project Package Structure:  
 ![Project Package Structure](https://user-images.githubusercontent.com/3833611/176082844-20c8c652-d73b-43cf-906d-6de2a39b1fec.png)  
 ## Standard Java naming conventions should be followed  
 - Classes should be written in Pascal case  
