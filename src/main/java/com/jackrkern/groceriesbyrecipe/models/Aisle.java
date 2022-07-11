@@ -9,11 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "aisles")
 public class Aisle
@@ -28,6 +25,30 @@ public class Aisle
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	// @return the aisleID
+	public Long getAisleID()
+	{ return aisleID; }
+
+	// @param aisleID the aisleID to set
+	public void setAisleID(Long aisleID)
+	{ this.aisleID = aisleID; }
+
+	// @return the name
+	public String getName()
+	{ return name; }
+
+	// @param name the name to set
+	public void setName(String name)
+	{ this.name = name; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	public int compareTo(Aisle aisle)
 	{

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
+import com.jackrkern.groceriesbyrecipe.models.User;
 
 /* @author "Jack Kern" */
 
@@ -27,7 +28,9 @@ public class ItemServiceTests
 	@Test
 	public void testGetAisles()
 	{
-		List<Aisle> aisles = itemService.getAisles();
+		User user = new User();
+		user.setUserID(1L);
+		List<Aisle> aisles = itemService.getAisles(user);
 
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println(aisles);

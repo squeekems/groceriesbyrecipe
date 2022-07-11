@@ -1,5 +1,8 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+import static java.time.LocalDateTime.now;
+import static java.lang.System.out;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,51 +15,48 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
-import com.jackrkern.groceriesbyrecipe.business.RecipeService;
 import com.jackrkern.groceriesbyrecipe.business.ShoppingListItemService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.Item;
 import com.jackrkern.groceriesbyrecipe.models.ShoppingListItem;
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+
+import java.time.format.DateTimeFormatter;
 
 /* @author "Jack Kern" */
 
 @Controller
-@RequestMapping("/list")
+@RequestMapping
 public class ShoppingListItemController
 {
+	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATEPATTERN);
+
 	@Autowired
-	ShoppingListItemService shoppingListItemService;
+	private ShoppingListItemService shoppingListItemService;
 
 	@Autowired
 	private UserService userService;
 
-	/**/// Should be in my Settings Controller
-	/**/@Autowired
-	/**/private ItemService itemService;
-	/**/
-	/**/@Autowired
-	/**/private RecipeService recipeService;
-	/**/// Should be in my Settings Controller
+	@Autowired
+	private ItemService itemService;
 
 	// Read
-	@GetMapping
+	@GetMapping(sLIST)
 	public String getShoppingList(Model model)
 	{
-		model.addAttribute("shoppingList", shoppingListItemService.getShoppingList(userService.getPrincipal()));
-		model.addAttribute("activePage", "list");
-		model.addAttribute("items", itemService.getItemsSortedByDescription(userService.getPrincipal()));
-		model.addAttribute("item", new Item());
-		model.addAttribute("shoppingListItem", new ShoppingListItem());
-		/**/// Should be in my Settings Controller
-		/**/model.addAttribute("aisles", itemService.getAisles());
-		/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
-		/**/model.addAttribute("amounts", recipeService.getAmounts());
-		/**/// Should be in my Settings Controller
-		return "list";
+		model.addAttribute(SHOPPINGLIST, shoppingListItemService.getShoppingList(userService.getPrincipal()));
+		model.addAttribute(ACTIVEPAGE, "Shopping List");
+		model.addAttribute(ITEMS, itemService.getItemsSortedByDescription(userService.getPrincipal()));
+		model.addAttribute(ITEM, new Item());
+		model.addAttribute(SHOPPINGLISTITEM, new ShoppingListItem());
+		model.addAttribute(AISLES, itemService.getAisles(userService.getPrincipal()));
+		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, LIST);
+		return LIST;
 	}
 
 	// Post
-	@PostMapping
+	@PostMapping(sLIST)
 	public RedirectView addExistingToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = "cmbAddItem")
 	Long itemID, @RequestParam(value = "numCount")
 	int count, RedirectAttributes redirectAttributes)
@@ -65,13 +65,15 @@ public class ShoppingListItemController
 		shoppingListItem.setUser(userService.getPrincipal());
 		shoppingListItem.setCount(count);
 		shoppingListItemService.saveShoppingListItem(shoppingListItem);
-		redirectAttributes.addFlashAttribute("success", shoppingListItem.getCount() + " "
-														+ shoppingListItem.getItem().getDescription() + " Added");
-		return new RedirectView("/list");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem, cADDED));
+		out.printf(	PERSONsVERBEDsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qADDEDq,
+					shoppingListItem);
+		return new RedirectView(sLIST);
 	}
 
 	// Post
-	@PostMapping("/add")
+	@PostMapping(sLIST + sADD)
 	public RedirectView addToShoppingList(Item item, @RequestParam(value = "cmbAddAisle")
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
@@ -79,30 +81,39 @@ public class ShoppingListItemController
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
 		shoppingListItemService.saveShoppingListItem(item);
-		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
-		return new RedirectView("/list");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cADDED));
+		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNsANDsVERBEDsITsTOsTHEIRsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, CREATED, ITEM, item,
+					ADDED, SHOPPINGsLIST);
+		return new RedirectView(sLIST);
 	}
 
 	// Delete
-	@GetMapping("/remove/{shoppingListItemID}")
+	@GetMapping(sLIST + sREMOVE + "/{shoppingListItemID}")
 	public RedirectView deleteShoppingListItem(@PathVariable(value = "shoppingListItemID")
 	Long shoppingListItemID, RedirectAttributes redirectAttributes)
 	{
 		ShoppingListItem shoppingListItem = shoppingListItemService.getByID(shoppingListItemID);
 		shoppingListItemService.removeShoppingListItem(shoppingListItemID, 1);
-		System.out.println("1 " + shoppingListItem.getItem().getDescription() + " Removed");
-		redirectAttributes.addFlashAttribute(	"success",
-												"1 " + shoppingListItem.getItem().getDescription() + " Removed");
-		return new RedirectView("/list");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, "1 " + shoppingListItem.getItem(),
+																	cREMOVED));
+		out.printf(	PERSONsVERBEDsAsNOUNsFROMsTHEIRsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qREMOVEDq,
+					shoppingListItem.getItem(), SHOPPINGsLIST);
+		return new RedirectView(sLIST);
 	}
 
 	// Clear
-	@GetMapping("/clear")
+	@GetMapping(sLIST + sCLEAR)
 	public RedirectView clearShoppingList(RedirectAttributes redirectAttributes)
 	{
 		shoppingListItemService.clearShoppingList(userService.getPrincipal());
-		System.out.println("Shopping List Cleared");
-		redirectAttributes.addFlashAttribute("success", "Shopping List Cleared");
-		return new RedirectView("/list");
+		out.println("Shopping List Cleared");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, cSHOPPINGscLIST, cCLEARED));
+		out.println((userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE)
+					+ " cleared their shopping list.");
+		out.printf(	PERSONsVERBEDsTHEIRsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, CLEARED, SHOPPINGsLIST);
+		return new RedirectView(sLIST);
 	}
 }

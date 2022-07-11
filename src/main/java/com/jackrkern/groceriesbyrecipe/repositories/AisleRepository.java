@@ -13,9 +13,5 @@ import com.jackrkern.groceriesbyrecipe.models.User;
 @Repository
 public interface AisleRepository extends CrudRepository<Aisle, Long>
 {
-	Aisle findByName(String name);
-
-	Aisle findByAisleID(Long aisleID);
-
 	List<Aisle> findAllByUser(User userID);
 }

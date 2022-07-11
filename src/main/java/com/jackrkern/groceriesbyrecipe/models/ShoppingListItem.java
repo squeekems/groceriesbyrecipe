@@ -10,11 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "shoppingList")
 public class ShoppingListItem
@@ -34,11 +31,77 @@ public class ShoppingListItem
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
 
+	/*  */
+	public ShoppingListItem()
+	{}
+
+	/* @param user */
+	public ShoppingListItem(User user)
+	{
+		this();
+		this.user = user;
+	}
+
+	/* @param item /* @param user */
+	public ShoppingListItem(Item item, User user)
+	{
+		this(user);
+		this.item = item;
+		this.count = 1;
+	}
+
+	/* @param item /* @param user */
+	public ShoppingListItem(Item item)
+	{
+		this(item.getUser());
+		this.item = item;
+		this.count = 1;
+	}
+
+	/* @param count /* @param item /* @param user */
+	public ShoppingListItem(int count, Item item, User user)
+	{
+		this(item, user);
+		this.count = count;
+	}
+
+	// @return the shoppingListID
+	public Long getShoppingListID()
+	{ return shoppingListID; }
+
+	// @param shoppingListID the shoppingListID to set
+	public void setShoppingListID(Long shoppingListID)
+	{ this.shoppingListID = shoppingListID; }
+
+	// @return the count
+	public int getCount()
+	{ return count; }
+
+	// @param count the count to set
+	public void setCount(int count)
+	{ this.count = count; }
+
+	// @return the item
+	public Item getItem()
+	{ return item; }
+
+	// @param item the item to set
+	public void setItem(Item item)
+	{ this.item = item; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
+
 	public String toString()
 	{
 		if (count > 1)
-			return item.getDescription() + " (x" + count + ")";
+			return item + " (x" + count + ")";
 		else
-			return item.getDescription();
+			return item.toString();
 	}
 }

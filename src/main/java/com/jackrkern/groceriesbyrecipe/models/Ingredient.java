@@ -8,11 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "ingredients")
 public class Ingredient
@@ -32,6 +29,38 @@ public class Ingredient
 	@OneToOne
 	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
 	private Item item;
+
+	// @return the ingredientID
+	public Long getIngredientID()
+	{ return ingredientID; }
+
+	// @param ingredientID the ingredientID to set
+	public void setIngredientID(Long ingredientID)
+	{ this.ingredientID = ingredientID; }
+
+	// @return the amount
+	public Amount getAmount()
+	{ return amount; }
+
+	// @param amount the amount to set
+	public void setAmount(Amount amount)
+	{ this.amount = amount; }
+
+	// @return the unitOfMeasurement
+	public UnitOfMeasurement getUnitOfMeasurement()
+	{ return unitOfMeasurement; }
+
+	// @param unitOfMeasurement the unitOfMeasurement to set
+	public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement)
+	{ this.unitOfMeasurement = unitOfMeasurement; }
+
+	// @return the item
+	public Item getItem()
+	{ return item; }
+
+	// @param item the item to set
+	public void setItem(Item item)
+	{ this.item = item; }
 
 	public String toString()
 	{

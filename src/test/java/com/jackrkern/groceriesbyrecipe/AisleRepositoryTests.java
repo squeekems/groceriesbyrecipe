@@ -30,34 +30,6 @@ public class AisleRepositoryTests
 	private UserRepository userRepository;
 
 	@Test
-	public void testFindByName()
-	{
-		String name = "01";
-
-		Aisle aisle = aisleRepository.findByName(name);
-
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println(aisle);
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
-		assertThat(aisle).isNotNull();
-	}
-
-	@Test
-	public void testFindByAisleId()
-	{
-		Long aisleID = (long) 2;
-
-		Aisle aisle = aisleRepository.findByAisleID(aisleID);
-
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println(aisle);
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
-		assertThat(aisle).isNotNull();
-	}
-
-	@Test
 	public void testFindAllByUser()
 	{
 		Long userID = (long) 1;

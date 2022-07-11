@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body>
+  <body
+  	style="
+  		padding-top: 94px;
+  		background: none;">
 		<!-- Add Ingredient Modal -->
 		<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="lblAddIngredient" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -132,14 +135,17 @@
 					<label for="txtName" class="col-form-label">Name:</label>
 					<input type="text" class="form-control" name="txtName" id="txtName" placeholder="Name" th:value="${recipe.name}">
 				</div>
-				<table class="table table-hover w-auto m-0" id="tblIngredients">
-					<tbody>
-						<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
-							<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
-							<td th:text="${ingredient.toString()}">INGREDIENT</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="form-group">
+					<label for="tblIngredients" class="col-form-label">Ingredients:</label>
+					<table class="table table-hover w-auto m-0" id="tblIngredients">
+						<tbody>
+							<tr class="clickable-row searchable-row" th:each="ingredient : ${recipe.ingredients}">
+								<td th:text="${ingredient.ingredientID}" class="ingredientID" hidden>ID</td>
+								<td th:text="${ingredient.toString()}">INGREDIENT</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<div class="form-group">
 					<label for="txtInstructions" class="col-form-label">Instructions:</label>
 					<textarea class="form-control" name="txtInstructions" id="txtInstructions" placeholder="Instructions" rows="15" th:text="${recipe.instructions}"></textarea>

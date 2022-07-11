@@ -90,7 +90,7 @@ $(function()
           let tdCount = row.insertCell(2);
           let numCount = document.createElement('input');
           numCount.type = 'number';
-          numCount.min = 1;
+          numCount.min = 0;
           numCount.max = 99;
           numCount.value = 1;
           numCount.setAttribute('id', 'numCount' + ingredient.item.itemID);

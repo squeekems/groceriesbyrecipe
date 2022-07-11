@@ -2,8 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body>
-  	<div th:replace="~{fragments/settings :: settings}"></div>
+  <body 
+  	style="
+  		padding-top: 94px;
+  		background: none;">
 		<!-- Add Recipe Modal -->
 		<div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="lblAddRecipe" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -88,11 +90,11 @@
 			</div>
 		</div>
 		<header class="fixed-top bg-white">
-	  <!-- Alert Box -->
+	  	<!-- Alert Box -->
       <div th:replace="~{fragments/alert_success :: alert_success}"></div>
-	  <!-- Nav Bar -->
+	  	<!-- Nav Bar -->
       <div th:replace="~{fragments/nav :: nav}"></div>
-	  <!-- Button Group -->
+	  	<!-- Button Group -->
       <div class="d-flex justify-content-center bg-white">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipeModal">Add</button>
@@ -103,32 +105,49 @@
       </div>
     </header>
 		<!-- Body -->
-	<div class="row m-0">
-	  <div class="col-4 pl-0">
-	    <div class="list-group" id="lstRecipe" role="tablist">
-	      <a class="list-group-item list-group-item-action"
+		<div class="row m-0">
+			<div class="col-4 pl-0">
+				<div class="list-group" id="lstRecipe" role="tablist">
+					<a class="list-group-item list-group-item-action"
 						th:each="recipe : ${recipes}"
 						th:id="${recipe.recipeID}"
 						data-toggle="list"
 						th:href="'#lstRecipe-' + ${recipe.recipeID}"
 						role="tab"
 						th:attr="aria-controls=${recipe.recipeID}"
-						th:text="${recipe.name}">Recipe Name</a>
-	    </div>
-	  </div>
-	  <div style="height: 100%;" class="col-8 pt-e-15" id="recipe-content">
-	    <div style="height: 100%;" class="tab-content" id="nav-tabContent">
-	   	  <div style="height: 100%;" class="tab-pane fade" th:each="recipe : ${recipes}" th:id="'lstRecipe-' + ${recipe.recipeID}" role="tabpanel" th:attr="aria-labelledby=${recipe.recipeID}">
-	        <ul>
-	      	  <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">Recipe Ingredient</li>	      	
-	        </ul>
-	        <textarea readonly class="readonly" th:text="${recipe.instructions}">Recipe Instructions</textarea>
-	   	  </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- Script Imports -->
-	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
-  <script th:src="@{script/scriptRecipes.js}"></script>
+						th:text="${recipe.name}">
+						Recipe Name
+					</a>
+				</div>
+			</div>
+			<div style="height: 100%;" class="col-8 pt-e-15" id="recipe-content">
+				<div style="height: 100%;" class="tab-content" id="nav-tabContent">
+					<div 
+						style="height: 100%;" 
+						class="tab-pane fade" 
+						th:each="recipe : ${recipes}" 
+						th:id="'lstRecipe-' + ${recipe.recipeID}" 
+						role="tabpanel" 
+						th:attr="aria-labelledby=${recipe.recipeID}">
+						<ul>
+							<li 
+								th:each="ingredient : ${recipe.ingredients}" 
+								th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">
+								Recipe Ingredient
+							</li>	      	
+						</ul>
+						<textarea 
+							readonly 
+							class="readonly" 
+							th:text="${recipe.instructions}">
+							Recipe Instructions
+						</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+		<script th:src="@{script/scriptRecipes.js}"></script>
   </body>
 </html>

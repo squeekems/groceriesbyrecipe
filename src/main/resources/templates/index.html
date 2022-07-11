@@ -3,24 +3,36 @@
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
   <body>
-	<!-- Header -->
+		<!-- Header -->
     <header class="fixed-top">
-	  <!-- Nav Bar -->
-      <div th:replace="~{fragments/nav :: nav}"></div>
+	  	<!-- Nav Bar -->
+    	<div th:replace="~{fragments/nav :: nav}"></div>
     </header>
-	<!-- Body -->
-    <main role="main" class="flex-shrink-0">
-    	<div class="container mt-5">
-    		<div class="jumbotron">
-	      		<img class="mb-4" src="/images/grocery_basket.svg" alt="" width="72" height="72">
-    			<h1 class="display-4">Groceries by Recipe</h1>
-    			<p>This is a fully customizable shopping list populating tool!</p>
-		        <a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Login</a>
-		        <a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 my-sm-0" th:href="@{/register}">Register</a>
-    		</div>
-    	</div>
+		<!-- Body -->
+    <main role="main" class="flex-shrink-0" id="pnlIndex">
+		<div class="container">
+			<div class="jumbotron">
+				<div class="panel d-flex justify-content-center">
+					<div class="form-signin" id="frmIndex">
+						<div class="d-flex justify-content-center">
+							<img src="/images/grocery_basket.svg" alt="" width="72" height="72">
+						</div>
+						<div class="d-flex justify-content-center">
+							<h1 class="display-4 text-center">Groceries by Recipe</h1>
+						</div>
+						<div class="d-flex justify-content-center">
+							<p class="text-center">This is a fully customizable shopping list populating tool!</p>
+						</div>
+						<div class="d-flex justify-content-center">
+							<a sec:authorize="isAnonymous()" class="btn btn-outline-primary m-2 my-sm-0" th:href="@{/login}">Login</a>
+							<a sec:authorize="isAnonymous()" class="btn btn-outline-primary m-2 my-sm-0" th:href="@{/register}">Register</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </main>
-	<!-- Script Imports -->
-	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
   </body>
 </html>

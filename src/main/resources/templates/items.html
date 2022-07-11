@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body style="padding-top: 191px;">
-		<!-- Settings Modal -->
-		<div th:replace="~{fragments/settings :: settings}"></div>
+  <body 
+  	style="
+  		padding-top: 191px;
+  		background: none;">
 		<!-- Add Item Modal -->
 		<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -26,6 +27,10 @@
 							<div class="form-group">
 								<label for="txtAddDescription" class="col-form-label">Description:</label>
 								<input type="text" class="form-control" name="txtAddDescription" id="txtAddDescription" placeholder="Description" th:field="*{description}">
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" name="chkAddToShoppingList" id="chkAddToShoppingList">
+								<label class="form-check-label" for="chkAddToShoppingList">Add to Shopping List</label>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -80,6 +85,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/items/addToShoppingList}" method="POST" th:object="${shoppingList}">
+							<input type=hidden id="txtAddToShoppingListScrollValue" name="txtAddToShoppingListScrollValue">
 							<table class="table w-auto">
 								<thead>
 									<tr>
@@ -101,6 +107,7 @@
 		</div>
 		<!-- Header -->
 		<header class="fixed-top bg-white">
+			<input type="hidden" id="txtLoadedScrollValue" th:value = "${scrollValue}">
 			<!-- Alert Box -->
 			<div th:replace="~{fragments/alert_success :: alert_success}"></div>
 			<!-- Nav Bar -->
@@ -130,7 +137,7 @@
 		<!-- Body -->
 		<table class="table table-hover w-auto" id="tblItems">
 			<tbody>
-				<tr class="clickable-row searchable-row" th:each="item : ${items}">
+				<tr class="clickable-row searchable-row" th:each="item : ${items}" th:id="${item.itemID}">
 					<td th:text="${item.itemID}" class="itemID" hidden>ID</td>
 					<td th:text="${item.aisle.name}" class="text-right items-left-column">AI</td>
 					<td th:text="${item.description}">DESCRIPTION</td>

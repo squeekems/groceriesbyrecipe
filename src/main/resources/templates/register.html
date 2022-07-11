@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <!-- Head -->
-  <div th:replace="~{fragments/head :: head}"></div>
-  <body>
-    <header class="fixed-top bg-white">
-	  <!-- Nav Bar -->
-      <div th:replace="~{fragments/nav :: nav}"></div>
-    </header>
-    <main class="text-center" id="pnlRegister">
-	    <form class="form-signin" id="frmRegister" th:action="@{/register}" method="post" th:object="${user}">
-	      <img class="mb-4" src="/images/grocery_basket.svg" alt="" width="72" height="72">
-	      <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
-	      <div class="form-group row">
-		      <label for="inputEmail" class="col-form-label">Email address*</label>
-		      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus th:field="*{email}">
-	      </div>
-	      <div class="form-group row">
-		      <label for="inputPassword" class="col-form-label">Password*</label>
-		      <input type="password" id="inputPassword" class="form-control" placeholder="Password" pattern=".{6,10}" required th:field="*{password}">
-	      </div>
-	      <div class="form-group row">
-		      <label for="inputConfirmPassword" class="col-form-label">Confirm Password*</label>
-		      <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm Password" required>
-	      </div>
-	      <div class="form-group row">
-		      <label for="inputUsername" class="col-form-label">Username</label>
-		      <input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{username}">
-	      </div>
-	      <div class="form-group row">
-		      <label for="inputFirstName" class="col-form-label">First Name</label>
-		      <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" th:field="*{firstName}">
-	      </div>
-	      <div class="form-group row">
-		      <label for="inputLastName" class="col-form-label">Last Name</label>
-		      <input type="text" id="inputLastName" class="form-control" placeholder="Last Name" th:field="*{lastName}">
-	      </div>
-	      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-	      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
-	    </form>
-    </main>
-	<!-- Script Imports -->
-	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
-  </body>
+	<!-- Head -->
+	<div th:replace="~{fragments/head :: head}"></div>
+	<body>
+		<header class="fixed-top bg-white">
+			<!-- Nav Bar -->
+			<div th:replace="~{fragments/nav :: nav}"></div>
+		</header>
+		<main class="text-center p-0" id="pnlRegister">
+			<div class="container">
+				<div class="jumbotron">
+					<div class="panel d-flex justify-content-center">
+						<form class="form-signin" id="frmRegister" th:action="@{/register}" method="post" th:object="${user}">
+							<img src="/images/grocery_basket.svg" alt="" width="72" height="72">
+							<h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+							<label for="inputEmail" class="sr-only">Email address*</label>
+							<input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" required autofocus th:field="*{email}">
+							<label for="inputPassword" class="sr-only">Password*</label>
+							<input type="password" id="inputPassword" class="form-control mb-3" placeholder="Password" pattern=".{6,10}" required th:field="*{password}">
+							<label for="inputConfirmPassword" class="sr-only">Confirm Password*</label>
+							<input type="password" id="inputConfirmPassword" class="form-control mb-3" placeholder="Confirm Password" required>
+							<label for="inputUsername" class="sr-only">Username</label>
+							<input type="text" id="inputUsername" class="form-control mb-3" placeholder="Username" th:field="*{username}">
+							<label for="inputFirstName" class="sr-only">First Name</label>
+							<input type="text" id="inputFirstName" class="form-control mb-3" placeholder="First Name" th:field="*{firstName}">
+							<label for="inputLastName" class="sr-only">Last Name</label>
+							<input type="text" id="inputLastName" class="form-control mb-3" placeholder="Last Name" th:field="*{lastName}">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+							<p class="mt-3 mb-0 text-muted">&copy; 2022</p>
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+	</body>
 </html>

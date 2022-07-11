@@ -1,5 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
+import static java.lang.System.out;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +14,7 @@ import com.jackrkern.groceriesbyrecipe.models.Item;
 import com.jackrkern.groceriesbyrecipe.models.User;
 import com.jackrkern.groceriesbyrecipe.repositories.AisleRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.ItemRepository;
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
@@ -24,9 +27,19 @@ public class ItemService
 	@Autowired
 	private AisleRepository aisleRepository;
 
-	public List<Aisle> getAisles()
+	private String strDetailedItem(Item item)
 	{
-		Iterable<Aisle> aisles = aisleRepository.findAll();
+		return String.format(ITEMDETAIL, item.getAisle(), item.getDescription(), item.getUser());
+	}
+
+	private String strDetailedItem(Long itemID)
+	{
+		return strDetailedItem(getItemByID(itemID));
+	}
+
+	public List<Aisle> getAisles(User userID)
+	{
+		Iterable<Aisle> aisles = aisleRepository.findAllByUser(userID);
 		List<Aisle> aisleList = new ArrayList<>();
 		aisles.forEach(aisle -> aisleList.add(aisle));
 		aisleList.sort(new Comparator<Aisle>()
@@ -43,11 +56,6 @@ public class ItemService
 	public Aisle getAisleByID(Long aisleID)
 	{
 		return aisleRepository.findById(aisleID).get();
-	}
-
-	public Aisle getAisleByName(String name)
-	{
-		return aisleRepository.findByName(name);
 	}
 
 	public Item getItemByID(Long itemID)
@@ -101,22 +109,42 @@ public class ItemService
 		return itemList;
 	}
 
-	public void saveItem(Item item)
+	public Item saveItem(Item item)
 	{
-		if (item != null)
-		{
-			itemRepository.save(item);
-		} else
-		{
-			throw new RuntimeException("Item cannot be null");
-		}
+		out.printf(STRINGsSTRINGnl, strDetailedItem(item), cSAVED);
+		return itemRepository.save(item);
 	}
 
 	public void deleteItem(Long itemID)
 	{
 		try
 		{
+			out.printf(STRINGsSTRINGnl, strDetailedItem(itemID), cDELETED);
 			itemRepository.deleteById(itemID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void saveAisle(Aisle aisle)
+	{
+		if (aisle != null)
+		{
+			aisleRepository.save(aisle);
+			out.printf(STRINGsSTRINGnl, aisle, cSAVED);
+		} else
+		{
+			throw new RuntimeException("Aisle cannot be null");
+		}
+	}
+
+	public void deleteAisle(Long aisleID)
+	{
+		try
+		{
+			out.printf(STRINGsSTRINGnl, getAisleByID(aisleID), cDELETED);
+			aisleRepository.deleteById(aisleID);
 		} catch (Exception e)
 		{
 			e.printStackTrace();

@@ -9,11 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "unitsOfMeasurement")
 public class UnitOfMeasurement
@@ -28,6 +25,30 @@ public class UnitOfMeasurement
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	// @return the unitOfMeasurementID
+	public Long getUnitOfMeasurementID()
+	{ return unitOfMeasurementID; }
+
+	// @param unitOfMeasurementID the unitOfMeasurementID to set
+	public void setUnitOfMeasurementID(Long unitOfMeasurementID)
+	{ this.unitOfMeasurementID = unitOfMeasurementID; }
+
+	// @return the name
+	public String getName()
+	{ return name; }
+
+	// @param name the name to set
+	public void setName(String name)
+	{ this.name = name; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	public String toString()
 	{

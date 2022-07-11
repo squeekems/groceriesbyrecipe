@@ -1,6 +1,6 @@
 <head th:fragment="head">
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
@@ -18,5 +18,5 @@
     crossorigin="anonymous"
   />
   <link type="text/css" rel="stylesheet" href="/style/style.css"/>
-  <title>Groceries by Recipe</title>
+  <title th:text="${activePage} ? ${activePage} : 'Groceries by Recipe'">Groceries by Recipe</title>
 </head>

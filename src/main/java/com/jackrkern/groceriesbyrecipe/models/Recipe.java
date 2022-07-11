@@ -14,11 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "recipes")
 public class Recipe
@@ -37,6 +34,46 @@ public class Recipe
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	// @return the recipeID
+	public Long getRecipeID()
+	{ return recipeID; }
+
+	// @param recipeID the recipeID to set
+	public void setRecipeID(Long recipeID)
+	{ this.recipeID = recipeID; }
+
+	// @return the name
+	public String getName()
+	{ return name; }
+
+	// @param name the name to set
+	public void setName(String name)
+	{ this.name = name; }
+
+	// @return the instructions
+	public String getInstructions()
+	{ return instructions; }
+
+	// @param instructions the instructions to set
+	public void setInstructions(String instructions)
+	{ this.instructions = instructions; }
+
+	// @return the ingredients
+	public Set<Ingredient> getIngredients()
+	{ return ingredients; }
+
+	// @param ingredients the ingredients to set
+	public void setIngredients(Set<Ingredient> ingredients)
+	{ this.ingredients = ingredients; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	public String toString()
 	{

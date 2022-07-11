@@ -1,42 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav">
-	<a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/items}">Groceries by Recipe</a>
-	<a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{/}">Groceries by Recipe</a>
-	<button
-	  class="navbar-toggler"
-	  type="button"
-	  data-toggle="collapse"
-	  data-target="#navbarSupportedContent"
-	  aria-controls="navbarSupportedContent"
-	  aria-expanded="false"
-	  aria-label="Toggle navigation"
-	>
-	<span class="navbar-toggler-icon"></span>
+	<a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/items}" th:text="${activePage} ? ${activePage} : 'Groceries by Recipe'">Groceries by Recipe</a>
+	<a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{/}" th:text="${activePage} ? ${activePage} : 'Groceries by Recipe'">Groceries by Recipe</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	  <ul class="navbar-nav mr-auto">
-	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'items'} ? 'nav-item active' : 'nav-item'">
+	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'Store Items'} ? 'nav-item active' : 'nav-item'">
 	      <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/items}">Store Items</a>
 	    </li>
-	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'recipes'} ? 'nav-item active' : 'nav-item'">
+	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'Recipes'} ? 'nav-item active' : 'nav-item'">
 	      <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/recipes}">Recipes</a>
 	    </li>
-	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'list'} ? 'nav-item active' : 'nav-item'">
+	    <li sec:authorize="isAuthenticated()" th:class="${activePage == 'Shopping List'} ? 'nav-item active' : 'nav-item'">
 	      <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/list}">Shopping List</a>
 	    </li>
-	    <li sec:authorize="isAnonymous()" th:class="${activePage == 'login'} ? 'nav-item active' : 'nav-item'">
+	    <li sec:authorize="isAnonymous()" th:class="${activePage == 'Login'} ? 'nav-item active' : 'nav-item'">
 	      <a sec:authorize="isAnonymous()" class="nav-link" th:href="@{/login}">Login</a>
 	    </li>
-	    <li sec:authorize="isAnonymous()" th:class="${activePage == 'register'} ? 'nav-item active' : 'nav-item'">
+	    <li sec:authorize="isAnonymous()" th:class="${activePage == 'Register'} ? 'nav-item active' : 'nav-item'">
 	      <a sec:authorize="isAnonymous()" class="nav-link" th:href="@{/register}">Register</a>
 	    </li>
 	  </ul>
 	  <span sec:authorize="isAuthenticated()" class="pr-1">Welcome [[${#request.userPrincipal.principal.fullName}]]</span>
 	  <div class="d-flex">
 	    <form sec:authorize="isAuthenticated()" class="pr-1" th:action="@{/settings}" method="GET">
-	      <button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#settingsModal">Settings</button>
+	      <button sec:authorize="isAuthenticated()" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Settings</button>
 	    </form>
 	    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
-		  <button sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+		  	<button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Sign Out</button>
 	    </form>
 	  </div>
 	</div>

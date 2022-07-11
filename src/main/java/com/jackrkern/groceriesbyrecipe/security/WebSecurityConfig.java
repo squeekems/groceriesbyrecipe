@@ -56,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 			             	"/items/remove", 				// 
 			             	"/items/getItemByID",			// 
 							"/recipes",						// 
-							"/list").authenticated()		// 
+							"/list",						// 
+							"/settings").authenticated()	// 
 			.anyRequest().permitAll()						// 
 			.and()											// 
 			.formLogin()									// 

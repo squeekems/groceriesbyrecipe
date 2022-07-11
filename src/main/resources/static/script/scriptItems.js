@@ -1,3 +1,6 @@
+const txtLoadedScrollValue = document.getElementById("txtLoadedScrollValue");
+document.documentElement.scrollTop = document.body.scrollTop = txtLoadedScrollValue.value;
+
 let selectedItemID = -1;
 
 // Search Table Text
@@ -189,6 +192,9 @@ $(function()
 
         // NumericUpDown
         tdCount.appendChild(numCount);
+        
+        // Set ScrollValue
+        $('#txtAddToShoppingListScrollValue').attr('value', document.documentElement.scrollTop || document.body.scrollTop);
       });
     
       $('#addToShoppingListModal').modal();

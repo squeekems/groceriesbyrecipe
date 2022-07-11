@@ -9,11 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "amounts")
 public class Amount
@@ -28,6 +25,30 @@ public class Amount
 	@ManyToOne
 	@JoinColumn(name = "userID", nullable = false)
 	private User user;
+
+	// @return the amountID
+	public Long getAmountID()
+	{ return amountID; }
+
+	// @param amountID the amountID to set
+	public void setAmountID(Long amountID)
+	{ this.amountID = amountID; }
+
+	// @return the value
+	public String getValue()
+	{ return value; }
+
+	// @param value the value to set
+	public void setValue(String value)
+	{ this.value = value; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	public String toString()
 	{

@@ -1,5 +1,8 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+import static java.lang.System.out;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,17 +46,17 @@ public class RecipeService
 		return recipeList;
 	}
 
-	public List<Amount> getAmounts()
+	public List<Amount> getAmounts(User userID)
 	{
-		Iterable<Amount> amounts = amountRepository.findAll();
+		Iterable<Amount> amounts = amountRepository.findAllByUser(userID);
 		List<Amount> amountList = new ArrayList<>();
 		amounts.forEach(amount -> amountList.add(amount));
 		return amountList;
 	}
 
-	public List<UnitOfMeasurement> getUnitsOfMeasurement()
+	public List<UnitOfMeasurement> getUnitsOfMeasurement(User userID)
 	{
-		Iterable<UnitOfMeasurement> unitsOfMeasurement = unitOfMeasurementRepository.findAll();
+		Iterable<UnitOfMeasurement> unitsOfMeasurement = unitOfMeasurementRepository.findAllByUser(userID);
 		List<UnitOfMeasurement> unitOfMeasurementList = new ArrayList<>();
 		unitsOfMeasurement.forEach(UnitOfMeasurement -> unitOfMeasurementList.add(UnitOfMeasurement));
 		return unitOfMeasurementList;
@@ -64,6 +67,7 @@ public class RecipeService
 		if (recipe != null)
 		{
 			recipeRepository.save(recipe);
+			out.printf(STRINGsSTRINGnl, recipe, cSAVED);
 		} else
 		{
 			throw new RuntimeException("Recipe cannot be null");
@@ -76,20 +80,24 @@ public class RecipeService
 		if (!ingredients.contains(ingredient))
 		{
 			ingredientRepository.save(ingredient);
+			out.printf(STRINGsSTRINGnl, ingredient, cSAVED);
 			saveRecipe(recipe);
 			ingredients.add(ingredient);
 			recipe.setIngredients(ingredients);
 		}
 		ingredientRepository.save(ingredient);
+		out.printf(STRINGsSTRINGnl, ingredient, cSAVED);
 		saveRecipe(recipe);
 	}
 
 	public void deleteIngredient(Long ingredientID, Long recipeID)
 	{
 		Recipe recipe = getRecipeByID(recipeID);
-		recipe.getIngredients().remove(getIngredientByID(ingredientID));
+		Ingredient ingredient = getIngredientByID(ingredientID);
+		recipe.getIngredients().remove(ingredient);
+		out.printf(STRINGsSTRINGnl, ingredient, cDELETED);
 		ingredientRepository.deleteById(ingredientID);
-		recipeRepository.save(recipe);
+		saveRecipe(recipe);
 	}
 
 	public void deleteRecipe(Long recipeID)
@@ -101,8 +109,10 @@ public class RecipeService
 			{
 				Ingredient ingredient = iterator.next();
 				recipe.getIngredients().remove(ingredient);
+				out.printf(STRINGsSTRINGnl, ingredient, cDELETED);
 				ingredientRepository.deleteById(ingredient.getIngredientID());
 			}
+			out.printf(STRINGsSTRINGnl, recipe, cDELETED);
 			recipeRepository.deleteById(recipeID);
 		} catch (Exception e)
 		{
@@ -128,5 +138,53 @@ public class RecipeService
 	public Ingredient getIngredientByID(Long ingredientID)
 	{
 		return ingredientRepository.findById(ingredientID).get();
+	}
+
+	public void saveUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement)
+	{
+		if (unitOfMeasurement != null)
+		{
+			unitOfMeasurementRepository.save(unitOfMeasurement);
+			out.printf(STRINGsSTRINGnl, unitOfMeasurement, cSAVED);
+		} else
+		{
+			throw new RuntimeException("UnitOfMeasurement cannot be null");
+		}
+	}
+
+	public void saveAmount(Amount amount)
+	{
+		if (amount != null)
+		{
+			amountRepository.save(amount);
+			out.printf(STRINGsSTRINGnl, amount, cSAVED);
+		} else
+		{
+			throw new RuntimeException("Amount cannot be null");
+		}
+	}
+
+	public void deleteUnitOfMeasurement(Long unitOfMeasurementID)
+	{
+		try
+		{
+			out.printf(STRINGsSTRINGnl, getUnitOfMeasurementByID(unitOfMeasurementID), cDELETED);
+			unitOfMeasurementRepository.deleteById(unitOfMeasurementID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteAmount(Long amountID)
+	{
+		try
+		{
+			out.printf(STRINGsSTRINGnl, getAmountByID(amountID), cDELETED);
+			amountRepository.deleteById(amountID);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

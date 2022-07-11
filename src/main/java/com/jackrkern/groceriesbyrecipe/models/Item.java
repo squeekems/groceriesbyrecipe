@@ -10,11 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /* @author "Jack Kern" */
 
-@Data
 @Entity
 @Table(name = "items")
 public class Item
@@ -43,6 +40,38 @@ public class Item
 		this.aisle = aisle;
 		this.user = user;
 	}
+
+	// @return the itemID
+	public Long getItemID()
+	{ return itemID; }
+
+	// @param itemID the itemID to set
+	public void setItemID(Long itemID)
+	{ this.itemID = itemID; }
+
+	// @return the description
+	public String getDescription()
+	{ return description; }
+
+	// @param description the description to set
+	public void setDescription(String description)
+	{ this.description = description; }
+
+	// @return the aisle
+	public Aisle getAisle()
+	{ return aisle; }
+
+	// @param aisle the aisle to set
+	public void setAisle(Aisle aisle)
+	{ this.aisle = aisle; }
+
+	// @return the user
+	public User getUser()
+	{ return user; }
+
+	// @param user the user to set
+	public void setUser(User user)
+	{ this.user = user; }
 
 	public String toString()
 	{

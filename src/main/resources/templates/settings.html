@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <!-- Head -->
+  <div th:replace="~{fragments/head :: head}"></div>
+  <body>
+	<!-- Edit Aisle Modal -->
+	<div class="modal fade" id="editAisleModal" tabindex="-1" role="dialog" aria-labelledby="lblEditAisle" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="lblEditAisle">Edit Aisle:</h5>
+					<button type="button" class="close close-edit-aisle-modal" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="frmEditAisle" th:action="@{/settings/edit/aisle}" method="PUT" th:object="${aisle}">
+						<input type=hidden id="txtEditAisleID" name="txtEditAisleID" th:field="*{aisleID}">
+						<div class="form-group">
+							<label for="txtEditAisleName" class="col-form-label">Name:</label>
+							<input type="text" class="form-control mr-2" id="txtEditAisleName" th:field="*{name}">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary close-edit-aisle-modal" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Confirm</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Edit UnitOfMeasurement Modal -->
+	<div class="modal fade" id="editUnitOfMeasurementModal" tabindex="-1" role="dialog" aria-labelledby="lblEditUnitOfMeasurement" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="lblEditUnitOfMeasurement">Edit Unit of Measurement:</h5>
+					<button type="button" class="close close-edit-unitOfMeasurement-modal" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="frmEditUnitOfMeasurement" th:action="@{/settings/edit/unitOfMeasurement}" method="PUT" th:object="${unitOfMeasurement}">
+						<input type=hidden id="txtEditUnitOfMeasurementID" name="txtEditUnitOfMeasurementID" th:field="*{unitOfMeasurementID}">
+						<div class="form-group">
+							<label for="txtEditUnitOfMeasurementName" class="col-form-label">Name:</label>
+							<input type="text" class="form-control mr-2" id="txtEditUnitOfMeasurementName" th:field="*{name}">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary close-edit-unitOfMeasurement-modal" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Confirm</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Amount Modal -->
+	<div class="modal fade" id="editAmountModal" tabindex="-1" role="dialog" aria-labelledby="lblEditAmount" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="lblEditAmount">Edit Amount:</h5>
+					<button type="button" class="close close-edit-amount-modal" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="frmEditAmount" th:action="@{/settings/edit/amount}" method="PUT" th:object="${amount}">
+						<input type=hidden id="txtEditAmountID" name="txtEditAmountID" th:field="*{amountID}">
+						<div class="form-group">
+							<label for="txtEditAmountName" class="col-form-label">Value:</label>
+							<input type="text" class="form-control mr-2" id="txtEditAmountValue" th:field="*{value}">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary close-edit-amount-modal" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Confirm</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- Header -->
+    <header class="fixed-top">
+	<!-- Alert Box -->
+	<div th:replace="~{fragments/alert_success :: alert_success}"></div>
+      <!-- Nav Bar -->
+      <div th:replace="~{fragments/nav :: nav}"></div>
+    </header>
+    <!-- Body -->
+    <main class="text-center" id="pnlSettings">
+	    <div class="form-signin mx-3"  id="frmSettings">
+	    	<div class=bg-white>
+			    <div class="panel">
+			      <label class="pt-2">Aisles:</label>
+			      <div class="d-flex justify-content-center mb-2">
+				      <form class="btn-group" id="frmAddAisle" th:action="@{/settings/add/aisle}" method="POST" th:object="${aisle}">
+				        <div class="form-group mb-2">
+				          <label for="txtAddAisle" class="sr-only">Add</label>
+				          <input type="text" class="form-control mr-2" id="txtAddAisle" placeholder="new aisle" th:field="*{name}">
+				        </div>
+				        <button type="submit" class="btn btn-primary mb-2">Add</button>
+				      </form>
+			      </div>
+			      <div class="d-flex justify-content-center mb-2">
+			        <div class="btn-group" role="group">
+			          <button type="button" class="btn btn-warning" id="cmdEditAisle" data-toggle="modal" data-target="#editAisleModal">Edit</button>
+			          <button type="button" class="btn btn-danger" id="cmdRemoveAisle">Remove</button>
+			        </div>
+			      </div>
+			      <div class="d-flex justify-content-center mx-2 pb-2">
+				      <select class="form-control" id="cmbAisle">
+				        <option th:each="aisle : ${aisles}" th:value="${aisle.aisleID}" th:text="${aisle.name}"></option>
+				      </select>
+			      </div>
+			    </div>
+		    </div>
+	    	<div class=bg-white>
+			    <div class="panel">
+			      <label class="pt-2">Units of Measurment:</label>
+			      <div class="d-flex justify-content-center mb-2">
+				      <form class="btn-group" id="frmAddUnitOfMeasurement" th:action="@{/settings/add/unitOfMeasurement}" method="POST" th:object="${unitOfMeasurement}">
+				        <div class="form-group mb-2">
+				          <label for="txtAddUnitOfMeasurement" class="sr-only">Add</label>
+				          <input type="text" class="form-control mr-2" id="txtUnitOfMeasurement" placeholder="new unit of measurement" th:field="*{name}">
+				        </div>
+				        <button type="submit" class="btn btn-primary mb-2">Add</button>
+				      </form>
+			      </div>
+			      <div class="d-flex justify-content-center mb-2">
+			        <div class="btn-group" role="group">
+			          <button type="button" class="btn btn-warning" id="cmdEditUnitOfMeasurement" data-toggle="modal" data-target="#editUnitOfMeasurementModal">Edit</button>
+			          <button type="button" class="btn btn-danger" id="cmdRemoveUnitOfMeasurement">Remove</button>
+			        </div>
+			      </div>
+			      <div class="d-flex justify-content-center mx-2 pb-2">
+				      <select class="form-control" id="cmbUnitsOfMeasurement">
+				        <option th:each="unitOfMeasurement : ${unitsOfMeasurement}" th:value="${unitOfMeasurement.unitOfMeasurementID}" th:text="${unitOfMeasurement.name}"></option>
+				      </select>
+			      </div>
+			    </div>
+		    </div>
+	    	<div class=bg-white>
+			    <div class="panel">
+			      <label class="pt-2">Amounts:</label>
+			      <div class="d-flex justify-content-center mb-2">
+				      <form class="btn-group" id="frmAddAmount" th:action="@{/settings/add/amount}" method="POST" th:object="${amount}">
+				        <div class="form-group mb-2">
+				          <label for="txtAddAmount" class="sr-only">Add</label>
+				          <input type="text" class="form-control mr-2" id="txtAmount" placeholder="new amount" th:field="*{value}">
+				        </div>
+				        <button type="submit" class="btn btn-primary mb-2">Add</button>
+				      </form>
+			      </div>
+			      <div class="d-flex justify-content-center mb-2">
+			        <div class="btn-group" role="group">
+			          <button type="button" class="btn btn-warning" id="cmdEditAmount" data-toggle="modal" data-target="#editAmountModal">Edit</button>
+			          <button type="button" class="btn btn-danger" id="cmdRemoveAmount">Remove</button>
+			        </div>
+			      </div>
+			      <div class="d-flex justify-content-center mx-2 pb-2">
+				      <select class="form-control" id="cmbAmount">
+				        <option th:each="amount : ${amounts}" th:value="${amount.amountID}" th:text="${amount.value}"></option>
+				      </select>
+			      </div>
+			    </div>
+		    </div>
+	    </div>
+    </main>
+    <!-- Script Imports -->
+    <div th:replace="~{fragments/script_imports :: script_imports}"></div>
+	<script th:src="@{script/scriptSettings.js}"></script>
+  </body>
+</html>

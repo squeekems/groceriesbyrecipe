@@ -1,5 +1,8 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+import static java.time.LocalDateTime.now;
+import static java.lang.System.out;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +17,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
-import com.jackrkern.groceriesbyrecipe.business.RecipeService;
 import com.jackrkern.groceriesbyrecipe.business.ShoppingListItemService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.Item;
 import com.jackrkern.groceriesbyrecipe.models.ShoppingListItem;
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+
+import java.time.format.DateTimeFormatter;
 
 /* @author "Jack Kern" */
 
 @Controller
-@RequestMapping("/items")
 public class ItemsController
 {
+	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATEPATTERN);
+
 	@Autowired
 	private ItemService itemService;
 
@@ -35,66 +41,76 @@ public class ItemsController
 	@Autowired
 	private ShoppingListItemService shoppingListItemService;
 
-	/**/// Should be in my Settings Controller
-	/**/@Autowired
-	/**/private RecipeService recipeService;
-	/**/// Should be in my Settings Controller
-
 	// Read
-	@GetMapping
+	@GetMapping(sITEMS)
 	public String getItems(Model model)
 	{
-		model.addAttribute("items", itemService.getItemsSortedByAisle(userService.getPrincipal()));
-		model.addAttribute("item", new Item());
-		model.addAttribute("activePage", "items");
-		model.addAttribute("aisles", itemService.getAisles());
-		model.addAttribute("shoppingList", new ShoppingListItem());
-		/**/// Should be in my Settings Controller
-		/**/model.addAttribute("aisles", itemService.getAisles());
-		/**/model.addAttribute("unitsOfMeasurement", recipeService.getUnitsOfMeasurement());
-		/**/model.addAttribute("amounts", recipeService.getAmounts());
-		/**/// Should be in my Settings Controller
-		return "items";
+		model.addAttribute(ITEMS, itemService.getItemsSortedByAisle(userService.getPrincipal()));
+		model.addAttribute(ITEM, new Item());
+		model.addAttribute(ACTIVEPAGE, "Store Items");
+		model.addAttribute(AISLES, itemService.getAisles(userService.getPrincipal()));
+		model.addAttribute(SHOPPINGLIST, new ShoppingListItem());
+		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ITEMS);
+		return ITEMS;
 	}
 
 	// Create
-	@PostMapping("/add")
+	@PostMapping(sITEMS + sADD)
 	public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
-	Long aisleID, RedirectAttributes redirectAttributes)
+	Long aisleID, @RequestParam(value = "chkAddToShoppingList", required = false)
+	String blnAddToShoppingList, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
-		itemService.saveItem(item);
-		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Added");
-		return new RedirectView("/items");
+		item = itemService.saveItem(item);
+		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ITEM, item);
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cADDED));
+		if (blnAddToShoppingList != null)
+		{
+			ShoppingListItem shoppingListItem = new ShoppingListItem();
+			shoppingListItem.setItem(item);
+			shoppingListItem.setUser(userService.getPrincipal());
+			shoppingListItem.setCount(1);
+			shoppingListItemService.saveShoppingListItem(shoppingListItem);
+			out.printf(	PERSONsVERBEDsNOUNsTOsTHEIRsNOUN, now().format(dateTimeFormatter),
+						userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED,
+						shoppingListItem, SHOPPINGsLIST);
+		}
+		return new RedirectView(sITEMS);
 	}
 
 	// Update
-	@RequestMapping(value = "/edit", method = { RequestMethod.PUT, RequestMethod.GET })
+	@RequestMapping(value = sITEMS + sEDIT, method = { RequestMethod.PUT, RequestMethod.GET })
 	public RedirectView updateItem(Item item, @RequestParam(value = "cmbEditAisle")
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
-		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Edited");
-		return new RedirectView("/items");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cEDITED));
+		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED, ITEM, item);
+		return new RedirectView(sITEMS);
 	}
 
 	// Delete
-	@GetMapping("/remove/{itemID}")
+	@GetMapping(sITEMS + sREMOVE + "/{itemID}")
 	public RedirectView deleteItem(@PathVariable(value = "itemID")
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
 		// create item object to use in feedback
 		Item item = itemService.getItemByID(itemID);
 		itemService.deleteItem(itemID);
-		redirectAttributes.addFlashAttribute("success", item.getDescription() + " Removed");
-		return new RedirectView("/items");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cREMOVED));
+		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED, ITEM, item);
+		return new RedirectView(sITEMS);
 	}
 
 	// Gets Item to be Editted or Added to Shopping List
-	@RequestMapping("/getItemByID/{itemID}")
+	@RequestMapping(sITEMS + sGET + cITEM + cBYID + "/{itemID}")
 	@ResponseBody
 	public Item getItemByID(@PathVariable(value = "itemID")
 	Long itemID)
@@ -103,17 +119,22 @@ public class ItemsController
 	}
 
 	// AddToShoppingList
-	@PostMapping("/addToShoppingList")
+	@PostMapping(sITEMS + sADDTOSHOPPINGLIST)
 	public RedirectView addItemToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = "txtID")
 	Long itemID, @RequestParam(value = "numCount")
-	int count, RedirectAttributes redirectAttributes)
+	int count, @RequestParam(value = "txtAddToShoppingListScrollValue")
+	double intScrollValue, RedirectAttributes redirectAttributes)
 	{
 		shoppingListItem.setItem(itemService.getItemByID(itemID));
 		shoppingListItem.setUser(userService.getPrincipal());
 		shoppingListItem.setCount(count);
 		shoppingListItemService.saveShoppingListItem(shoppingListItem);
-		redirectAttributes.addFlashAttribute("success", shoppingListItem.getItem().getDescription()
-														+ " Added to Shopping List");
-		return new RedirectView("/items");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem,
+																	" Added to Shopping List"));
+		redirectAttributes.addFlashAttribute(SCROLLVALUE, intScrollValue);
+		out.printf(	PERSONsVERBEDsNOUNsTOsTHEIRsNOUN, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED, shoppingListItem,
+					SHOPPINGsLIST);
+		return new RedirectView(sITEMS);
 	}
 }

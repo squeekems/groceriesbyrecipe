@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <!-- Head -->
   <div th:replace="~{fragments/head :: head}"></div>
-  <body style="padding-top: 144px;">
-		<!-- Settings Modal -->
-  	<div th:replace="~{fragments/settings :: settings}"></div>
+  <body 
+  	style="
+  		padding-top: 144px;
+  		background: none;">
 		<!-- Add Item Modal -->
 		<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="lblAddItem" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -52,46 +53,46 @@
 			</div>
 		</div>
 		<!-- Header -->
-    <header class="fixed-top bg-white">
-	  <!-- Alert Box -->
-      <div th:replace="~{fragments/alert_success :: alert_success}"></div>
-	  <!-- Nav Bar -->
-      <div th:replace="~{fragments/nav :: nav}"></div>
-	  <!-- Button Group -->
-      <div class="d-flex justify-content-center bg-white">
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">Add</button>
-          <button type="button" class="shoppingListItem-buttons btn btn-warning disabled" id="cmdRemoveShoppingListItem">Remove</button>
-          <button type="button" class="btn btn-danger" id="cmdClearShoppingList">Clear</button>
-        </div>
-      </div>
-	  <!-- Column Heads -->
-      <table class="m-0 table table-hover w-auto">
-	    <thead class="sticky-top bg-white">
-		  <tr>
-				<th scope="col" hidden>ID</th>
-				<th scope="col" class="list-column-1"></th>
-				<th scope="col" class="list-column-2 text-right">Count</th>
-				<th scope="col" class="list-column-3 text-right">Aisle</th>
-				<th scope="col">Description</th>
-		  </tr>
-		</thead>
-	 </table>
-    </header>
-	<!-- Body -->
-	<table class="table table-hover w-auto" id="tblShoppingListItems">
-		<tbody>
-			<tr class="clickable-row searchable-row" th:each="shoppingListItem : ${shoppingList}">
-				<td th:text="${shoppingListItem.shoppingListID}" class="shoppingListID" hidden>ID</td>
-				<td class="list-column-1"><input type="checkbox"></td>
-				<td th:text="${shoppingListItem.count}" class="list-column-2 text-right">COUNT</td>
-				<td th:text="${shoppingListItem.item.aisle.name}" class="list-column-3 text-right">AI</td>
-				<td th:text="${shoppingListItem.item.description}">DESCRIPTION</td>
-			</tr>
-		</tbody>
-	</table>
-	<!-- Script Imports -->
-	<div th:replace="~{fragments/script_imports :: script_imports}"></div>
-  <script th:src="@{script/scriptShoppingList.js}"></script>
+		<header class="fixed-top bg-white">
+			<!-- Alert Box -->
+			<div th:replace="~{fragments/alert_success :: alert_success}"></div>
+			<!-- Nav Bar -->
+			<div th:replace="~{fragments/nav :: nav}"></div>
+			<!-- Button Group -->
+			<div class="d-flex justify-content-center bg-white">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">Add</button>
+					<button type="button" class="shoppingListItem-buttons btn btn-warning disabled" id="cmdRemoveShoppingListItem">Remove</button>
+					<button type="button" class="btn btn-danger" id="cmdClearShoppingList">Clear</button>
+				</div>
+			</div>
+			<!-- Column Heads -->
+			<table class="m-0 table table-hover w-auto">
+				<thead class="sticky-top bg-white">
+					<tr>
+						<th scope="col" hidden>ID</th>
+						<th scope="col" class="list-column-1 text-right">Aisle</th>
+						<th scope="col" class="text-center">Description</th>
+						<th scope="col" class="list-column-2 text-center">Count</th>
+						<th scope="col" class="list-column-3"></th>
+					</tr>
+				</thead>
+			</table>
+		</header>
+		<!-- Body -->
+		<table class="table table-hover w-auto" id="tblShoppingListItems">
+			<tbody>
+				<tr class="clickable-row searchable-row" th:each="shoppingListItem : ${shoppingList}">
+					<td th:text="${shoppingListItem.shoppingListID}" class="shoppingListID" hidden>ID</td>
+					<td th:text="${shoppingListItem.item.aisle.name}" class="list-column-1 text-right">AI</td>
+					<td th:text="${shoppingListItem.item.description}" class="text-center">DESCRIPTION</td>
+					<td th:text="${shoppingListItem.count}" class="list-column-2 text-center">COUNT</td>
+					<td class="list-column-3 text-right"><input type="checkbox"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Script Imports -->
+		<div th:replace="~{fragments/script_imports :: script_imports}"></div>
+		<script th:src="@{script/scriptShoppingList.js}"></script>
   </body>
 </html>
