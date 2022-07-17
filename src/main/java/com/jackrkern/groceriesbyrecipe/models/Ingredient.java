@@ -1,17 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "ingredients")
+@Table(name = INGREDIENTS)
 public class Ingredient
 {
 	@Id
@@ -19,15 +15,15 @@ public class Ingredient
 	private Long ingredientID;
 
 	@OneToOne
-	@JoinColumn(name = "amountID", referencedColumnName = "amountID")
+	@JoinColumn(name = AMOUNTID, referencedColumnName = AMOUNTID)
 	private Amount amount;
 
 	@OneToOne
-	@JoinColumn(name = "unitOfMeasurementID", referencedColumnName = "unitOfMeasurementID")
+	@JoinColumn(name = UNITOFMEASUREMENTID, referencedColumnName = UNITOFMEASUREMENTID)
 	private UnitOfMeasurement unitOfMeasurement;
 
 	@OneToOne
-	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
+	@JoinColumn(name = ITEMID, referencedColumnName = ITEMID)
 	private Item item;
 
 	// @return the ingredientID
@@ -64,6 +60,7 @@ public class Ingredient
 
 	public String toString()
 	{
-		return amount.getValue() + " " + unitOfMeasurement.getName() + " " + item.getDescription();
+		return amount + " " + unitOfMeasurement + " " + item;
+// 		return String.format(ENTITY3TOSTRING, cINGREDIENT, amount, unitOfMeasurement, item);
 	}
 }

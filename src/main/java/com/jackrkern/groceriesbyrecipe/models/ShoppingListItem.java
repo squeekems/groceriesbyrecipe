@@ -1,19 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "shoppingList")
+@Table(name = SHOPPINGLIST)
 public class ShoppingListItem
 {
 	@Id
@@ -24,11 +18,11 @@ public class ShoppingListItem
 	private int count;
 
 	@OneToOne
-	@JoinColumn(name = "itemID", referencedColumnName = "itemID")
+	@JoinColumn(name = ITEMID, referencedColumnName = ITEMID)
 	private Item item;
 
 	@ManyToOne
-	@JoinColumn(name = "userID", nullable = false)
+	@JoinColumn(name = USERID, nullable = false)
 	private User user;
 
 	/*  */
@@ -101,7 +95,9 @@ public class ShoppingListItem
 	{
 		if (count > 1)
 			return item + " (x" + count + ")";
+//			return String.format(ENTITY2TOSTRING, cSHOPPINGLISTITEM, item, String.format(COUNTTOSTRING, count));
 		else
 			return item.toString();
+//			return String.format(ENTITYTOSTRING, cSHOPPINGLISTITEM, item);
 	}
 }

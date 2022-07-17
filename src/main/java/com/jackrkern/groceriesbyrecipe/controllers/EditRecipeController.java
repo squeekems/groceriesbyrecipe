@@ -122,7 +122,7 @@ public class EditRecipeController
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
-		ingredient.setIngredientID(ingredientID);
+		ingredient = recipeService.getIngredientByID(ingredientID);
 		ingredient.setAmount(recipeService.getAmountByID(amountID));
 		ingredient.setUnitOfMeasurement(recipeService.getUnitOfMeasurementByID(unitOfMeasurementID));
 		ingredient.setItem(itemService.getItemByID(itemID));

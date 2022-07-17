@@ -2,22 +2,14 @@ package com.jackrkern.groceriesbyrecipe.models;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "recipes")
+@Table(name = RECIPES)
 public class Recipe
 {
 	@Id
@@ -28,11 +20,11 @@ public class Recipe
 	@Column(length = 2047)
 	private String instructions;
 	@ManyToMany(targetEntity = Ingredient.class, fetch = FetchType.EAGER)
-	@JoinTable(	name = "recipes_ingredients", joinColumns = { @JoinColumn(name = "recipeID") },
-				inverseJoinColumns = { @JoinColumn(name = "ingredientID") })
+	@JoinTable(	name = RECIPES_INGREDIENTS, joinColumns = { @JoinColumn(name = RECIPEID) },
+				inverseJoinColumns = { @JoinColumn(name = INGREDIENTID) })
 	private Set<Ingredient> ingredients;
 	@ManyToOne
-	@JoinColumn(name = "userID", nullable = false)
+	@JoinColumn(name = USERID, nullable = false)
 	private User user;
 
 	// @return the recipeID
@@ -49,7 +41,7 @@ public class Recipe
 
 	// @param name the name to set
 	public void setName(String name)
-	{ this.name = name; }
+	{ this.name = name.trim(); }
 
 	// @return the instructions
 	public String getInstructions()
@@ -57,7 +49,7 @@ public class Recipe
 
 	// @param instructions the instructions to set
 	public void setInstructions(String instructions)
-	{ this.instructions = instructions; }
+	{ this.instructions = instructions.trim(); }
 
 	// @return the ingredients
 	public Set<Ingredient> getIngredients()
@@ -78,5 +70,6 @@ public class Recipe
 	public String toString()
 	{
 		return name;
+//		return String.format( ENTITY2TOSTRING, cRECIPE, String.format(ENTITYTOSTRING, cNAME, name), String.format(ENTITYTOSTRING, cINSTRUCTIONS, instructions));
 	}
 }

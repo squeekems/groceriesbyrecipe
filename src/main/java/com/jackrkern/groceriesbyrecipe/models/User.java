@@ -1,16 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "users")
+@Table(name = USERS)
 public class User
 {
 	@Id
@@ -46,7 +43,7 @@ public class User
 
 	// @param username the username to set
 	public void setUsername(String username)
-	{ this.username = username; }
+	{ this.username = username.trim(); }
 
 	// @return the email
 	public String getEmail()
@@ -54,7 +51,7 @@ public class User
 
 	// @param email the email to set
 	public void setEmail(String email)
-	{ this.email = email; }
+	{ this.email = email.trim(); }
 
 	// @return the password
 	public String getPassword()
@@ -62,7 +59,7 @@ public class User
 
 	// @param password the password to set
 	public void setPassword(String password)
-	{ this.password = password; }
+	{ this.password = password.trim(); }
 
 	// @return the lastName
 	public String getLastName()
@@ -70,7 +67,7 @@ public class User
 
 	// @param lastName the lastName to set
 	public void setLastName(String lastName)
-	{ this.lastName = lastName; }
+	{ this.lastName = lastName.trim(); }
 
 	// @return the firstName
 	public String getFirstName()
@@ -78,7 +75,7 @@ public class User
 
 	// @param firstName the firstName to set
 	public void setFirstName(String firstName)
-	{ this.firstName = firstName; }
+	{ this.firstName = firstName.trim(); }
 
 	public String toString()
 	{
@@ -87,9 +84,7 @@ public class User
 		{
 			fullName = firstName;
 			if (lastName != null && lastName != "" && !lastName.isEmpty())
-			{
 				fullName += " " + lastName;
-			}
 		} else if (lastName != null && lastName != "" && !lastName.isEmpty())
 			fullName = lastName;
 		else if (username != null && username != "" && !username.isEmpty())

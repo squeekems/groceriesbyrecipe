@@ -132,7 +132,7 @@
 						<ul>
 							<li 
 								th:each="ingredient : ${recipe.ingredients}" 
-								th:text="${ingredient.amount.value} + ' ' + ${ingredient.unitOfMeasurement.name} + ' ' + ${ingredient.item.description}">
+								th:text="${ingredient.toString()}">
 								Recipe Ingredient
 							</li>	      	
 						</ul>

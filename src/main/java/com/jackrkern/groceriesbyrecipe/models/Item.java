@@ -1,19 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "items")
+@Table(name = ITEMS)
 public class Item
 {
 	@Id
@@ -24,11 +18,11 @@ public class Item
 	private String description;
 
 	@OneToOne
-	@JoinColumn(name = "aisleID", referencedColumnName = "aisleID")
+	@JoinColumn(name = AISLEID, referencedColumnName = AISLEID)
 	private Aisle aisle;
 
 	@ManyToOne
-	@JoinColumn(name = "userID", nullable = false)
+	@JoinColumn(name = USERID, nullable = false)
 	private User user;
 
 	public Item()
@@ -36,6 +30,7 @@ public class Item
 
 	public Item(String description, Aisle aisle, User user)
 	{
+		this();
 		this.description = description;
 		this.aisle = aisle;
 		this.user = user;
@@ -55,7 +50,7 @@ public class Item
 
 	// @param description the description to set
 	public void setDescription(String description)
-	{ this.description = description; }
+	{ this.description = description.trim(); }
 
 	// @return the aisle
 	public Aisle getAisle()
@@ -76,5 +71,6 @@ public class Item
 	public String toString()
 	{
 		return description;
+//		return String.format(ENTITY2TOSTRING, cITEM, aisle, String.format(ENTITYTOSTRING, cDESCRIPTION, description));
 	}
 }

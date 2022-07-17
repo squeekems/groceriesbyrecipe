@@ -1,18 +1,13 @@
 package com.jackrkern.groceriesbyrecipe.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = "aisles")
+@Table(name = AISLES)
 public class Aisle
 {
 	@Id
@@ -23,7 +18,7 @@ public class Aisle
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name = "userID", nullable = false)
+	@JoinColumn(name = USERID, nullable = false)
 	private User user;
 
 	// @return the aisleID
@@ -40,7 +35,7 @@ public class Aisle
 
 	// @param name the name to set
 	public void setName(String name)
-	{ this.name = name; }
+	{ this.name = name.trim(); }
 
 	// @return the user
 	public User getUser()
@@ -58,5 +53,6 @@ public class Aisle
 	public String toString()
 	{
 		return name;
+//		return String.format(ENTITYTOSTRING, cAISLE, name);
 	}
 }
