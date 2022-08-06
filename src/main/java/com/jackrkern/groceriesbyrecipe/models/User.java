@@ -3,14 +3,18 @@
  */
 package com.jackrkern.groceriesbyrecipe.models;
 
+/**
+ * @imports
+ */
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.TN_USERS;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Entity
 @Table(name = TN_USERS)
 public class User {
@@ -33,42 +37,95 @@ public class User {
 	@Column
 	private String firstName;
 
-	// @return the userID
+	/**
+	 * Returns the userID of the User.
+	 *
+	 * @return the {@link Long} userID
+	 */
 	public Long getUserID() { return userID; }
 
-	// @param userID the userID to set
+	/**
+	 * Sets the userID of the User.
+	 *
+	 * @param userID of type {@link Long}
+	 */
 	public void setUserID(Long userID) { this.userID = userID; }
 
-	// @return the username
+	/**
+	 * Returns the username of the User.
+	 *
+	 * @return the {@link String} username
+	 */
 	public String getUsername() { return username; }
 
-	// @param username the username to set
+	/**
+	 * Sets the username of the User.
+	 *
+	 * @param username of type {@link String}
+	 */
 	public void setUsername(String username) { this.username = username.trim(); }
 
-	// @return the email
+	/**
+	 * Return the email of the User.
+	 *
+	 * @return the {@link String} email
+	 */
 	public String getEmail() { return email; }
 
-	// @param email the email to set
+	/**
+	 * Sets the email of the User.
+	 *
+	 * @param email of type {@link String}
+	 */
 	public void setEmail(String email) { this.email = email.trim(); }
 
-	// @return the password
+	/**
+	 * Returns the password of the User.
+	 *
+	 * @return the {@link String} password
+	 */
 	public String getPassword() { return password; }
 
-	// @param password the password to set
+	/**
+	 * Sets the password of the User.
+	 *
+	 * @param password of type {@link String}
+	 */
 	public void setPassword(String password) { this.password = new BCryptPasswordEncoder().encode(password.trim()); }
 
-	// @return the lastName
+	/**
+	 * Returns the lastName of the User.
+	 *
+	 * @return the {@link String} lastName
+	 */
 	public String getLastName() { return lastName; }
 
-	// @param lastName the lastName to set
+	/**
+	 * Sets the lastName of the User.
+	 *
+	 * @param lastName of type {@link String}
+	 */
 	public void setLastName(String lastName) { this.lastName = lastName.trim(); }
 
-	// @return the firstName
+	/**
+	 * Returns the firstName of the User.
+	 *
+	 * @return the {@link String} firstName
+	 */
 	public String getFirstName() { return firstName; }
 
-	// @param firstName the firstName to set
+	/**
+	 * Sets the firstName of the User.
+	 *
+	 * @param firstName of type {@link String}
+	 */
 	public void setFirstName(String firstName) { this.firstName = firstName.trim(); }
 
+	/**
+	 * Return all the values represented in the User.
+	 *
+	 * @return a detailed String representation of the User
+	 */
 	public String toDetailedString() {
 		return "User [userID="	+ userID +
 				", username=" + username +
@@ -78,6 +135,11 @@ public class User {
 				", firstName=" + firstName + "]";
 	}
 
+	/**
+	 * Checks which String representations are available and returns the most intimate option.
+	 *
+	 * @return a String representation of the User
+	 */
 	@Override
 	public String toString() {
 		String fullName;

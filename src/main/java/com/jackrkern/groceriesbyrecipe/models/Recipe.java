@@ -3,13 +3,17 @@
  */
 package com.jackrkern.groceriesbyrecipe.models;
 
+/**
+ * @imports
+ */
 import javax.persistence.*;
 import java.util.Set;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Entity
 @Table(name = TN_RECIPES)
 public class Recipe {
@@ -28,46 +32,81 @@ public class Recipe {
 	@JoinColumn(name = CN_USER_ID, nullable = false)
 	private User user;
 
-	// @return the recipeID
+	/**
+	 * Returns the recipeID of the Recipe.
+	 *
+	 * @return the {@link Long} recipeID
+	 */
 	public Long getRecipeID() { return recipeID; }
 
-	// @param recipeID the recipeID to set
+	/**
+	 * Sets the recipeID of the Recipe.
+	 *
+	 * @param recipeID of type {@link Long}
+	 */
 	public void setRecipeID(Long recipeID) { this.recipeID = recipeID; }
 
-	// @return the name
+	/**
+	 * Returns the name of the Recipe.
+	 *
+	 * @return the {@link String} name
+	 */
 	public String getName() { return name; }
 
-	// @param name the name to set
+	/**
+	 * Sets the name of the Recipe.
+	 *
+	 * @param name of type {@link String}
+	 */
 	public void setName(String name) { this.name = name.trim(); }
 
-	// @return the instructions
+	/**
+	 * Returns the instructions of the Recipe.
+	 *
+	 * @return the {@link String} instructions
+	 */
 	public String getInstructions() { return instructions; }
 
-	// @param instructions the instructions to set
+	/**
+	 * Sets the instructions of the Recipe.
+	 *
+	 * @param instructions of type {@link String}
+	 */
 	public void setInstructions(String instructions) { this.instructions = instructions.trim(); }
 
-	// @return the ingredients
+	/**
+	 * Returns the ingredients of the Recipe.
+	 *
+	 * @return the {@link Set<Ingredient>} ingredients
+	 */
 	public Set<Ingredient> getIngredients() { return ingredients; }
 
-	// @param ingredients the ingredients to set
+	/**
+	 * Sets the ingredients of the Recipe.
+	 *
+	 * @param ingredients of type {@link Set<Ingredient>}
+	 */
 	public void setIngredients(Set<Ingredient> ingredients) { this.ingredients = ingredients; }
 
-//	public void addIngredient(Ingredient ingredient) {
-//		ingredients.add(ingredient);
-//		ingredient.getRecipes().add(this);
-//	}
-//
-//	public void removeIngredient(Ingredient ingredient) {
-//		ingredients.remove(ingredient);
-//		ingredient.getRecipes().remove(this);
-//	}
-
-	// @return the user
+	/**
+	 * Returns the user of the Recipe.
+	 *
+	 * @return the {@link User} user
+	 */
 	public User getUser() { return user; }
 
-	// @param user the user to set
+	/**
+	 * Sets the user of the Recipe.
+	 *
+	 * @param user of type {@link User}
+	 */
 	public void setUser(User user) { this.user = user; }
 
+	/**
+	 * Return all the values represented in the Recipe.
+	 *
+	 * @return a detailed String representation of the Recipe
+	 */
 	public String toDetailedString() {
 		String recipe = user + "'s Recipe [recipeID=" + recipeID +
 				", name=" + name;
@@ -79,6 +118,11 @@ public class Recipe {
 		return recipe;
 	}
 
+	/**
+	 * Returns the name of the Recipe.
+	 *
+	 * @return a String representation of the Recipe
+	 */
 	@Override
 	public String toString()
 	{

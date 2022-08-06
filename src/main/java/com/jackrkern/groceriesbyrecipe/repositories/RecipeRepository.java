@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.repositories;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.Recipe;
 import com.jackrkern.groceriesbyrecipe.models.User;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +17,9 @@ import java.util.Set;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.FIND_INGREDIENTS_BY_RECIPE_ID;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Repository
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 	List<Recipe> findByIngredients_IngredientID(Long ingredientID);

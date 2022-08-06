@@ -3,14 +3,18 @@
  */
 package com.jackrkern.groceriesbyrecipe.security;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 public class UserDetailsImpl implements UserDetails
 {
 	private final User user;

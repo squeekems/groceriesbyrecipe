@@ -193,7 +193,7 @@ public class AppConstants {
 	 * Returns the passed String capitalized.
 	 *
 	 * <p>Capitalize a String, changing the first letter to upper case as per
-	 * {@link Character} No other letters are changed.</p>
+	 * {@link Character#toUpperCase(char)} No other letters are changed.</p>
 	 *
 	 * @param s The String to capitalize.
 	 * @return The capitalized String.
@@ -245,7 +245,7 @@ public class AppConstants {
 	public static LocalDateTime now() { return LocalDateTime.now(); }
 
 	/**
-	 * Returns the passed String in its pastOf tense form. Intended for single word Strings.
+	 * Returns the passed String in its past tense form. Intended for single word Strings.
 	 *
 	 * <p>This function does not account for capitalization. It assumes the word being passed is all
 	 * lowercase.</p>
@@ -253,8 +253,8 @@ public class AppConstants {
 	 * <p>This function does not account for word stressing. There are certain words that are spelt
 	 * different based on the stress of the spoken word. These conditions are ignored.</p>
 	 *
-	 * @param s The String to be made pastOf tense.
-	 * @return The pastOf tense of the String.
+	 * @param s The String to be made past tense.
+	 * @return The past tense of the String.
 	 */
 	public static String pastOf(String s) {
 		if (s.toLowerCase(Locale.ROOT).equals(CATCH)) {
@@ -297,13 +297,13 @@ public class AppConstants {
 	}
 
 	/**
-	 * Returns the passed String in its pluralOf form. Intended for singe word Strings.
+	 * Returns the passed String in its plural form. Intended for single word Strings.
 	 *
 	 * <p>This function does not account for capitalization. It assumes the word being passed is all
 	 * lowercase.</p>
 	 *
-	 * @param s The String to be made pluralOf.
-	 * @return The Plural String.
+	 * @param s The String to be made plural.
+	 * @return The plural String.
 	 */
 	public static String pluralOf(String s) {
 		if (s.endsWith("s") || s.endsWith("sh") || s.endsWith("ch")
@@ -325,6 +325,8 @@ public class AppConstants {
 	/**
 	 * Returns the passed String replacing capital letters with a space and lowercase letters.
 	 *
+	 * <p>Makes use of {@link String#replaceAll(String, String)} passing "([^_])([A-Z])" as regex
+	 * parameter and "$1 $2" as replacement parameter.</p>
 	 * <p>If "unitOfMeasurement" is passed to this function, "unit of measurement" is returned.</p>
 	 *
 	 * @param s The String to be edited.

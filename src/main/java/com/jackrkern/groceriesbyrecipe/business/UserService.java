@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.business;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
 import com.jackrkern.groceriesbyrecipe.models.Amount;
 import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
@@ -19,8 +22,9 @@ import org.springframework.stereotype.Service;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Service
 public class UserService {
 

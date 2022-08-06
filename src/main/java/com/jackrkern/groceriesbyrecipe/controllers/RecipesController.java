@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;
 import com.jackrkern.groceriesbyrecipe.business.ShoppingListItemService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
@@ -21,8 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Controller
 @RequestMapping(RECIPES)
 public class RecipesController {

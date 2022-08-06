@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import com.jackrkern.groceriesbyrecipe.models.User;
 import org.slf4j.Logger;
@@ -23,8 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Controller
 @RequestMapping(REGISTER)
 public class RegisterController {

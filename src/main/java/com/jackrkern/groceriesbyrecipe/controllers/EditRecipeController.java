@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.business.ItemService;
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;
 import com.jackrkern.groceriesbyrecipe.business.UserService;
@@ -24,8 +27,9 @@ import java.util.Map;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Controller
 @RequestMapping(EDIT_RECIPE)
 public class EditRecipeController {

@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.business;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
 import com.jackrkern.groceriesbyrecipe.models.Item;
 import com.jackrkern.groceriesbyrecipe.models.User;
@@ -19,8 +22,9 @@ import java.util.List;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Service
 public class ItemService {
 

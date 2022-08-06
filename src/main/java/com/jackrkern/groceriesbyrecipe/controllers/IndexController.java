@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.controllers;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.business.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Controller
 @RequestMapping({ FS, INDEX })
 public class IndexController {

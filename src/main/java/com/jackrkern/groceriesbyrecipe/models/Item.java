@@ -3,12 +3,16 @@
  */
 package com.jackrkern.groceriesbyrecipe.models;
 
+/**
+ * @imports
+ */
 import javax.persistence.*;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Entity
 @Table(name = TN_ITEMS)
 public class Item {
@@ -36,36 +40,78 @@ public class Item {
 		this.user = user;
 	}
 
-	// @return the itemID
+	/**
+	 * Returns the itemID of the Item.
+	 *
+	 * @return the {@link Long} itemID
+	 */
 	public Long getItemID() { return itemID; }
 
-	// @param itemID the itemID to set
+	/**
+	 * Sets the itemID of the Item.
+	 *
+	 * @param itemID of type {@link Long}
+	 */
 	public void setItemID(Long itemID) { this.itemID = itemID; }
 
-	// @return the description
+	/**
+	 * Returns the description of the Item.
+	 *
+	 * @return the {@link String} description
+	 */
 	public String getDescription() { return description; }
 
-	// @param description the description to set
+	/**
+	 * Sets the description of the Item
+	 *
+	 * @param description of type {@link String}
+	 */
 	public void setDescription(String description) { this.description = description.trim(); }
 
-	// @return the aisle
+	/**
+	 * Returns the aisle of the Item.
+	 *
+	 * @return the {@link Aisle} aisle
+	 */
 	public Aisle getAisle() { return aisle; }
 
-	// @param aisle the aisle to set
+	/**
+	 * Sets the aisle of the Item.
+	 *
+	 * @param aisle of type {@link Aisle}
+	 */
 	public void setAisle(Aisle aisle) { this.aisle = aisle; }
 
-	// @return the user
+	/**
+	 * Returns the user of the Item.
+	 *
+	 * @return the {@link User} user
+	 */
 	public User getUser() { return user; }
 
-	// @param user the user to set
+	/**
+	 * Sets the user of the Item.
+	 *
+	 * @param user of type {@link User}
+	 */
 	public void setUser(User user) { this.user = user; }
 
+	/**
+	 * Return all the values represented in the Item.
+	 *
+	 * @return a detailed String representation of the Item
+	 */
 	public String toDetailedString() {
 		return user + "'s Item [itemID=" + itemID +
 				", description=" + description +
 				", aisle=" + aisle + "]";
 	}
 
+	/**
+	 * Returns the description of the Item.
+	 *
+	 * @return a String representation of the Item
+	 */
 	@Override
 	public String toString()
 	{

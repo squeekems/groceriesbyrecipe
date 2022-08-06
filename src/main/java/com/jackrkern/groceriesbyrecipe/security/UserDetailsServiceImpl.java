@@ -3,13 +3,18 @@
  */
 package com.jackrkern.groceriesbyrecipe.security;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.User;
 import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-/* @author "Jack Kern" */
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 public class UserDetailsServiceImpl implements UserDetailsService
 {
 	@Autowired

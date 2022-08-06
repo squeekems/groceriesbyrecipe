@@ -3,6 +3,9 @@
  */
 package com.jackrkern.groceriesbyrecipe.business;
 
+/**
+ * @imports
+ */
 import com.jackrkern.groceriesbyrecipe.models.*;
 import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.IngredientRepository;
@@ -20,8 +23,9 @@ import java.util.Set;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 
-/* @author "Jack Kern" */
-
+/**
+ *  @author Jack Kern <jackrkern@gmail.com>
+ */
 @Service
 public class RecipeService {
 
