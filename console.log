@@ -1,1 +1,38 @@
+2022-08-06 02:11:16.165  INFO 3048 --- [http-nio-25565-exec-10] c.j.g.controllers.IndexController        : Someone got index.
+2022-08-06 03:02:01.144  INFO 3756 --- [main] c.j.g.GroceriesByRecipeApplication       : Starting GroceriesByRecipeApplication using Java 17.0.2 on DESKTOP-MEU5URT with PID 3756 (C:\Users\Owner\Desktop\GroceriesByRecipe\target\classes started by Owner in C:\Users\Owner\Desktop\GroceriesByRecipe)
+2022-08-06 03:02:01.147  INFO 3756 --- [main] c.j.g.GroceriesByRecipeApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-08-06 03:02:01.667  INFO 3756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-06 03:02:01.730  INFO 3756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 8 JPA repository interfaces.
+2022-08-06 03:02:02.221  INFO 3756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 25565 (http)
+2022-08-06 03:02:02.232  INFO 3756 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-06 03:02:02.232  INFO 3756 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-08-06 03:02:02.331  INFO 3756 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-06 03:02:02.331  INFO 3756 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1143 ms
+2022-08-06 03:02:02.472  INFO 3756 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-06 03:02:02.536  INFO 3756 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-08-06 03:02:02.699  INFO 3756 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-06 03:02:02.805  INFO 3756 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-06 03:02:02.880  INFO 3756 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-06 03:02:02.896  INFO 3756 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB53Dialect
+2022-08-06 03:02:03.529  INFO 3756 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-06 03:02:03.535  INFO 3756 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-06 03:02:03.962  INFO 3756 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@67671db1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e6f5842, org.springframework.security.web.context.SecurityContextPersistenceFilter@403cff1c, org.springframework.security.web.header.HeaderWriterFilter@1c5d376c, org.springframework.security.web.csrf.CsrfFilter@7fb5368e, org.springframework.security.web.authentication.logout.LogoutFilter@17034458, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4769378c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b548f51, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@71f4aeb6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@60b4c754, org.springframework.security.web.session.SessionManagementFilter@3bbc47c9, org.springframework.security.web.access.ExceptionTranslationFilter@77e1dacd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@24668b5b]
+2022-08-06 03:02:03.986  WARN 3756 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-06 03:02:04.082  INFO 3756 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-08-06 03:02:04.225  INFO 3756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 25565 (http) with context path ''
+2022-08-06 03:02:04.232  INFO 3756 --- [main] c.j.g.GroceriesByRecipeApplication       : Started GroceriesByRecipeApplication in 3.453 seconds (JVM running for 3.752)
+2022-08-06 03:44:36.990  INFO 3756 --- [http-nio-25565-exec-1] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x14...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:271) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.63.jar:9.0.63]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
 
