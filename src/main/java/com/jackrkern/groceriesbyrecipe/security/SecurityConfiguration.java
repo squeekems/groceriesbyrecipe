@@ -1,8 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.security;
 
-import static org.springframework.util.StringUtils.capitalize;
-import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,12 +10,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+
 /* @author "Jack Kern" */
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration
-{
+public class SecurityConfiguration {
 	@Bean
 	public UserDetailsService userDetailsService()
 	{
@@ -32,8 +30,7 @@ public class SecurityConfiguration
 	}
 
 	@Bean
-	public DaoAuthenticationProvider authenticationProvider()
-	{
+	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
@@ -41,33 +38,32 @@ public class SecurityConfiguration
 	}
 
 	@Bean
-	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-	{
-		http.anonymous().principal(capitalize(strMapping(USER))).authorities(GUEST_ROLE).and().authorizeRequests()
-			.antMatchers(	ITEMS,							//
-							ITEMS + ALL,					//
-							ITEMS + EDIT,					//
-							ITEMS + ADD,					//
-							ITEMS + REMOVE, 				//
-							ITEMS + GET + ITEM,				//
-							RECIPES,						//
-							LIST,							//
-							SETTINGS)						//
-			.authenticated()								//
-			.anyRequest().permitAll()						//
-			.and()											//
-			.formLogin()									//
-			.loginPage(LOGIN)								//
-			.usernameParameter(strMapping(EMAIL))			//
-			.defaultSuccessUrl(ITEMS)						//
-			.permitAll()									//
-			.and()											//
-			.logout().logoutSuccessUrl(INDEX).permitAll();	//
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.anonymous().principal(capitalize(demap(USER))).authorities(GUEST_ROLE).and().authorizeRequests()
+			.antMatchers(	ITEMS,
+							ITEMS + ALL,
+							ITEMS + EDIT,
+							ITEMS + ADD,
+							ITEMS + REMOVE,
+							ITEMS + GET + ITEM,
+							RECIPES,
+							LIST,
+							SETTINGS)
+			.authenticated()
+			.anyRequest().permitAll()
+			.and()
+			.formLogin()
+			.loginPage(LOGIN)
+			.usernameParameter(demap(EMAIL))
+			.defaultSuccessUrl(ITEMS)
+			.permitAll()
+			.and()
+			.logout().logoutSuccessUrl(INDEX).permitAll();
 		return http.build();
 	}
 
 	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() throws Exception
+	public WebSecurityCustomizer webSecurityCustomizer()
 	{
 		return (web) -> web.ignoring().antMatchers();
 	}

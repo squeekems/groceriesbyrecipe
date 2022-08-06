@@ -2,14 +2,14 @@ package com.jackrkern.groceriesbyrecipe.models;
 
 import javax.persistence.*;
 
-import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.CN_USER_ID;
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.TN_AMOUNTS;
 
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = TABLENAMEAMOUNTS)
-public class Amount
-{
+@Table(name = TN_AMOUNTS)
+public class Amount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long amountID;
@@ -18,36 +18,30 @@ public class Amount
 	private String value;
 
 	@ManyToOne
-	@JoinColumn(name = USERID, nullable = false)
+	@JoinColumn(name = CN_USER_ID, nullable = false)
 	private User user;
 
 	// @return the amountID
-	public Long getAmountID()
-	{ return amountID; }
+	public Long getAmountID() { return amountID; }
 
 	// @param amountID the amountID to set
-	public void setAmountID(Long amountID)
-	{ this.amountID = amountID; }
+	public void setAmountID(Long amountID) { this.amountID = amountID; }
 
 	// @return the value
-	public String getValue()
-	{ return value; }
+	public String getValue() { return value; }
 
 	// @param value the value to set
-	public void setValue(String value)
-	{ this.value = value.trim(); }
+	public void setValue(String value) { this.value = value.trim(); }
 
 	// @return the user
-	public User getUser()
-	{ return user; }
+	public User getUser() { return user; }
 
 	// @param user the user to set
-	public void setUser(User user)
-	{ this.user = user; }
+	public void setUser(User user) { this.user = user; }
 
-	public String toDetailedString()
-	{
-		return user + "'s Amount [amountID=" + amountID + ", value=" + value + "]";
+	public String toDetailedString() {
+		return user + "'s Amount [amountID=" + amountID +
+				", value=" + value + "]";
 	}
 
 	@Override

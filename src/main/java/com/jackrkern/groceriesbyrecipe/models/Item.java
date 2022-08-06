@@ -7,9 +7,8 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = TABLENAMEITEM)
-public class Item
-{
+@Table(name = TN_ITEMS)
+public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long itemID;
@@ -18,18 +17,16 @@ public class Item
 	private String description;
 
 	@OneToOne
-	@JoinColumn(name = AISLEID, referencedColumnName = AISLEID)
+	@JoinColumn(name = CN_AISLE_ID, referencedColumnName = CN_AISLE_ID)
 	private Aisle aisle;
 
 	@ManyToOne
-	@JoinColumn(name = USERID, nullable = false)
+	@JoinColumn(name = CN_USER_ID, nullable = false)
 	private User user;
 
-	public Item()
-	{}
+	public Item() {}
 
-	public Item(String description, Aisle aisle, User user)
-	{
+	public Item(String description, Aisle aisle, User user) {
 		this();
 		this.description = description;
 		this.aisle = aisle;
@@ -37,40 +34,33 @@ public class Item
 	}
 
 	// @return the itemID
-	public Long getItemID()
-	{ return itemID; }
+	public Long getItemID() { return itemID; }
 
 	// @param itemID the itemID to set
-	public void setItemID(Long itemID)
-	{ this.itemID = itemID; }
+	public void setItemID(Long itemID) { this.itemID = itemID; }
 
 	// @return the description
-	public String getDescription()
-	{ return description; }
+	public String getDescription() { return description; }
 
 	// @param description the description to set
-	public void setDescription(String description)
-	{ this.description = description.trim(); }
+	public void setDescription(String description) { this.description = description.trim(); }
 
 	// @return the aisle
-	public Aisle getAisle()
-	{ return aisle; }
+	public Aisle getAisle() { return aisle; }
 
 	// @param aisle the aisle to set
-	public void setAisle(Aisle aisle)
-	{ this.aisle = aisle; }
+	public void setAisle(Aisle aisle) { this.aisle = aisle; }
 
 	// @return the user
-	public User getUser()
-	{ return user; }
+	public User getUser() { return user; }
 
 	// @param user the user to set
-	public void setUser(User user)
-	{ this.user = user; }
+	public void setUser(User user) { this.user = user; }
 
-	public String toDetailedString()
-	{
-		return user + "'s Item [itemID=" + itemID + ", description=" + description + ", aisle=" + aisle + "]";
+	public String toDetailedString() {
+		return user + "'s Item [itemID=" + itemID +
+				", description=" + description +
+				", aisle=" + aisle + "]";
 	}
 
 	@Override

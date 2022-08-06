@@ -1,14 +1,5 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
-import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
-import static java.lang.System.out;
-import static org.springframework.util.StringUtils.capitalize;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
 import com.jackrkern.groceriesbyrecipe.models.Amount;
 import com.jackrkern.groceriesbyrecipe.models.UnitOfMeasurement;
@@ -17,12 +8,17 @@ import com.jackrkern.groceriesbyrecipe.repositories.AisleRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+import static java.lang.System.out;
 
 /* @author "Jack Kern" */
 
 @Service
-public class UserService
-{
+public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
@@ -35,17 +31,19 @@ public class UserService
 	@Autowired
 	private UnitOfMeasurementRepository unitOfMeasurementRepository;
 
-	public User getPrincipal()
-	{ return getByEmail(SecurityContextHolder.getContext().getAuthentication().getName()); }
+	public Object getPrincipal() {
+		User user = getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		if (user != null) {
+			return user;
+		} else {
+			return capitalize(SOMEONE);
+		}
+	}
 
-	public User registerUser(User user)
-	{
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedPassword = encoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
+	public User registerUser(User user) {
 		user = userRepository.save(user);
-		out.printf(STRINGsSTRINGnl, user.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		WelcomePackage(user);
+		out.printf(S_S_NL, user.toDetailedString(), capitalize(pastOf(demap(SAVE))));
 		return user;
 	}
 
@@ -54,45 +52,42 @@ public class UserService
 		return userRepository.findByEmail(email);
 	}
 
-	public void WelcomePackage(User user)
-	{
+	public void WelcomePackage(User user) {
 		Amount amount0 = new Amount();
 		amount0.setUser(user);
-		amount0.setValue(ONEfsFOUR);
+		amount0.setValue(ONE_FOURTH);
 		amountRepository.save(amount0);
 		Amount amount1 = new Amount();
 		amount1.setUser(user);
-		amount1.setValue(ONEfsTHREE);
+		amount1.setValue(ONE_THIRD);
 		amountRepository.save(amount1);
 		Amount amount2 = new Amount();
 		amount2.setUser(user);
-		amount2.setValue(ONEfsTWO);
+		amount2.setValue(ONE_HALF);
 		amountRepository.save(amount2);
 		Amount amount3 = new Amount();
 		amount3.setUser(user);
-		amount3.setValue(TWOfsTHREE);
+		amount3.setValue(TWO_THIRDS);
 		amountRepository.save(amount3);
 		Amount amount4 = new Amount();
 		amount4.setUser(user);
-		amount4.setValue(THREEfsFOUR);
+		amount4.setValue(THREE_FOURTHS);
 		amountRepository.save(amount4);
-		for (int i = 1; i < 25; i++)
-		{
+		for (int i = 1; i < 25; i++) {
 			Amount amount = new Amount();
 			amount.setUser(user);
 			amount.setValue(Integer.toString(i));
 			amountRepository.save(amount);
 		}
-		for (int i = 0; i < 21; i++)
-		{
+		for (int i = 0; i < 21; i++) {
 			Aisle aisle = new Aisle();
 			aisle.setUser(user);
-			aisle.setName(String.format(DEFAULTAISLEFORMAT, i));
+			aisle.setName(String.format(DEFAULT_AISLE_FORMAT, i));
 			aisleRepository.save(aisle);
 		}
 		UnitOfMeasurement unitOfMeasurement = new UnitOfMeasurement();
 		unitOfMeasurement.setUser(user);
-		unitOfMeasurement.setName(EMPTYUNITOFMEASUREMENT);
+		unitOfMeasurement.setName(EMPTY_UNIT_OF_MEASUREMENT);
 		unitOfMeasurementRepository.save(unitOfMeasurement);
 		UnitOfMeasurement unitOfMeasurement0 = new UnitOfMeasurement();
 		unitOfMeasurement0.setUser(user);
@@ -118,5 +113,19 @@ public class UserService
 		unitOfMeasurement5.setUser(user);
 		unitOfMeasurement5.setName(SLICE);
 		unitOfMeasurementRepository.save(unitOfMeasurement5);
+	}
+
+	public void deleteAccount(Long userID) {
+		User user = userRepository.findById(userID).orElseThrow();
+		for (Amount amount : amountRepository.findAllByUser(user)) {
+			amountRepository.delete(amount);
+		}
+		for (Aisle aisle : aisleRepository.findAllByUser(user)) {
+			aisleRepository.delete(aisle);
+		}
+		for (UnitOfMeasurement unitOfMeasurement : unitOfMeasurementRepository.findAllByUser(user)) {
+			unitOfMeasurementRepository.delete(unitOfMeasurement);
+		}
+		userRepository.deleteById(userID);
 	}
 }

@@ -1,20 +1,16 @@
 package com.jackrkern.groceriesbyrecipe.security;
 
-import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
-
-import java.util.Collection;
-
+import com.jackrkern.groceriesbyrecipe.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.jackrkern.groceriesbyrecipe.models.User;
+import java.util.Collection;
 
 /* @author "Jack Kern" */
 
-@SuppressWarnings(SERIAL)
 public class UserDetailsImpl implements UserDetails
 {
-	private User user;
+	private final User user;
 
 	public UserDetailsImpl(User user)
 	{
@@ -26,8 +22,12 @@ public class UserDetailsImpl implements UserDetails
 	{ return null; }
 
 	@Override
-	public String getPassword()
-	{ return user.getPassword(); }
+	public String getPassword() {
+		if (user != null)
+			return user.getPassword();
+		else
+			return null;
+	}
 
 	@Override
 	public String getUsername()
@@ -49,20 +49,7 @@ public class UserDetailsImpl implements UserDetails
 	public boolean isEnabled()
 	{ return true; }
 
-	public String getFullName()
-	{
-		String fullName;
-		if (user.getFirstName() != null && user.getFirstName() != "" && !user.getFirstName().isEmpty())
-		{
-			fullName = user.getFirstName();
-			if (user.getLastName() != null && user.getLastName() != "" && !user.getLastName().isEmpty())
-				fullName += " " + user.getLastName();
-		} else if (user.getLastName() != null && user.getLastName() != "" && !user.getLastName().isEmpty())
-			fullName = user.getLastName();
-		else if (user.getUsername() != null && user.getUsername() != "" && !user.getUsername().isEmpty())
-			fullName = user.getUsername();
-		else
-			fullName = user.getEmail();
-		return fullName;
+	public String getFullName() {
+		return user.toString();
 	}
 }

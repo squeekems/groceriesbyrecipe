@@ -14,22 +14,22 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Controller
-@RequestMapping(LOGIN)
-public class LoginController {
+@RequestMapping({ FS, INDEX })
+public class IndexController {
 
-	Logger logger = LoggerFactory.getLogger(LoginController.class);
+  Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-	@Autowired
-	private UserService userService;
+  @Autowired
+  private UserService userService;
 
-	@GetMapping
-	public String getLogin(Model model) {
-		model.addAttribute(ACTIVE_PAGE, capitalize(demap(LOGIN)));
-		logger.info(space(new String[]{
-				userService.getPrincipal().toString(),
-				pastOf(demap(GET)),
-				demap(LOGIN)
-		}) + PERIOD);
-		return demap(LOGIN);
-	}
+  @GetMapping
+  public String getLogin(Model model) {
+    model.addAttribute(ACTIVE_PAGE, capitalize(demap(LOGIN)));
+    logger.info(space(new String[]{
+        userService.getPrincipal().toString(),
+        pastOf(demap(GET)),
+        demap(INDEX)
+    }) + PERIOD);
+    return demap(INDEX);
+  }
 }

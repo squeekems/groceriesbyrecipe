@@ -7,9 +7,8 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = TABLENAMESHOPPINGLIST)
-public class ShoppingListItem
-{
+@Table(name = TN_SHOPPING_LIST)
+public class ShoppingListItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long shoppingListID;
@@ -18,91 +17,78 @@ public class ShoppingListItem
 	private int count;
 
 	@OneToOne
-	@JoinColumn(name = ITEMID, referencedColumnName = ITEMID)
+	@JoinColumn(name = CN_ITEM_ID, referencedColumnName = CN_ITEM_ID)
 	private Item item;
 
 	@ManyToOne
-	@JoinColumn(name = USERID, nullable = false)
+	@JoinColumn(name = CN_USER_ID, nullable = false)
 	private User user;
 
 	/*  */
-	public ShoppingListItem()
-	{}
+	public ShoppingListItem() {}
 
 	/* @param user */
-	public ShoppingListItem(User user)
-	{
+	public ShoppingListItem(User user) {
 		this();
 		this.user = user;
 	}
 
 	/* @param item /* @param user */
-	public ShoppingListItem(Item item, User user)
-	{
+	public ShoppingListItem(Item item, User user) {
 		this(user);
 		this.item = item;
 		this.count = 1;
 	}
 
 	/* @param item /* @param user */
-	public ShoppingListItem(Item item)
-	{
+	public ShoppingListItem(Item item) {
 		this(item.getUser());
 		this.item = item;
 		this.count = 1;
 	}
 
 	/* @param count /* @param item /* @param user */
-	public ShoppingListItem(int count, Item item, User user)
-	{
+	public ShoppingListItem(int count, Item item, User user) {
 		this(item, user);
 		this.count = count;
 	}
 
 	// @return the shoppingListID
-	public Long getShoppingListID()
-	{ return shoppingListID; }
+	public Long getShoppingListID() { return shoppingListID; }
 
 	// @param shoppingListID the shoppingListID to set
-	public void setShoppingListID(Long shoppingListID)
-	{ this.shoppingListID = shoppingListID; }
+	public void setShoppingListID(Long shoppingListID) { this.shoppingListID = shoppingListID; }
 
 	// @return the count
-	public int getCount()
-	{ return count; }
+	public int getCount() { return count; }
 
 	// @param count the count to set
-	public void setCount(int count)
-	{ this.count = count; }
+	public void setCount(int count) { this.count = count; }
 
 	// @return the item
-	public Item getItem()
-	{ return item; }
+	public Item getItem() { return item; }
 
 	// @param item the item to set
-	public void setItem(Item item)
-	{ this.item = item; }
+	public void setItem(Item item) { this.item = item; }
 
 	// @return the user
-	public User getUser()
-	{ return user; }
+	public User getUser() { return user; }
 
 	// @param user the user to set
-	public void setUser(User user)
-	{ this.user = user; }
+	public void setUser(User user) { this.user = user; }
 
-	public String toDetailedString()
-	{
+	public String toDetailedString() {
 		if (count > 1)
-			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID + ", count=" + count + ", item="
-					+ item + "]";
+			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID +
+					", count=" + count +
+					", item=" + item + "]";
 		else
-			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID + ", item=" + item + "]";
+			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID +
+					", item=" + item + "]";
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		if (count > 1)
 			return item + " (x" + count + ")";
 		else

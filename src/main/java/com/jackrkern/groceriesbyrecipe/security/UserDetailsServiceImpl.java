@@ -1,11 +1,10 @@
 package com.jackrkern.groceriesbyrecipe.security;
 
+import com.jackrkern.groceriesbyrecipe.models.User;
+import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import com.jackrkern.groceriesbyrecipe.models.User;
-import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
 
 /* @author "Jack Kern" */
 public class UserDetailsServiceImpl implements UserDetailsService
