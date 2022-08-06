@@ -115,7 +115,7 @@ $(function()
       alert('You need to select an item to edit first.');
     }else
     {
-      const href = "/items/getItemByID/" + selectedItemID;
+      const href = "/items/get/item/" + selectedItemID;
       $.get(href, function(item, status)
       {
         $('#txtEditID').val(item.itemID);
@@ -154,7 +154,7 @@ $(function()
       alert('You need to select an item to add to the shopping list first.');
     }else
     {
-      const href = "/items/getItemByID/" + selectedItemID;
+      const href = "/items/get/item/" + selectedItemID;
       $.get(href, function(item, status)
       {
         // Table

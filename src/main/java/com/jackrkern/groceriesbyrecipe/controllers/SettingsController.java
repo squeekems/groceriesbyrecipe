@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,166 +42,158 @@ public class SettingsController
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(sSETTINGS)
+	@GetMapping(SETTINGS)
 	public String getSettings(Model model)
 	{
-		model.addAttribute(AISLES, itemService.getAisles(userService.getPrincipal()));
-		model.addAttribute(AISLE, new Aisle());
-		model.addAttribute(UNITSOFMEASUREMENT, recipeService.getUnitsOfMeasurement(userService.getPrincipal()));
-		model.addAttribute(UNITOFMEASUREMENT, new UnitOfMeasurement());
-		model.addAttribute(AMOUNTS, recipeService.getAmounts(userService.getPrincipal()));
-		model.addAttribute(AMOUNT, new Amount());
+		model.addAttribute(strPlural(strMapping(AISLE)), itemService.getAisles(userService.getPrincipal()));
+		model.addAttribute(strMapping(AISLE), new Aisle());
+		model.addAttribute(	strMapping(UNITSOFMEASUREMENT),
+							recipeService.getUnitsOfMeasurement(userService.getPrincipal()));
+		model.addAttribute(strMapping(UNITOFMEASUREMENT), new UnitOfMeasurement());
+		model.addAttribute(strPlural(strMapping(AMOUNT)), recipeService.getAmounts(userService.getPrincipal()));
+		model.addAttribute(strMapping(AMOUNT), new Amount());
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, SETTINGS);
-		return SETTINGS;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(SETTINGS));
+		return strMapping(SETTINGS);
 	}
 
 	// Create
-	@PostMapping(sSETTINGS + sADD + sAISLE)
+	@PostMapping(SETTINGS + ADD + AISLE)
 	public RedirectView addAisle(Aisle aisle, RedirectAttributes redirectAttributes)
 	{
 		aisle.setUser(userService.getPrincipal());
 		itemService.saveAisle(aisle);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cAISLE, aisle, cADDED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, capitalize(strMapping(AISLE)),
+																	aisle, capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, AISLE, aisle);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(AISLE), aisle);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Create
-	@PostMapping(sSETTINGS + sADD + "/unitOfMeasurement")
+	@PostMapping(SETTINGS + ADD + UNITOFMEASUREMENT)
 	public RedirectView addUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement, RedirectAttributes redirectAttributes)
 	{
 		unitOfMeasurement.setUser(userService.getPrincipal());
 		recipeService.saveUnitOfMeasurement(unitOfMeasurement);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cUNITsOFscMEASUREMENT,
-																	unitOfMeasurement, cADDED));
+		redirectAttributes.addFlashAttribute(	SUCCESS,
+												String.format(	NOUNqNOUNqsVERBED,
+																capitalize(strSpace(strMapping(UNITOFMEASUREMENT))),
+																unitOfMeasurement,
+																capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UNITsOFsMEASUREMENT,
-					unitOfMeasurement);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strSpace(strMapping(UNITOFMEASUREMENT)), unitOfMeasurement);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Create
-	@PostMapping(sSETTINGS + sADD + "/amount")
+	@PostMapping(SETTINGS + ADD + AMOUNT)
 	public RedirectView addAmount(Amount amount, RedirectAttributes redirectAttributes)
 	{
 		amount.setUser(userService.getPrincipal());
 		recipeService.saveAmount(amount);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cAMOUNT, amount, cADDED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, capitalize(strMapping(AMOUNT)),
+																	amount, capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, AMOUNT, amount);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(AMOUNT), amount);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Create
-	@GetMapping(sSETTINGS + sREMOVE + sAISLE + "/{aisleID}")
-	public RedirectView removeAisle(@PathVariable(value = "aisleID")
+	@GetMapping(SETTINGS + REMOVE + AISLE + PVMAISLEID)
+	public RedirectView removeAisle(@PathVariable(value = PVVAISLEID)
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		// create aisle object to use in feedback
 		Aisle aisle = itemService.getAisleByID(aisleID);
 		itemService.deleteAisle(aisleID);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cAISLE, aisle, cREMOVED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, capitalize(strMapping(AISLE)),
+																	aisle, capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED, AISLE, aisle);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(DELETE)), strMapping(AISLE), aisle);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Create
-	@GetMapping(sSETTINGS + sREMOVE + sUNITOFMEASUREMENT + "/{unitOfMeasurementID}")
-	public RedirectView removeUnitOfMeasurement(@PathVariable(value = "unitOfMeasurementID")
+	@GetMapping(SETTINGS + REMOVE + UNITOFMEASUREMENT + PVMUNITOFMEASUREMENTID)
+	public RedirectView removeUnitOfMeasurement(@PathVariable(value = PVVUNITOFMEASUREMENTID)
 	Long unitOfMeasurementID, RedirectAttributes redirectAttributes)
 	{
 		// create unitOfMeasurement object to use in feedback
 		UnitOfMeasurement unitOfMeasurement = recipeService.getUnitOfMeasurementByID(unitOfMeasurementID);
 		recipeService.deleteUnitOfMeasurement(unitOfMeasurementID);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cUNITsOFscMEASUREMENT,
-																	unitOfMeasurement, cREMOVED));
+		redirectAttributes.addFlashAttribute(	SUCCESS,
+												String.format(	NOUNqNOUNqsVERBED,
+																capitalize(strSpace(strMapping(UNITOFMEASUREMENT))),
+																unitOfMeasurement,
+																capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED,
-					UNITsOFsMEASUREMENT, unitOfMeasurement);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(DELETE)), strSpace(strMapping(UNITOFMEASUREMENT)), unitOfMeasurement);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Create
-	@GetMapping(sSETTINGS + sREMOVE + sAMOUNT + "/{amountID}")
-	public RedirectView removeAmount(@PathVariable(value = "amountID")
+	@GetMapping(SETTINGS + REMOVE + AMOUNT + PVMAMOUNTID)
+	public RedirectView removeAmount(@PathVariable(value = PVVAMOUNTID)
 	Long amountID, RedirectAttributes redirectAttributes)
 	{
 		// create amount object to use in feedback
 		Amount amount = recipeService.getAmountByID(amountID);
 		recipeService.deleteAmount(amountID);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, cAMOUNT, amount, cREMOVED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(NOUNqNOUNqsVERBED, capitalize(strMapping(AMOUNT)),
+																	amount, capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED, AMOUNT,
-					amount);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(DELETE)), strMapping(AMOUNT), amount);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Update
-	@RequestMapping(value = sSETTINGS + sEDIT + sAISLE, method = { RequestMethod.PUT, RequestMethod.GET })
+	@RequestMapping(value = SETTINGS + EDIT + AISLE, method = { RequestMethod.PUT, RequestMethod.GET })
 	public RedirectView updateAisle(Aisle aisle, RedirectAttributes redirectAttributes)
 	{
 		aisle.setUser(userService.getPrincipal());
 		itemService.saveAisle(aisle);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, aisle, cEDITED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, aisle,
+																	capitalize(strPast(strMapping(EDIT)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED, AISLE, aisle);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(UPDATE)), strMapping(AISLE), aisle);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Update
-	@RequestMapping(value = sSETTINGS + sEDIT + sUNITOFMEASUREMENT, method = { RequestMethod.PUT, RequestMethod.GET })
+	@RequestMapping(value = SETTINGS + EDIT + UNITOFMEASUREMENT, method = { RequestMethod.PUT, RequestMethod.GET })
 	public RedirectView updateUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement,
 												RedirectAttributes redirectAttributes)
 	{
 		unitOfMeasurement.setUser(userService.getPrincipal());
 		recipeService.saveUnitOfMeasurement(unitOfMeasurement);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, unitOfMeasurement, cEDITED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, unitOfMeasurement,
+																	capitalize(strPast(strMapping(EDIT)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED,
-					UNITOFMEASUREMENT, unitOfMeasurement);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(UPDATE)), strMapping(UNITOFMEASUREMENT), unitOfMeasurement);
+		return new RedirectView(SETTINGS);
 	}
 
 	// Update
-	@RequestMapping(value = sSETTINGS + sEDIT + sAMOUNT, method = { RequestMethod.PUT, RequestMethod.GET })
+	@RequestMapping(value = SETTINGS + EDIT + AMOUNT, method = { RequestMethod.PUT, RequestMethod.GET })
 	public RedirectView updateAmount(Amount amount, RedirectAttributes redirectAttributes)
 	{
 		amount.setUser(userService.getPrincipal());
 		recipeService.saveAmount(amount);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, amount, cEDITED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, amount,
+																	capitalize(strPast(strMapping(EDIT)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED, AMOUNT,
-					amount);
-		return new RedirectView(sSETTINGS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(UPDATE)), strMapping(AMOUNT), amount);
+		return new RedirectView(SETTINGS);
 	}
-
-//	// Gets Aisle to be Editted
-//	@RequestMapping(sSETTINGS + sGET + cAISLE + cBYID + "/{aisleID}")
-//	@ResponseBody
-//	public Aisle getAisleByID(@PathVariable(value = "aisleID")
-//	Long aisleID)
-//	{
-//		return itemService.getAisleByID(aisleID);
-//	}
-//
-//	// Gets UnitOfMeasurement to be Editted
-//	@RequestMapping(sSETTINGS + sGET + cUNITOFMEASUREMENT + cBYID + "/{unitOfMeasurementID}")
-//	@ResponseBody
-//	public UnitOfMeasurement getUnitOfMeasurementByID(@PathVariable(value = "unitOfMeasurementID")
-//	Long unitOfMeasurementID)
-//	{
-//		return recipeService.getUnitOfMeasurementByID(unitOfMeasurementID);
-//	}
-//
-//	// Gets Amount to be Editted
-//	@RequestMapping(sSETTINGS + sGET + cAMOUNT + cBYID + "/{amountID}")
-//	@ResponseBody
-//	public Amount getAmountByID(@PathVariable(value = "amountID")
-//	Long amountID)
-//	{
-//		return recipeService.getAmountByID(amountID);
-//	}
 }

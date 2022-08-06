@@ -7,7 +7,7 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = USERS)
+@Table(name = TABLENAMEUSERS)
 public class User
 {
 	@Id
@@ -77,6 +77,13 @@ public class User
 	public void setFirstName(String firstName)
 	{ this.firstName = firstName.trim(); }
 
+	public String toDetailedString()
+	{
+		return "User [userID="	+ userID + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", lastName=" + lastName + ", firstName=" + firstName + "]";
+	}
+
+	@Override
 	public String toString()
 	{
 		String fullName;

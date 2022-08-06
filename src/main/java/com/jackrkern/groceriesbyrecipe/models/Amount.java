@@ -7,7 +7,7 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = AMOUNTS)
+@Table(name = TABLENAMEAMOUNTS)
 public class Amount
 {
 	@Id
@@ -45,9 +45,14 @@ public class Amount
 	public void setUser(User user)
 	{ this.user = user; }
 
+	public String toDetailedString()
+	{
+		return user + "'s Amount [amountID=" + amountID + ", value=" + value + "]";
+	}
+
+	@Override
 	public String toString()
 	{
 		return value;
-//		return String.format(ENTITYTOSTRING, cAMOUNT, value);
 	}
 }

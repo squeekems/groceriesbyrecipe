@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,31 +43,34 @@ public class ItemsController
 	private ShoppingListItemService shoppingListItemService;
 
 	// Read
-	@GetMapping(sITEMS)
+	@GetMapping(ITEMS)
 	public String getItems(Model model)
 	{
-		model.addAttribute(ITEMS, itemService.getItemsSortedByAisle(userService.getPrincipal()));
-		model.addAttribute(ITEM, new Item());
-		model.addAttribute(ACTIVEPAGE, "Store Items");
-		model.addAttribute(AISLES, itemService.getAisles(userService.getPrincipal()));
-		model.addAttribute(SHOPPINGLIST, new ShoppingListItem());
+		model.addAttribute(strMapping(ITEMS), itemService.getItemsSortedByAisle(userService.getPrincipal()));
+		model.addAttribute(strMapping(ITEM), new Item());
+		model.addAttribute(ACTIVEPAGE, cSTOREscITEMS);
+		model.addAttribute(strPlural(strMapping(AISLE)), itemService.getAisles(userService.getPrincipal()));
+		model.addAttribute(strMapping(SHOPPINGLISTITEM), new ShoppingListItem());
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ITEMS);
-		return ITEMS;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(ITEMS));
+		return strMapping(ITEMS);
 	}
 
 	// Create
-	@PostMapping(sITEMS + sADD)
-	public RedirectView addItem(Item item, @RequestParam(value = "cmbAddAisle")
-	Long aisleID, @RequestParam(value = "chkAddToShoppingList", required = false)
+	@PostMapping(ITEMS + ADD)
+	public RedirectView addItem(Item item, @RequestParam(value = CMBADDAISLE)
+	Long aisleID, @RequestParam(value = CHKADDTOSHOPPINGLIST, required = false)
 	String blnAddToShoppingList, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		item = itemService.saveItem(item);
 		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ITEM, item);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cADDED));
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(ITEM), item);
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item,
+																	capitalize(strPast(strMapping(ADD)))));
 		if (blnAddToShoppingList != null)
 		{
 			ShoppingListItem shoppingListItem = new ShoppingListItem();
@@ -74,67 +78,73 @@ public class ItemsController
 			shoppingListItem.setUser(userService.getPrincipal());
 			shoppingListItem.setCount(1);
 			shoppingListItemService.saveShoppingListItem(shoppingListItem);
-			out.printf(	PERSONsVERBEDsNOUNsTOsTHEIRsNOUN, now().format(dateTimeFormatter),
-						userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED,
-						shoppingListItem, SHOPPINGsLIST);
+			out.printf(	PERSONsVERBEDsNOUNsPREPOSITIONsTHEIRsNOUN, now().format(dateTimeFormatter),
+						userService.getPrincipal() != null ? userService.getPrincipal() : SOMEONE,
+						strPast(strMapping(ADD)), shoppingListItem, TO, strSpace(strMapping(SHOPPINGLIST)));
 		}
-		return new RedirectView(sITEMS);
+		return new RedirectView(ITEMS);
 	}
 
 	// Update
-	@RequestMapping(value = sITEMS + sEDIT, method = { RequestMethod.PUT, RequestMethod.GET })
-	public RedirectView updateItem(Item item, @RequestParam(value = "cmbEditAisle")
+	@RequestMapping(value = ITEMS + EDIT, method = { RequestMethod.PUT, RequestMethod.GET })
+	public RedirectView updateItem(Item item, @RequestParam(value = CMBEDITAISLE)
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cEDITED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item,
+																	capitalize(strPast(strMapping(EDIT)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED, ITEM, item);
-		return new RedirectView(sITEMS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(UPDATE)), strMapping(ITEM), item);
+		return new RedirectView(ITEMS);
 	}
 
 	// Delete
-	@GetMapping(sITEMS + sREMOVE + "/{itemID}")
-	public RedirectView deleteItem(@PathVariable(value = "itemID")
+	@GetMapping(ITEMS + REMOVE + PVMITEMID)
+	public RedirectView deleteItem(@PathVariable(value = PVVITEMID)
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
 		// create item object to use in feedback
 		Item item = itemService.getItemByID(itemID);
 		itemService.deleteItem(itemID);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cREMOVED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item,
+																	capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED, ITEM, item);
-		return new RedirectView(sITEMS);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(DELETE)), strMapping(ITEM), item);
+		return new RedirectView(ITEMS);
 	}
 
 	// Gets Item to be Editted or Added to Shopping List
-	@RequestMapping(sITEMS + sGET + cITEM + cBYID + "/{itemID}")
+	@RequestMapping(ITEMS + GET + ITEM + PVMITEMID)
 	@ResponseBody
-	public Item getItemByID(@PathVariable(value = "itemID")
+	public Item getItemByID(@PathVariable(value = PVVITEMID)
 	Long itemID)
 	{
 		return itemService.getItemByID(itemID);
 	}
 
 	// AddToShoppingList
-	@PostMapping(sITEMS + sADDTOSHOPPINGLIST)
-	public RedirectView addItemToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = "txtID")
-	Long itemID, @RequestParam(value = "numCount")
-	int count, @RequestParam(value = "txtAddToShoppingListScrollValue")
+	@PostMapping(ITEMS + ADDTOSHOPPINGLIST)
+	public RedirectView addItemToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = TXTID)
+	Long itemID, @RequestParam(value = NUMCOUNT)
+	int count, @RequestParam(value = TXTADDTOSHOPPINGLISTSCROLLVALUE)
 	double intScrollValue, RedirectAttributes redirectAttributes)
 	{
 		shoppingListItem.setItem(itemService.getItemByID(itemID));
 		shoppingListItem.setUser(userService.getPrincipal());
 		shoppingListItem.setCount(count);
 		shoppingListItemService.saveShoppingListItem(shoppingListItem);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem,
-																	" Added to Shopping List"));
+		redirectAttributes.addFlashAttribute(	SUCCESS,
+												String.format(	NOUNsVERBEDsPREPOSITIONsNOUN, shoppingListItem,
+																capitalize(strPast(strMapping(ADD))), TO,
+																capitalize(strSpace(strMapping(SHOPPINGLIST)))));
 		redirectAttributes.addFlashAttribute(SCROLLVALUE, intScrollValue);
-		out.printf(	PERSONsVERBEDsNOUNsTOsTHEIRsNOUN, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED, shoppingListItem,
-					SHOPPINGsLIST);
-		return new RedirectView(sITEMS);
+		out.printf(	PERSONsVERBEDsNOUNsPREPOSITIONsTHEIRsNOUN, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(ADD)), shoppingListItem, TO, strSpace(strMapping(SHOPPINGLIST)));
+		return new RedirectView(ITEMS);
 	}
 }

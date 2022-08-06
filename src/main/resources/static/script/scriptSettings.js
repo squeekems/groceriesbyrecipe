@@ -6,8 +6,7 @@ $(function()
     let blnDelete = confirm('Are you sure you want to delete Aisle "' + $('#cmbAisle option:selected').html() + '"?');
     if (blnDelete)
     {
-      const href = "/settings/remove/aisle/" + $('#cmbAisle').val();
-      window.location.href = href;
+      window.location.href = "/settings/remove/aisle/" + $('#cmbAisle').val();
     }
   });
 
@@ -17,8 +16,7 @@ $(function()
     let blnDelete = confirm('Are you sure you want to delete Unit of Measurement "' + $('#cmbUnitsOfMeasurement option:selected').html() + '"?');
     if (blnDelete)
     {
-      const href = "/settings/remove/unitOfMeasurement/" + $('#cmbUnitsOfMeasurement').val();
-      window.location.href = href;
+      window.location.href = "/settings/remove/unitOfMeasurement/" + $('#cmbUnitsOfMeasurement').val();
     }
   });
 
@@ -28,8 +26,7 @@ $(function()
     let blnDelete = confirm('Are you sure you want to delete Amount "' + $('#cmbAmount option:selected').html() + '"?');
     if (blnDelete)
     {
-      const href = "/settings/remove/amount/" + $('#cmbAmount').val();
-      window.location.href = href;
+      window.location.href = "/settings/remove/amount/" + $('#cmbAmount').val();
     }
   });
   

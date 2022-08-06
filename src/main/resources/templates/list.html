@@ -29,10 +29,12 @@
 								<input type="number" value="1" class="form-control text-right" min="1" max="99" id="numCount" name="numCount">
 							</div>
 							<div class="modal-footer" style="border-bottom: 1px;">
-								<button type="submit" class="btn btn-primary" id="cmdAddExistingItem">Add</button>
+								<button type="submit" class="btn btn-primary" id="cmdAddExistingItem">Add Existing Item</button>
 							</div>
 						</form>
+						<hr/>
 						<form id="frmAddItem" th:action="@{/list/add}" method="POST" th:object="${item}">
+							<label>New Item:</label>
 							<div class="form-group">
 								<label for="cmbAisle">Aisle:</label>
 								<select class="form-control" name="cmbAddAisle" id="cmbAddAisle">
@@ -45,7 +47,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary" id="cmdAddItem">Add</button>
+								<button type="submit" class="btn btn-primary" id="cmdAddItem">Add New Item</button>
 							</div>
 						</form>
 					</div>
@@ -63,7 +65,8 @@
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">Add</button>
 					<button type="button" class="shoppingListItem-buttons btn btn-warning disabled" id="cmdRemoveShoppingListItem">Remove</button>
-					<button type="button" class="btn btn-danger" id="cmdClearShoppingList">Clear</button>
+					<!-- <button type="button" class="btn btn-danger" id="cmdClearCheckedShoppingList">Clear Checked</button> -->
+					<button type="button" class="btn btn-danger" id="cmdClearShoppingList">Clear All</button>
 				</div>
 			</div>
 			<!-- Column Heads -->

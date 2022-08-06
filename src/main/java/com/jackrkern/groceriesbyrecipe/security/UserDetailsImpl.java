@@ -1,5 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.security;
 
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +11,7 @@ import com.jackrkern.groceriesbyrecipe.models.User;
 
 /* @author "Jack Kern" */
 
-@SuppressWarnings("serial")
+@SuppressWarnings(SERIAL)
 public class UserDetailsImpl implements UserDetails
 {
 	private User user;

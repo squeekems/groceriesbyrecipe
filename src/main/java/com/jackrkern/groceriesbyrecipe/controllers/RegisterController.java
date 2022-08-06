@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import javax.servlet.ServletException;
@@ -29,31 +30,33 @@ public class RegisterController
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(sREGISTER)
+	@GetMapping(REGISTER)
 	public String getRegister(Model model)
 	{
-		model.addAttribute(ACTIVEPAGE, cREGISTER);
-		model.addAttribute(USER, new User());
+		model.addAttribute(ACTIVEPAGE, capitalize(strMapping(REGISTER)));
+		model.addAttribute(strMapping(USER), new User());
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, REGISTER);
-		return REGISTER;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(REGISTER));
+		return strMapping(REGISTER);
 	}
 
-	@PostMapping(sREGISTER)
+	@PostMapping(REGISTER)
 	public RedirectView processRegistration(HttpServletRequest request, User user)
 	{
-		out.printf(	PERSONsTRIEDsTOsVERBp, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, REGISTER);
+		out.printf(	PERSONsTRIEDsTOsVERBnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(REGISTER));
 		String decodedPassword = user.getPassword();
 		userService.registerUser(user);
 		try
 		{
 			request.login(user.getEmail(), decodedPassword);
-			return new RedirectView(sITEMS);
+			return new RedirectView(ITEMS);
 		} catch (ServletException e)
 		{
 			e.printStackTrace();
-			return new RedirectView(sLOGIN);
+			return new RedirectView(LOGIN);
 		}
 	}
 }

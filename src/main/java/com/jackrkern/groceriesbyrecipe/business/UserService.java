@@ -2,6 +2,7 @@ package com.jackrkern.groceriesbyrecipe.business;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 import static java.lang.System.out;
+import static org.springframework.util.StringUtils.capitalize;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,17 +40,13 @@ public class UserService
 
 	public User registerUser(User user)
 	{
-		if (user != null)
-		{
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			String encodedPassword = encoder.encode(user.getPassword());
-			user.setPassword(encodedPassword);
-			user = userRepository.save(user);
-			out.printf(STRINGsSTRINGnl, user, cSAVED);
-			WelcomePackage(user);
-			return user;
-		} else
-			throw new RuntimeException("User cannot be null");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPassword = encoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
+		user = userRepository.save(user);
+		out.printf(STRINGsSTRINGnl, user.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
+		WelcomePackage(user);
+		return user;
 	}
 
 	public User getByEmail(String email)
@@ -61,23 +58,23 @@ public class UserService
 	{
 		Amount amount0 = new Amount();
 		amount0.setUser(user);
-		amount0.setValue("¼");
+		amount0.setValue(ONEfsFOUR);
 		amountRepository.save(amount0);
 		Amount amount1 = new Amount();
 		amount1.setUser(user);
-		amount1.setValue("⅓");
+		amount1.setValue(ONEfsTHREE);
 		amountRepository.save(amount1);
 		Amount amount2 = new Amount();
 		amount2.setUser(user);
-		amount2.setValue("½");
+		amount2.setValue(ONEfsTWO);
 		amountRepository.save(amount2);
 		Amount amount3 = new Amount();
 		amount3.setUser(user);
-		amount3.setValue("⅔");
+		amount3.setValue(TWOfsTHREE);
 		amountRepository.save(amount3);
 		Amount amount4 = new Amount();
 		amount4.setUser(user);
-		amount4.setValue("¾");
+		amount4.setValue(THREEfsFOUR);
 		amountRepository.save(amount4);
 		for (int i = 1; i < 25; i++)
 		{
@@ -90,36 +87,36 @@ public class UserService
 		{
 			Aisle aisle = new Aisle();
 			aisle.setUser(user);
-			aisle.setName(String.format("%02d", i));
+			aisle.setName(String.format(DEFAULTAISLEFORMAT, i));
 			aisleRepository.save(aisle);
 		}
 		UnitOfMeasurement unitOfMeasurement = new UnitOfMeasurement();
 		unitOfMeasurement.setUser(user);
-		unitOfMeasurement.setName("");
+		unitOfMeasurement.setName(EMPTYUNITOFMEASUREMENT);
 		unitOfMeasurementRepository.save(unitOfMeasurement);
 		UnitOfMeasurement unitOfMeasurement0 = new UnitOfMeasurement();
 		unitOfMeasurement0.setUser(user);
-		unitOfMeasurement0.setName("tsp");
+		unitOfMeasurement0.setName(TSP);
 		unitOfMeasurementRepository.save(unitOfMeasurement0);
 		UnitOfMeasurement unitOfMeasurement1 = new UnitOfMeasurement();
 		unitOfMeasurement1.setUser(user);
-		unitOfMeasurement1.setName("TBS");
+		unitOfMeasurement1.setName(TBS);
 		unitOfMeasurementRepository.save(unitOfMeasurement1);
 		UnitOfMeasurement unitOfMeasurement2 = new UnitOfMeasurement();
 		unitOfMeasurement2.setUser(user);
-		unitOfMeasurement2.setName("oz.");
+		unitOfMeasurement2.setName(OUNCE);
 		unitOfMeasurementRepository.save(unitOfMeasurement2);
 		UnitOfMeasurement unitOfMeasurement3 = new UnitOfMeasurement();
 		unitOfMeasurement3.setUser(user);
-		unitOfMeasurement3.setName("lb.");
+		unitOfMeasurement3.setName(POUND);
 		unitOfMeasurementRepository.save(unitOfMeasurement3);
 		UnitOfMeasurement unitOfMeasurement4 = new UnitOfMeasurement();
 		unitOfMeasurement4.setUser(user);
-		unitOfMeasurement4.setName("Cup");
+		unitOfMeasurement4.setName(CUP);
 		unitOfMeasurementRepository.save(unitOfMeasurement4);
 		UnitOfMeasurement unitOfMeasurement5 = new UnitOfMeasurement();
 		unitOfMeasurement5.setUser(user);
-		unitOfMeasurement5.setName("Slice");
+		unitOfMeasurement5.setName(SLICE);
 		unitOfMeasurementRepository.save(unitOfMeasurement5);
 	}
 }

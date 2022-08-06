@@ -7,7 +7,7 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = UNITSOFMEASUREMENT)
+@Table(name = TABLENAMEUNITSOFMEASUREMENT)
 public class UnitOfMeasurement
 {
 	@Id
@@ -45,9 +45,14 @@ public class UnitOfMeasurement
 	public void setUser(User user)
 	{ this.user = user; }
 
+	public String toDetailedString()
+	{
+		return user + "'s UnitOfMeasurement [unitOfMeasurementID=" + unitOfMeasurementID + ", name=" + name + "]";
+	}
+
+	@Override
 	public String toString()
 	{
 		return name;
-//		return String.format(ENTITYTOSTRING, cUNITOFMEASUREMENT, name);
 	}
 }

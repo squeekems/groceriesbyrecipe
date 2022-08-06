@@ -68,7 +68,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/recipes/addToShoppingList}" method="POST" th:object="${jRecipe}">
+						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/recipes/addToShoppingList}" method="POST" th:object="${recipe}">
 							<input type="hidden" id="txtJSON" name="txtJSON" th:field="*{instructions}">
 							<table class="table w-auto">
 								<thead>

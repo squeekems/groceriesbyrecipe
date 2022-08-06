@@ -2,6 +2,7 @@ package com.jackrkern.groceriesbyrecipe.business;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 import static java.lang.System.out;
+import static org.springframework.util.StringUtils.capitalize;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,17 +35,6 @@ public class ShoppingListItemService
 	@Autowired
 	private ItemRepository itemRepository;
 
-	private String strDetailedStoreItem(ShoppingListItem shoppingListItem)
-	{
-		return String.format(	SHOPPINGLISTITEMDETAIL, shoppingListItem, shoppingListItem.getCount(),
-								shoppingListItem.getUser());
-	}
-
-	private String strDetailedStoreItem(Long shoppingListItemID)
-	{
-		return strDetailedStoreItem(getByID(shoppingListItemID));
-	}
-
 	public List<ShoppingListItem> getShoppingList(User userID)
 	{
 		Iterable<ShoppingListItem> items = shoppingListItemRepository.findAllByUser(userID);
@@ -75,34 +65,29 @@ public class ShoppingListItemService
 
 	public void saveShoppingListItem(ShoppingListItem shoppingListItem)
 	{
-		if (shoppingListItem != null)
+		ShoppingListItem tempShoppingListItem = shoppingListItemRepository.findByItemAndUser(	shoppingListItem.getItem(),
+																								shoppingListItem.getUser());
+		if (tempShoppingListItem != null)
 		{
-			ShoppingListItem tempShoppingListItem = shoppingListItemRepository.findByItemAndUser(	shoppingListItem.getItem(),
-																									shoppingListItem.getUser());
-			if (tempShoppingListItem != null)
+			tempShoppingListItem.setCount(tempShoppingListItem.getCount() + shoppingListItem.getCount());
+			if (tempShoppingListItem.getCount() < 1)
 			{
-				tempShoppingListItem.setCount(tempShoppingListItem.getCount() + shoppingListItem.getCount());
-				if (tempShoppingListItem.getCount() < 1)
-				{
-					deleteByID(tempShoppingListItem.getShoppingListID());
-				} else
-				{
-					shoppingListItemRepository.save(tempShoppingListItem);
-					out.printf(STRINGsSTRINGnl, strDetailedStoreItem(tempShoppingListItem), cSAVED);
-				}
+				deleteByID(tempShoppingListItem.getShoppingListID());
 			} else
 			{
-				if (shoppingListItem.getCount() < 1)
-					out.printf("", ""); // Do nothing
-				else
-				{
-					shoppingListItemRepository.save(shoppingListItem);
-					out.printf(STRINGsSTRINGnl, strDetailedStoreItem(shoppingListItem), cSAVED);
-				}
+				tempShoppingListItem = shoppingListItemRepository.save(tempShoppingListItem);
+				out.printf(	STRINGsSTRINGnl, tempShoppingListItem.toDetailedString(),
+							capitalize(strPast(strMapping(SAVE))));
 			}
 		} else
 		{
-			throw new RuntimeException("ShoppingListItem cannot be null");
+			if (shoppingListItem.getCount() < 1)
+				doNothing(); // Do nothing
+			else
+			{
+				shoppingListItem = shoppingListItemRepository.save(shoppingListItem);
+				out.printf(STRINGsSTRINGnl, shoppingListItem.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
+			}
 		}
 	}
 
@@ -114,33 +99,33 @@ public class ShoppingListItemService
 		{
 			shoppingListItem.setCount(shoppingListItem.getCount() + 1);
 			shoppingListItemRepository.save(shoppingListItem);
-			out.printf(STRINGsSTRINGnl, shoppingListItem, cSAVED);
+			out.printf(STRINGsSTRINGnl, shoppingListItem.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		} else
 		{
 			shoppingListItem = new ShoppingListItem();
 			shoppingListItem.setItem(item);
 			shoppingListItem.setUser(item.getUser());
 			shoppingListItem.setCount(1);
-			shoppingListItemRepository.save(shoppingListItem);
-			out.printf(STRINGsSTRINGnl, strDetailedStoreItem(shoppingListItem), cSAVED);
+			shoppingListItem = shoppingListItemRepository.save(shoppingListItem);
+			out.printf(STRINGsSTRINGnl, shoppingListItem.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		}
 	}
 
 	public void saveShoppingListItemsFromRecipeJSON(JsonObject jsonObject)
 	{
-		JsonArray ingredients = (JsonArray) jsonObject.get("ingredients");
+		JsonArray ingredients = (JsonArray) jsonObject.get(strPlural(strMapping(INGREDIENT)));
 		ingredients.forEach(ingredient ->
 		{
 			JsonObject jIngredient = (JsonObject) ingredient;
-			JsonObject jItem = (JsonObject) jIngredient.get("item");
-			BigDecimal bdItemID = (BigDecimal) jItem.get("itemID");
+			JsonObject jItem = (JsonObject) jIngredient.get(Item.class.getSimpleName().toLowerCase());
+			BigDecimal bdItemID = (BigDecimal) jItem.get(ITEMID);
 			Long itemID = bdItemID.longValue();
 			ShoppingListItem shoppingListItem = new ShoppingListItem();
 			shoppingListItem.setItem(itemRepository.findById(itemID).get());
 			shoppingListItem.setUser(shoppingListItem.getItem().getUser());
 			shoppingListItem.setCount(1);
-			shoppingListItemRepository.save(shoppingListItem);
-			out.printf(STRINGsSTRINGnl, strDetailedStoreItem(shoppingListItem), cSAVED);
+			shoppingListItem = shoppingListItemRepository.save(shoppingListItem);
+			out.printf(STRINGsSTRINGnl, shoppingListItem.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		});
 	}
 
@@ -153,8 +138,8 @@ public class ShoppingListItemService
 			deleteByID(shoppingListItemID);
 		} else
 		{
-			shoppingListItemRepository.save(shoppingListItem);
-			out.printf(STRINGsSTRINGnl, strDetailedStoreItem(shoppingListItem), cSAVED);
+			shoppingListItem = shoppingListItemRepository.save(shoppingListItem);
+			out.printf(STRINGsSTRINGnl, shoppingListItem.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		}
 	}
 
@@ -162,7 +147,8 @@ public class ShoppingListItemService
 	{
 		try
 		{
-			out.printf(STRINGsSTRINGnl, strDetailedStoreItem(shoppingListItemID), cDELETED);
+			out.printf(	STRINGsSTRINGnl, getByID(shoppingListItemID).toDetailedString(),
+						capitalize(strPast(strMapping(DELETE))));
 			shoppingListItemRepository.deleteById(shoppingListItemID);
 		} catch (Exception e)
 		{
@@ -192,11 +178,11 @@ public class ShoppingListItemService
 		{
 			String attributeName = parameterName;
 			String attributeValue = request.getParameter(parameterName);
-			if (attributeName.substring(0, 5).equals("txtID"))
+			if (attributeName.substring(0, 5).equals(TXTID))
 			{
 				recipeItems.add(new ShoppingListItem(itemRepository.findById(Long.parseLong(attributeValue)).get()));
 			}
-			if (attributeName.substring(0, 5).equals("numCo"))
+			if (attributeName.substring(0, 5).equals(NUMCO))
 			{
 				for (ShoppingListItem recipeItem : recipeItems)
 				{

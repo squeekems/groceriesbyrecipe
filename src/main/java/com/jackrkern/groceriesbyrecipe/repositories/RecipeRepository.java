@@ -1,5 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.repositories;
 
+import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +20,7 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long>
 	List<Recipe> findByIngredients_IngredientID(Long ingredientID);
 
 	// Get all the ingredientIDs of a Recipe by recipeID
-	@Query(value = "SELECT ingredientID FROM recipes_ingredients WHERE recipeID = ?1", nativeQuery = true)
+	@Query(value = FINDINGREDIENTSBYRECIPEID, nativeQuery = true)
 	Set<Long> findIngredientsByRecipeID(Long recipeID);
 
 	List<Recipe> findAllByUser(User userID);

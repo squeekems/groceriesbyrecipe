@@ -18,7 +18,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<form id="frmAddIngredient" th:action="@{/edit_recipe/addIngredient}" method="POST" th:object="${ingredient}">
+							<form id="frmAddIngredient" th:action="@{/edit_recipe/add/ingredient}" method="POST" th:object="${ingredient}">
 								<input type="number" class="txtAddIngredientRecipeID" name="txtAddIngredientRecipeID" id="txtAddIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
 								<label for="cmbAddAmount">Amount:</label>
 								<select class="form-control" name="cmbAddAmount" id="cmbAddAmount">
@@ -54,7 +54,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<form id="frmEditIngredient" th:action="@{/edit_recipe/editIngredient}" method="PUT" th:object="${ingredient}">
+							<form id="frmEditIngredient" th:action="@{/edit_recipe/edit/ingredient}" method="PUT" th:object="${ingredient}">
 								<input type="number" class="txtEditIngredientRecipeID" name="txtEditIngredientRecipeID" id="txtEditIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
 								<input type="number" class="txtEditID" name="txtEditID" id="txtEditID" hidden="true">
 								<label for="cmbEditAmount">Amount:</label>
@@ -91,7 +91,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<form id="frmRemoveIngredient" th:action="@{/edit_recipe/removeIngredient}" method="GET">
+							<form id="frmRemoveIngredient" th:action="@{/edit_recipe/remove/ingredient}" method="GET">
 								<input type="number" class="txtRemoveIngredientRecipeID" name="txtRemoveIngredientRecipeID" id="txtRemoveIngredientRecipeID" th:value="${recipe.recipeID}" hidden="true">
 								<table class="table w-auto m-0">
 									<thead>

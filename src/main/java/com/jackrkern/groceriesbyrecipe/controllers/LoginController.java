@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,13 @@ public class LoginController
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(sLOGIN)
+	@GetMapping(LOGIN)
 	public String getLogin(Model model)
 	{
-		model.addAttribute(ACTIVEPAGE, cLOGIN);
+		model.addAttribute(ACTIVEPAGE, capitalize(strMapping(LOGIN)));
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, LOGIN);
-		return LOGIN;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(LOGIN));
+		return strMapping(LOGIN);
 	}
 }

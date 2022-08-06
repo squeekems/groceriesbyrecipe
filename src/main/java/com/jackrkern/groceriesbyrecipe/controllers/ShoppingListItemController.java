@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,79 +42,87 @@ public class ShoppingListItemController
 	private ItemService itemService;
 
 	// Read
-	@GetMapping(sLIST)
+	@GetMapping(LIST)
 	public String getShoppingList(Model model)
 	{
-		model.addAttribute(SHOPPINGLIST, shoppingListItemService.getShoppingList(userService.getPrincipal()));
-		model.addAttribute(ACTIVEPAGE, "Shopping List");
-		model.addAttribute(ITEMS, itemService.getItemsSortedByDescription(userService.getPrincipal()));
-		model.addAttribute(ITEM, new Item());
-		model.addAttribute(SHOPPINGLISTITEM, new ShoppingListItem());
-		model.addAttribute(AISLES, itemService.getAisles(userService.getPrincipal()));
+		model.addAttribute(	strMapping(SHOPPINGLIST),
+							shoppingListItemService.getShoppingList(userService.getPrincipal()));
+		model.addAttribute(ACTIVEPAGE, capitalize(strSpace(strMapping(SHOPPINGLIST))));
+		model.addAttribute(strMapping(ITEMS), itemService.getItemsSortedByDescription(userService.getPrincipal()));
+		model.addAttribute(strMapping(ITEM), new Item());
+		model.addAttribute(strMapping(SHOPPINGLISTITEM), new ShoppingListItem());
+		model.addAttribute(strPlural(strMapping(AISLE)), itemService.getAisles(userService.getPrincipal()));
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, LIST);
-		return LIST;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(LIST));
+		return strMapping(LIST);
 	}
 
 	// Post
-	@PostMapping(sLIST)
-	public RedirectView addExistingToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = "cmbAddItem")
-	Long itemID, @RequestParam(value = "numCount")
+	@PostMapping(LIST)
+	public RedirectView addExistingToShoppingList(ShoppingListItem shoppingListItem, @RequestParam(value = CMBADDITEM)
+	Long itemID, @RequestParam(value = NUMCOUNT)
 	int count, RedirectAttributes redirectAttributes)
 	{
 		shoppingListItem.setItem(itemService.getItemByID(itemID));
 		shoppingListItem.setUser(userService.getPrincipal());
 		shoppingListItem.setCount(count);
 		shoppingListItemService.saveShoppingListItem(shoppingListItem);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem, cADDED));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem,
+																	capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsVERBEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qADDEDq,
-					shoppingListItem);
-		return new RedirectView(sLIST);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strQuote(strPast(strMapping(ADD))), shoppingListItem);
+		return new RedirectView(LIST);
 	}
 
 	// Post
-	@PostMapping(sLIST + sADD)
-	public RedirectView addToShoppingList(Item item, @RequestParam(value = "cmbAddAisle")
+	@PostMapping(LIST + ADD)
+	public RedirectView addToShoppingList(Item item, @RequestParam(value = CMBADDAISLE)
 	Long aisleID, RedirectAttributes redirectAttributes)
 	{
 		item.setAisle(itemService.getAisleByID(aisleID));
 		item.setUser(userService.getPrincipal());
 		itemService.saveItem(item);
 		shoppingListItemService.saveShoppingListItem(item);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item, cADDED));
-		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNsANDsVERBEDsITsTOsTHEIRsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, CREATED, ITEM, item,
-					ADDED, SHOPPINGsLIST);
-		return new RedirectView(sLIST);
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, item,
+																	capitalize(strPast(strMapping(ADD)))));
+		out.printf(	PERSONsVERBEDsANsOBJECTsCALLEDsNOUNsANDsVERBEDsITsPREPOSITIONsTHEIRsNOUNnl,
+					now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(CREATE)), strMapping(ITEM), item, strPast(strMapping(ADD)), TO,
+					strSpace(strMapping(SHOPPINGLIST)));
+		return new RedirectView(LIST);
 	}
 
 	// Delete
-	@GetMapping(sLIST + sREMOVE + "/{shoppingListItemID}")
-	public RedirectView deleteShoppingListItem(@PathVariable(value = "shoppingListItemID")
+	@GetMapping(LIST + REMOVE + PVMSHOPPINGLISTITEMID)
+	public RedirectView deleteShoppingListItem(@PathVariable(value = PVVSHOPPINGLISTITEMID)
 	Long shoppingListItemID, RedirectAttributes redirectAttributes)
 	{
 		ShoppingListItem shoppingListItem = shoppingListItemService.getByID(shoppingListItemID);
 		shoppingListItemService.removeShoppingListItem(shoppingListItemID, 1);
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, "1 " + shoppingListItem.getItem(),
-																	cREMOVED));
-		out.printf(	PERSONsVERBEDsAsNOUNsFROMsTHEIRsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qREMOVEDq,
-					shoppingListItem.getItem(), SHOPPINGsLIST);
-		return new RedirectView(sLIST);
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, shoppingListItem.getItem(),
+																	capitalize(strPast(strMapping(REMOVE)))));
+		out.printf(	PERSONsVERBEDsAsNOUNsPREPOSITIONsTHEIRsNOUNnl, now().format(dateTimeFormatter),
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strQuote(strPast(strMapping(REMOVE))), shoppingListItem.getItem(), FROM,
+					strSpace(strMapping(SHOPPINGLIST)));
+		return new RedirectView(LIST);
 	}
 
 	// Clear
-	@GetMapping(sLIST + sCLEAR)
+	@GetMapping(LIST + CLEAR)
 	public RedirectView clearShoppingList(RedirectAttributes redirectAttributes)
 	{
 		shoppingListItemService.clearShoppingList(userService.getPrincipal());
-		out.println("Shopping List Cleared");
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, cSHOPPINGscLIST, cCLEARED));
-		out.println((userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE)
-					+ " cleared their shopping list.");
+		redirectAttributes.addFlashAttribute(	SUCCESS,
+												String.format(	STRINGsSTRING,
+																capitalize(strSpace(strMapping(SHOPPINGLIST))),
+																capitalize(strPast(strMapping(CLEAR)))));
 		out.printf(	PERSONsVERBEDsTHEIRsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, CLEARED, SHOPPINGsLIST);
-		return new RedirectView(sLIST);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(CLEAR)), strSpace(strMapping(SHOPPINGLIST)));
+		return new RedirectView(LIST);
 	}
 }

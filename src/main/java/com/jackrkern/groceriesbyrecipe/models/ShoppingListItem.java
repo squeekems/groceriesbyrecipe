@@ -7,7 +7,7 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = SHOPPINGLIST)
+@Table(name = TABLENAMESHOPPINGLIST)
 public class ShoppingListItem
 {
 	@Id
@@ -91,13 +91,21 @@ public class ShoppingListItem
 	public void setUser(User user)
 	{ this.user = user; }
 
+	public String toDetailedString()
+	{
+		if (count > 1)
+			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID + ", count=" + count + ", item="
+					+ item + "]";
+		else
+			return user + "'s ShoppingListItem [shoppingListID=" + shoppingListID + ", item=" + item + "]";
+	}
+
+	@Override
 	public String toString()
 	{
 		if (count > 1)
 			return item + " (x" + count + ")";
-//			return String.format(ENTITY2TOSTRING, cSHOPPINGLISTITEM, item, String.format(COUNTTOSTRING, count));
 		else
 			return item.toString();
-//			return String.format(ENTITYTOSTRING, cSHOPPINGLISTITEM, item);
 	}
 }

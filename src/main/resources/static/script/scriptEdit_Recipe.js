@@ -28,7 +28,7 @@ $(function()
       alert('You need to select an item to edit first.');
     }else
     {
-      const href = "/edit_recipe/getIngredientByID/" + selectedIngredientID;
+      const href = "/edit_recipe/get/ingredient/" + selectedIngredientID;
       $.get(href, function(ingredient, status)
       {
         $('#txtEditID').val(selectedIngredientID);
@@ -41,7 +41,7 @@ $(function()
     }
   });
   
-  // Onclick Remove Ingredient
+  // Populate Remove Ingredient Modal
   $('#removeIngredientModal').on('show.bs.modal', function(event)
   {
     if (selectedIngredientID === -1)
@@ -50,7 +50,7 @@ $(function()
       alert('You need to select an ingredient to remove first.');
     }else
     {
-      const href = "/edit_recipe/getIngredientByID/" + selectedIngredientID;
+      const href = "/edit_recipe/get/ingredient/" + selectedIngredientID;
       $.get(href, function(ingredient, status)
       {
         // Table

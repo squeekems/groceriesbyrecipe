@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import java.time.format.DateTimeFormatter;
@@ -46,25 +47,30 @@ public class EditRecipeController
 	private UserService userService;
 
 	// Read
-	@GetMapping(sEDIT_RECIPE)
-	public String getRecipe(HttpServletRequest request, Model model)
+	@GetMapping(EDIT_RECIPE)
+	public Object getRecipe(HttpServletRequest request, Model model)
 	{
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null)
-			model.addAttribute(RECIPE, (Recipe) inputFlashMap.get(RECIPE));
-		model.addAttribute(AMOUNTS, recipeService.getAmounts(userService.getPrincipal()));
-		model.addAttribute(UNITSOFMEASUREMENT, recipeService.getUnitsOfMeasurement(userService.getPrincipal()));
-		model.addAttribute(ITEMS, itemService.getItemsSortedByDescription(userService.getPrincipal()));
-		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, EDIT_RECIPE);
-		return EDIT_RECIPE;
+		{
+			model.addAttribute(strMapping(RECIPE), (Recipe) inputFlashMap.get(strMapping(RECIPE)));
+			model.addAttribute(strPlural(strMapping(AMOUNT)), recipeService.getAmounts(userService.getPrincipal()));
+			model.addAttribute(	strMapping(UNITSOFMEASUREMENT),
+								recipeService.getUnitsOfMeasurement(userService.getPrincipal()));
+			model.addAttribute(strMapping(ITEMS), itemService.getItemsSortedByDescription(userService.getPrincipal()));
+			out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
+						userService.getPrincipal() != null ? userService.getPrincipal() : SOMEONE,
+						strMapping(EDIT_RECIPE));
+			return strMapping(EDIT_RECIPE);
+		} else
+			return new RedirectView(RECIPES);
 	}
 
 	// Update
-	@PostMapping(sEDIT_RECIPE)
-	public RedirectView saveRecipe(@RequestParam(value = "txtSaveRecipeRecipeID")
-	Long recipeID, @RequestParam(value = "txtName")
-	String name, @RequestParam(value = "txtInstructions")
+	@PostMapping(EDIT_RECIPE)
+	public RedirectView saveRecipe(@RequestParam(value = TXTSAVERECIPERECIPEID)
+	Long recipeID, @RequestParam(value = TXTNAME)
+	String name, @RequestParam(value = TXTINSTRUCTIONS)
 	String instructions, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
@@ -72,21 +78,23 @@ public class EditRecipeController
 		recipe.setInstructions(instructions);
 		recipe.setUser(userService.getPrincipal());
 		recipeService.saveRecipe(recipe);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, String.format(STRINGsSTRING, cEDIT, recipe));
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, recipe, cSAVED));
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(	ACTIVEPAGE,
+												String.format(STRINGsSTRING, capitalize(strMapping(EDIT)), recipe));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, recipe,
+																	capitalize(strPast(strMapping(SAVE)))));
 		out.printf(	PERSONsVERBEDsTHEIRsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, UPDATED, RECIPE,
-					recipe);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(UPDATE)), RECIPE, recipe);
+		return new RedirectView(EDIT_RECIPE);
 	}
 
 	// Create
-	@PostMapping(sEDIT_RECIPE + sADD + cINGREDIENT)
-	public RedirectView addIngredient(Ingredient ingredient, @RequestParam(value = "txtAddIngredientRecipeID")
-	Long recipeID, @RequestParam(value = "cmbAddAmount")
-	Long amountID, @RequestParam(value = "cmbAddUnitOfMeasurement")
-	Long unitOfMeasurementID, @RequestParam(value = "cmbAddItem")
+	@PostMapping(EDIT_RECIPE + ADD + INGREDIENT)
+	public RedirectView addIngredient(Ingredient ingredient, @RequestParam(value = TXTADDINGREDIENTRECIPEID)
+	Long recipeID, @RequestParam(value = TXTADDAMOUNT)
+	Long amountID, @RequestParam(value = CMBADDUNITOFMEASUREMENT)
+	Long unitOfMeasurementID, @RequestParam(value = CMBADDITEM)
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
@@ -94,31 +102,33 @@ public class EditRecipeController
 		ingredient.setUnitOfMeasurement(recipeService.getUnitOfMeasurementByID(unitOfMeasurementID));
 		ingredient.setItem(itemService.getItemByID(itemID));
 		recipeService.saveRecipe(recipe, ingredient);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, String.format(STRINGsSTRING, cEDIT, recipe));
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient, cADDED));
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(	ACTIVEPAGE,
+												String.format(STRINGsSTRING, capitalize(strMapping(EDIT)), recipe));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient,
+																	capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsVERBEDsNOUNsPREPOSITIONsTHEIRsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qADDEDq, ingredient, TO,
-					RECIPE, recipe);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strQuote(strPast(strMapping(ADD))), ingredient, TO, RECIPE, recipe);
+		return new RedirectView(EDIT_RECIPE);
 	}
 
 	// Gets Ingredient to be Editted
-	@RequestMapping(sEDIT_RECIPE + sGET + cINGREDIENT + cBYID + "/{ingredientID}")
+	@RequestMapping(EDIT_RECIPE + GET + INGREDIENT + PVMINGREDIENTID)
 	@ResponseBody
-	public Ingredient getItemByID(@PathVariable(value = "ingredientID")
+	public Ingredient getIngredient(@PathVariable(value = PVVINGREDIENTID)
 	Long ingredientID)
 	{
 		return recipeService.getIngredientByID(ingredientID);
 	}
 
 	// Update
-	@RequestMapping(value = sEDIT_RECIPE + sEDIT + cINGREDIENT, method = { RequestMethod.PUT, RequestMethod.GET })
-	public RedirectView updateItem(Ingredient ingredient, @RequestParam(value = "txtEditIngredientRecipeID")
-	Long recipeID, @RequestParam(value = "txtEditID")
-	Long ingredientID, @RequestParam(value = "cmbEditAmount")
-	Long amountID, @RequestParam(value = "cmbEditUnitOfMeasurement")
-	Long unitOfMeasurementID, @RequestParam(value = "cmbEditItem")
+	@RequestMapping(value = EDIT_RECIPE + EDIT + INGREDIENT, method = { RequestMethod.PUT, RequestMethod.GET })
+	public RedirectView updateIngredient(Ingredient ingredient, @RequestParam(value = TXTEDITINGREDIENTRECIPEID)
+	Long recipeID, @RequestParam(value = TXTEDITID)
+	Long ingredientID, @RequestParam(value = CMBEDITAMOUNT)
+	Long amountID, @RequestParam(value = CMBEDITUNITOFMEASUREMENT)
+	Long unitOfMeasurementID, @RequestParam(value = CMBEDITITEM)
 	Long itemID, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
@@ -127,30 +137,34 @@ public class EditRecipeController
 		ingredient.setUnitOfMeasurement(recipeService.getUnitOfMeasurementByID(unitOfMeasurementID));
 		ingredient.setItem(itemService.getItemByID(itemID));
 		recipeService.saveRecipe(recipe, ingredient);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, String.format(STRINGsSTRING, cEDIT, recipe));
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient, cEDITED));
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(	ACTIVEPAGE,
+												String.format(STRINGsSTRING, capitalize(strMapping(EDIT)), recipe));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient,
+																	capitalize(strPast(strMapping(EDIT)))));
 		out.printf(	PERSONsVERBEDsNOUNsPREPOSITIONsTHEIRsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qEDITEDq, ingredient,
-					ON, RECIPE, recipe);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strQuote(strPast(strMapping(EDIT))), ingredient, ON, RECIPE, recipe);
+		return new RedirectView(EDIT_RECIPE);
 	}
 
 	// Delete
-	@GetMapping(sEDIT_RECIPE + sREMOVE + cINGREDIENT)
-	public RedirectView deleteItem(@RequestParam(value = "txtID")
-	Long ingredientID, @RequestParam(value = "txtRemoveIngredientRecipeID")
+	@GetMapping(EDIT_RECIPE + REMOVE + INGREDIENT)
+	public RedirectView deleteItem(@RequestParam(value = TXTID)
+	Long ingredientID, @RequestParam(value = TXTREMOVEINGREDIENTRECIPEID)
 	Long recipeID, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
 		Ingredient ingredient = recipeService.getIngredientByID(ingredientID);
 		recipeService.deleteIngredient(ingredientID, recipeID);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, String.format(STRINGsSTRING, cEDIT, recipe));
-		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient, cREMOVED));
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(	ACTIVEPAGE,
+												String.format(STRINGsSTRING, capitalize(strMapping(EDIT)), recipe));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, ingredient,
+																	capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsNOUNsPREPOSITIONsTHEIRsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, qREMOVEDq, ingredient,
-					FROM, RECIPE, recipe);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strQuote(strPast(strMapping(REMOVE))), ingredient, FROM, RECIPE, recipe);
+		return new RedirectView(EDIT_RECIPE);
 	}
 }

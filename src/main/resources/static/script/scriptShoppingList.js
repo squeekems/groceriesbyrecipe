@@ -31,36 +31,28 @@ $(function()
       let blnDelete = confirm('Are you sure you want to delete this item?');
       if (blnDelete)
       {
-        fetch(`/list/remove/${selectedShoppingListItemID}`)
-          .then(res =>
-          {
-            console.log(res)
-            location.reload();
-          })
-          .catch(err =>
-          {
-            console.log(err)
-          });
+      	window.location.href = `/list/remove/${selectedShoppingListItemID}`;
       }
     }
   });
   
-  // Onclick Clear
+  // Onclick Clear All
   $('#cmdClearShoppingList').on('click', null, null, function(event)
   {
     let blnDelete = confirm('Are you sure you want to clear your entire shopping list?');
     if (blnDelete)
     {
-      fetch(`/list/clear`)
-        .then(res =>
-        {
-          console.log(res)
-          location.reload();
-        })
-        .catch(err =>
-        {
-          console.log(err)
-        });
+      window.location.href = `/list/clear`;
+    }
+  });
+  
+  // Onclick Clear Checked
+  $('#cmdClearCheckedShoppingList').on('click', null, null, function(event)
+  {
+    let blnDelete = confirm('Are you sure you want to clear your checked list items?');
+    if (blnDelete)
+    {
+      window.location.href = `/list/clearchecked`;
     }
   });
 });

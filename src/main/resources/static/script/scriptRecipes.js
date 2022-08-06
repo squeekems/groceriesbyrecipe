@@ -19,7 +19,7 @@ $(function()
       alert('You need to select a recipe to edit first.');
     }else
     {
-      const href = "/recipes/getRecipeByID/" + selectedRecipeID;
+      const href = "/recipes/get/recipe/" + selectedRecipeID;
       $.get(href, function(recipe, status)
       {
         $('#txtEditID').val(recipe.recipeID);
@@ -42,8 +42,7 @@ $(function()
       let blnDelete = confirm('Are you sure you want to delete this recipe?');
       if (blnDelete)
       {
-        const href = "/recipes/remove/" + selectedRecipeID;
-        window.location.href = href;
+        window.location.href = `/recipes/remove/${selectedRecipeID}`;
       }
     }
   });
@@ -57,7 +56,7 @@ $(function()
       alert('You need to select a recipe to add to the shopping list first.');
     }else
     {
-      const href = "/recipes/getRecipeByID/" + selectedRecipeID;
+      const href = "/recipes/get/recipe/" + selectedRecipeID;
       $.get(href, function(recipe, status)
       {
         $('#txtJSON').attr('value', JSON.stringify(recipe))

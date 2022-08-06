@@ -1,6 +1,7 @@
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,57 +44,62 @@ public class RecipesController
 	private ShoppingListItemService shoppingListItemService;
 
 	// Read
-	@GetMapping(sRECIPES)
+	@GetMapping(RECIPES)
 	public String getRecipes(Model model)
 	{
-		model.addAttribute(ACTIVEPAGE, cRECIPES);
-		model.addAttribute(RECIPES, recipeService.getRecipes(userService.getPrincipal()));
-		model.addAttribute(RECIPE, new Recipe());
-		model.addAttribute(jRECIPE, new Recipe());
+		model.addAttribute(ACTIVEPAGE, capitalize(strMapping(RECIPES)));
+		model.addAttribute(strMapping(RECIPES), recipeService.getRecipes(userService.getPrincipal()));
+		model.addAttribute(strMapping(RECIPE), new Recipe());
 		out.printf(	PERSONsLOADEDsTHEsNOUNsPAGEnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, RECIPES);
-		return RECIPES;
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(RECIPES));
+		return strMapping(RECIPES);
 	}
 
 	// Create
-	@PostMapping(sRECIPES + sADD)
+	@PostMapping(RECIPES + ADD)
 	public RedirectView addRecipe(@ModelAttribute
 	Recipe recipe, RedirectAttributes redirectAttributes)
 	{
 		recipe.setUser(userService.getPrincipal());
-		recipeService.saveRecipe(recipe);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, "Edit " + recipe);
-		redirectAttributes.addFlashAttribute(SUCCESS, recipe + " Added");
+		recipe = recipeService.saveRecipe(recipe);
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(	ACTIVEPAGE,
+												String.format(STRINGsSTRING, capitalize(strMapping(EDIT)), recipe));
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, recipe,
+																	capitalize(strPast(strMapping(ADD)))));
 		out.printf(	PERSONsCREATEDsAsNEWsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, RECIPE, recipe);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(RECIPE), recipe);
+		return new RedirectView(EDIT_RECIPE);
 	}
 
 	// Gets Recipe to be Editted
-	@GetMapping(sRECIPES + sGET + cRECIPE + cBYID + "/{recipeID}")
+	@GetMapping(RECIPES + GET + RECIPE + PVMRECIPEID)
 	@ResponseBody
-	public Recipe getRecipeByID(@PathVariable(value = "recipeID")
+	public Recipe getRecipeByID(@PathVariable(value = PVVRECIPEID)
 	Long recipeID)
 	{
 		return recipeService.getRecipeByID(recipeID);
 	}
 
 	// Update
-	@GetMapping(sRECIPES + sEDIT)
-	public RedirectView updateRecipe(@RequestParam(value = "recipeID")
+	@GetMapping(RECIPES + EDIT)
+	public RedirectView updateRecipe(@RequestParam(value = RECIPEID)
 	Long recipeID, RedirectAttributes redirectAttributes)
 	{
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
-		redirectAttributes.addFlashAttribute(RECIPE, recipe);
-		redirectAttributes.addFlashAttribute(ACTIVEPAGE, "Edit " + recipe.getName());
+		redirectAttributes.addFlashAttribute(strMapping(RECIPE), recipe);
+		redirectAttributes.addFlashAttribute(ACTIVEPAGE, String.format(	STRINGsSTRING, capitalize(strMapping(EDIT)),
+																		recipe.getName()));
 		out.printf(	PERSONsSELECTEDsAsNOUNsCALLEDsNOUNsTOsBEsVERBEDnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, RECIPE, recipe, EDITED);
-		return new RedirectView(sEDIT_RECIPE);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strMapping(RECIPE), recipe, strPast(strMapping(EDIT)));
+		return new RedirectView(EDIT_RECIPE);
 	}
 
 //	// AddToShoppingList
-//	@PostMapping(sRECIPES + sADDTOSHOPPINGLIST)
+//	@PostMapping(RECIPES + ADDTOSHOPPINGLIST)
 //	public RedirectView addRecipeToShoppingList(Recipe jRecipe,
 //												RedirectAttributes redirectAttributes) throws JsonException
 //	{
@@ -101,37 +107,41 @@ public class RecipesController
 //		shoppingListItemService.saveShoppingListItemsFromRecipeJSON((JsonObject) Jsoner.deserialize(jRecipe.getInstructions()));
 //		redirectAttributes.addFlashAttribute(SUCCESS, "Items Added to Shopping List");
 //		out.printf(	PERSONsVERBEDsALLsTHEsNOUNSsLISTEDsFORsAsNOUNsTOsTHEIRsNOUNnl, now().format(dateTimeFormatter),
-//					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED, ITEM, RECIPE,
+//					userService.getPrincipal() != null ? userService.getPrincipal() : SOMEONE, ADDED, ITEM, RECIPE,
 //					SHOPPINGsLIST);
-//		return new RedirectView(sRECIPES);
+//		return new RedirectView(RECIPES);
 //	}
 
 	// AddToShoppingList
-	@PostMapping(sRECIPES + sADDTOSHOPPINGLIST)
-	public RedirectView addRecipeToShoppingList(Recipe jRecipe, HttpServletRequest request,
-												RedirectAttributes redirectAttributes)
+	@PostMapping(RECIPES + ADDTOSHOPPINGLIST)
+	public RedirectView addRecipeToShoppingList(HttpServletRequest request, RedirectAttributes redirectAttributes)
 	{
 		shoppingListItemService.addRecipeToShoppingList(request);
 
-		redirectAttributes.addFlashAttribute(SUCCESS, "Items Added to Shopping List");
+		redirectAttributes.addFlashAttribute(	SUCCESS,
+												String.format(	NOUNsVERBEDsPREPOSITIONsNOUN,
+																capitalize(strPlural(strMapping(ITEM))),
+																capitalize(strPast(strMapping(ADD))), TO,
+																capitalize(strSpace(strMapping(SHOPPINGLIST)))));
 		out.printf(	PERSONsVERBEDsALLsTHEsNOUNSsLISTEDsFORsAsNOUNsTOsTHEIRsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, ADDED, ITEM, RECIPE,
-					SHOPPINGsLIST);
-		return new RedirectView(sRECIPES);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(ADD)), strMapping(ITEM), strMapping(RECIPE), strSpace(strMapping(SHOPPINGLIST)));
+		return new RedirectView(RECIPES);
 	}
 
 	// Delete
-	@GetMapping(sRECIPES + sREMOVE + "/{recipeID}")
-	public RedirectView deleteRecipe(@PathVariable(value = "recipeID")
+	@GetMapping(RECIPES + REMOVE + PVMRECIPEID)
+	public RedirectView deleteRecipe(@PathVariable(value = PVVRECIPEID)
 	Long recipeID, RedirectAttributes redirectAttributes)
 	{
 		// create recipe object to use in feedback
 		Recipe recipe = recipeService.getRecipeByID(recipeID);
 		recipeService.deleteRecipe(recipeID);
-		redirectAttributes.addFlashAttribute(SUCCESS, recipe + " Removed");
+		redirectAttributes.addFlashAttribute(SUCCESS, String.format(STRINGsSTRING, recipe,
+																	capitalize(strPast(strMapping(REMOVE)))));
 		out.printf(	PERSONsVERBEDsAsNOUNsCALLEDsNOUNnl, now().format(dateTimeFormatter),
-					userService.getPrincipal() != null ? userService.getPrincipal() : cSOMEONE, DELETED, RECIPE,
-					recipe);
-		return new RedirectView(sRECIPES);
+					userService.getPrincipal() != null ? userService.getPrincipal() : capitalize(SOMEONE),
+					strPast(strMapping(DELETE)), strMapping(RECIPE), recipe);
+		return new RedirectView(RECIPES);
 	}
 }

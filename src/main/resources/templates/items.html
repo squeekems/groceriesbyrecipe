@@ -84,7 +84,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/items/addToShoppingList}" method="POST" th:object="${shoppingList}">
+						<form id="frmAddToShoppingList" class="form-inline d-flex justify-content-center" th:action="@{/items/addToShoppingList}" method="POST" th:object="${shoppingListItem}">
 							<input type=hidden id="txtAddToShoppingListScrollValue" name="txtAddToShoppingListScrollValue">
 							<table class="table w-auto">
 								<thead>

@@ -9,7 +9,7 @@ import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 /* @author "Jack Kern" */
 
 @Entity
-@Table(name = RECIPES)
+@Table(name = TABLENAMERECIPE)
 public class Recipe
 {
 	@Id
@@ -67,9 +67,15 @@ public class Recipe
 	public void setUser(User user)
 	{ this.user = user; }
 
+	public String toDetailedString()
+	{
+		return user + "'s Recipe [recipeID=" + recipeID + ", name=" + name + ", instructions=" + instructions
+				+ ", ingredients=" + ingredients + "]";
+	}
+
+	@Override
 	public String toString()
 	{
 		return name;
-//		return String.format( ENTITY2TOSTRING, cRECIPE, String.format(ENTITYTOSTRING, cNAME, name), String.format(ENTITYTOSTRING, cINSTRUCTIONS, instructions));
 	}
 }

@@ -1,5 +1,6 @@
 package com.jackrkern.groceriesbyrecipe.business;
 
+import static org.springframework.util.StringUtils.capitalize;
 import static java.lang.System.out;
 
 import java.util.ArrayList;
@@ -26,16 +27,6 @@ public class ItemService
 
 	@Autowired
 	private AisleRepository aisleRepository;
-
-	private String strDetailedItem(Item item)
-	{
-		return String.format(ITEMDETAIL, item.getAisle(), item.getDescription(), item.getUser());
-	}
-
-	private String strDetailedItem(Long itemID)
-	{
-		return strDetailedItem(getItemByID(itemID));
-	}
 
 	public List<Aisle> getAisles(User userID)
 	{
@@ -111,7 +102,7 @@ public class ItemService
 
 	public Item saveItem(Item item)
 	{
-		out.printf(STRINGsSTRINGnl, strDetailedItem(item), cSAVED);
+		out.printf(STRINGsSTRINGnl, item.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		return itemRepository.save(item);
 	}
 
@@ -119,7 +110,8 @@ public class ItemService
 	{
 		try
 		{
-			out.printf(STRINGsSTRINGnl, strDetailedItem(itemID), cDELETED);
+			out.printf(	STRINGsSTRINGnl, getItemByID(itemID).toDetailedString(),
+						capitalize(strPast(strMapping(DELETE))));
 			itemRepository.deleteById(itemID);
 		} catch (Exception e)
 		{
@@ -129,21 +121,16 @@ public class ItemService
 
 	public void saveAisle(Aisle aisle)
 	{
-		if (aisle != null)
-		{
-			aisleRepository.save(aisle);
-			out.printf(STRINGsSTRINGnl, aisle, cSAVED);
-		} else
-		{
-			throw new RuntimeException("Aisle cannot be null");
-		}
+		aisleRepository.save(aisle);
+		out.printf(STRINGsSTRINGnl, aisle, capitalize(strPast(strMapping(SAVE))));
 	}
 
 	public void deleteAisle(Long aisleID)
 	{
 		try
 		{
-			out.printf(STRINGsSTRINGnl, getAisleByID(aisleID), cDELETED);
+			out.printf(	STRINGsSTRINGnl, getAisleByID(aisleID).toDetailedString(),
+						capitalize(strPast(strMapping(DELETE))));
 			aisleRepository.deleteById(aisleID);
 		} catch (Exception e)
 		{

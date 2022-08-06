@@ -2,6 +2,7 @@ package com.jackrkern.groceriesbyrecipe.business;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
 import static java.lang.System.out;
+import static org.springframework.util.StringUtils.capitalize;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,16 +63,11 @@ public class RecipeService
 		return unitOfMeasurementList;
 	}
 
-	public void saveRecipe(Recipe recipe)
+	public Recipe saveRecipe(Recipe recipe)
 	{
-		if (recipe != null)
-		{
-			recipeRepository.save(recipe);
-			out.printf(STRINGsSTRINGnl, recipe, cSAVED);
-		} else
-		{
-			throw new RuntimeException("Recipe cannot be null");
-		}
+		recipe = recipeRepository.save(recipe);
+		out.printf(STRINGsSTRINGnl, recipe.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
+		return recipe;
 	}
 
 	public void saveRecipe(Recipe recipe, Ingredient ingredient)
@@ -80,13 +76,13 @@ public class RecipeService
 		if (!ingredients.contains(ingredient))
 		{
 			ingredientRepository.save(ingredient);
-			out.printf(STRINGsSTRINGnl, ingredient, cSAVED);
+			out.printf(STRINGsSTRINGnl, ingredient.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 			saveRecipe(recipe);
 			ingredients.add(ingredient);
 			recipe.setIngredients(ingredients);
 		}
 		ingredientRepository.save(ingredient);
-		out.printf(STRINGsSTRINGnl, ingredient, cSAVED);
+		out.printf(STRINGsSTRINGnl, ingredient.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 		saveRecipe(recipe);
 	}
 
@@ -95,7 +91,7 @@ public class RecipeService
 		Recipe recipe = getRecipeByID(recipeID);
 		Ingredient ingredient = getIngredientByID(ingredientID);
 		recipe.getIngredients().remove(ingredient);
-		out.printf(STRINGsSTRINGnl, ingredient, cDELETED);
+		out.printf(STRINGsSTRINGnl, ingredient.toDetailedString(), capitalize(strPast(strMapping(DELETE))));
 		ingredientRepository.deleteById(ingredientID);
 		saveRecipe(recipe);
 	}
@@ -109,10 +105,10 @@ public class RecipeService
 			{
 				Ingredient ingredient = iterator.next();
 				recipe.getIngredients().remove(ingredient);
-				out.printf(STRINGsSTRINGnl, ingredient, cDELETED);
+				out.printf(STRINGsSTRINGnl, ingredient.toDetailedString(), capitalize(strPast(strMapping(DELETE))));
 				ingredientRepository.deleteById(ingredient.getIngredientID());
 			}
-			out.printf(STRINGsSTRINGnl, recipe, cDELETED);
+			out.printf(STRINGsSTRINGnl, recipe.toDetailedString(), capitalize(strPast(strMapping(DELETE))));
 			recipeRepository.deleteById(recipeID);
 		} catch (Exception e)
 		{
@@ -142,33 +138,22 @@ public class RecipeService
 
 	public void saveUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement)
 	{
-		if (unitOfMeasurement != null)
-		{
-			unitOfMeasurementRepository.save(unitOfMeasurement);
-			out.printf(STRINGsSTRINGnl, unitOfMeasurement, cSAVED);
-		} else
-		{
-			throw new RuntimeException("UnitOfMeasurement cannot be null");
-		}
+		unitOfMeasurementRepository.save(unitOfMeasurement);
+		out.printf(STRINGsSTRINGnl, unitOfMeasurement.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 	}
 
 	public void saveAmount(Amount amount)
 	{
-		if (amount != null)
-		{
-			amountRepository.save(amount);
-			out.printf(STRINGsSTRINGnl, amount, cSAVED);
-		} else
-		{
-			throw new RuntimeException("Amount cannot be null");
-		}
+		amountRepository.save(amount);
+		out.printf(STRINGsSTRINGnl, amount.toDetailedString(), capitalize(strPast(strMapping(SAVE))));
 	}
 
 	public void deleteUnitOfMeasurement(Long unitOfMeasurementID)
 	{
 		try
 		{
-			out.printf(STRINGsSTRINGnl, getUnitOfMeasurementByID(unitOfMeasurementID), cDELETED);
+			out.printf(	STRINGsSTRINGnl, getUnitOfMeasurementByID(unitOfMeasurementID).toDetailedString(),
+						capitalize(strPast(strMapping(DELETE))));
 			unitOfMeasurementRepository.deleteById(unitOfMeasurementID);
 		} catch (Exception e)
 		{
@@ -180,7 +165,8 @@ public class RecipeService
 	{
 		try
 		{
-			out.printf(STRINGsSTRINGnl, getAmountByID(amountID), cDELETED);
+			out.printf(	STRINGsSTRINGnl, getAmountByID(amountID).toDetailedString(),
+						capitalize(strPast(strMapping(DELETE))));
 			amountRepository.deleteById(amountID);
 		} catch (Exception e)
 		{
