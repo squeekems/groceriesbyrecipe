@@ -29,6 +29,16 @@ $(function()
       window.location.href = "/settings/remove/amount/" + $('#cmbAmount').val();
     }
   });
+
+  // Onclick Remove Amount
+  $('#cmdRemoveAccount').on('click', function(event)
+  {
+    let blnDelete = confirm('Are you sure you want to delete your account?');
+    if (blnDelete)
+    {
+      window.location.href = "/settings/remove/account";
+    }
+  });
   
   // Populate Edit Aisle Modal
   $('#editAisleModal').on('show.bs.modal', function (event)

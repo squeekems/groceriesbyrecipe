@@ -69,7 +69,7 @@
 					<form id="frmEditAmount" th:action="@{/settings/edit/amount}" method="PUT" th:object="${amount}">
 						<input type=hidden id="txtEditAmountID" name="txtEditAmountID" th:field="*{amountID}">
 						<div class="form-group">
-							<label for="txtEditAmountName" class="col-form-label">Value:</label>
+							<label for="txtEditAmountValue" class="col-form-label">Value:</label>
 							<input type="text" class="form-control mr-2" id="txtEditAmountValue" th:field="*{value}">
 						</div>
 						<div class="modal-footer">
@@ -123,7 +123,7 @@
 				      <form class="btn-group" id="frmAddUnitOfMeasurement" th:action="@{/settings/add/unitOfMeasurement}" method="POST" th:object="${unitOfMeasurement}">
 				        <div class="form-group mb-2">
 				          <label for="txtAddUnitOfMeasurement" class="sr-only">Add</label>
-				          <input type="text" class="form-control mr-2" id="txtUnitOfMeasurement" placeholder="new unit of measurement" th:field="*{name}">
+				          <input type="text" class="form-control mr-2" id="txtAddUnitOfMeasurement" placeholder="new unit of measurement" th:field="*{name}">
 				        </div>
 				        <button type="submit" class="btn btn-primary mb-2">Add</button>
 				      </form>
@@ -148,7 +148,7 @@
 				      <form class="btn-group" id="frmAddAmount" th:action="@{/settings/add/amount}" method="POST" th:object="${amount}">
 				        <div class="form-group mb-2">
 				          <label for="txtAddAmount" class="sr-only">Add</label>
-				          <input type="text" class="form-control mr-2" id="txtAmount" placeholder="new amount" th:field="*{value}">
+				          <input type="text" class="form-control mr-2" id="txtAddAmount" placeholder="new amount" th:field="*{value}">
 				        </div>
 				        <button type="submit" class="btn btn-primary mb-2">Add</button>
 				      </form>
@@ -166,6 +166,7 @@
 			      </div>
 			    </div>
 		    </div>
+			<button type="button" class="btn btn-danger" id="cmdRemoveAccount">Delete Account</button>
 	    </div>
     </main>
     <!-- Script Imports -->
