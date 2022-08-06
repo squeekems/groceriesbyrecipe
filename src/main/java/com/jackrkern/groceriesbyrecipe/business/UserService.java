@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.business;
 
 import com.jackrkern.groceriesbyrecipe.models.Aisle;
@@ -8,17 +11,21 @@ import com.jackrkern.groceriesbyrecipe.repositories.AisleRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
-import static java.lang.System.out;
 
 /* @author "Jack Kern" */
 
 @Service
 public class UserService {
+
+	Logger logger = LoggerFactory.getLogger(UserService.class);
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -43,7 +50,10 @@ public class UserService {
 	public User registerUser(User user) {
 		user = userRepository.save(user);
 		WelcomePackage(user);
-		out.printf(S_S_NL, user.toDetailedString(), capitalize(pastOf(demap(SAVE))));
+		logger.info(space(new String[]{
+				user.toDetailedString(),
+				capitalize(pastOf(demap(SAVE)))
+		}) + PERIOD);
 		return user;
 	}
 
@@ -118,14 +128,62 @@ public class UserService {
 	public void deleteAccount(Long userID) {
 		User user = userRepository.findById(userID).orElseThrow();
 		for (Amount amount : amountRepository.findAllByUser(user)) {
-			amountRepository.delete(amount);
+			try {
+				logger.info(space(new String[]{
+						amount.toDetailedString(),
+						capitalize(pastOf(demap(DELETE)))
+				}) + PERIOD);
+				amountRepository.delete(amount);
+			} catch (IllegalArgumentException e) {
+				logger.warn(space( new String[]{
+						(demap(DELETE) + capitalize(demap(ACCOUNT))),
+						pastOf(CATCH),
+						e.getClass().getName()
+				}), e);
+			}
 		}
 		for (Aisle aisle : aisleRepository.findAllByUser(user)) {
-			aisleRepository.delete(aisle);
+			try {
+				logger.info(space(new String[]{
+						aisle.toDetailedString(),
+						capitalize(pastOf(demap(DELETE)))
+				}) + PERIOD);
+				aisleRepository.delete(aisle);
+			} catch (IllegalArgumentException e) {
+				logger.warn(space( new String[]{
+						(demap(DELETE) + capitalize(demap(ACCOUNT))),
+						pastOf(CATCH),
+						e.getClass().getName()
+				}), e);
+			}
 		}
 		for (UnitOfMeasurement unitOfMeasurement : unitOfMeasurementRepository.findAllByUser(user)) {
-			unitOfMeasurementRepository.delete(unitOfMeasurement);
+			try {
+				logger.info(space(new String[]{
+						unitOfMeasurement.toDetailedString(),
+						capitalize(pastOf(demap(DELETE)))
+				}) + PERIOD);
+				unitOfMeasurementRepository.delete(unitOfMeasurement);
+			} catch (IllegalArgumentException e) {
+				logger.warn(space( new String[]{
+						(demap(DELETE) + capitalize(demap(ACCOUNT))),
+						pastOf(CATCH),
+						e.getClass().getName()
+				}), e);
+			}
 		}
-		userRepository.deleteById(userID);
+		try {
+			logger.info(space(new String[]{
+					userRepository.findById(userID).orElseThrow().toDetailedString(),
+					capitalize(pastOf(demap(DELETE)))
+			}) + PERIOD);
+			userRepository.deleteById(userID);
+		} catch (IllegalArgumentException e) {
+			logger.warn(space( new String[]{
+					(demap(DELETE) + capitalize(demap(ACCOUNT))),
+					pastOf(CATCH),
+					e.getClass().getName()
+			}), e);
+		}
 	}
 }

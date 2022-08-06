@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe;
 
 import org.springframework.boot.SpringApplication;

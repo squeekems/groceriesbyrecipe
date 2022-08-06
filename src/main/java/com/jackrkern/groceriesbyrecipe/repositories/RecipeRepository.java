@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.repositories;
 
 import com.jackrkern.groceriesbyrecipe.models.Recipe;

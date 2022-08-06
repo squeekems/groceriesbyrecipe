@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.models;
 
 import javax.persistence.*;

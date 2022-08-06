@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.util;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;

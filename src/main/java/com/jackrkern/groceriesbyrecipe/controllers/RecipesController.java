@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.controllers;
 
 import com.jackrkern.groceriesbyrecipe.business.RecipeService;

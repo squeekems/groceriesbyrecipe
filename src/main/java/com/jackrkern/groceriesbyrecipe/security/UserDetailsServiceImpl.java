@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.security;
 
 import com.jackrkern.groceriesbyrecipe.models.User;

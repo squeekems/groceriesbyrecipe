@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.security;
 
 import org.springframework.context.annotation.Bean;

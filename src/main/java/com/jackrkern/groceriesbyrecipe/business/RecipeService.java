@@ -1,3 +1,6 @@
+/**
+ * @package
+ */
 package com.jackrkern.groceriesbyrecipe.business;
 
 import com.jackrkern.groceriesbyrecipe.models.*;
@@ -5,6 +8,8 @@ import com.jackrkern.groceriesbyrecipe.repositories.AmountRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.IngredientRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.RecipeRepository;
 import com.jackrkern.groceriesbyrecipe.repositories.UnitOfMeasurementRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +19,14 @@ import java.util.List;
 import java.util.Set;
 
 import static com.jackrkern.groceriesbyrecipe.util.AppConstants.*;
-import static java.lang.System.out;
 
 /* @author "Jack Kern" */
 
 @Service
 public class RecipeService {
+
+	Logger logger = LoggerFactory.getLogger(RecipeService.class);
+
 	@Autowired
 	private RecipeRepository recipeRepository;
 
@@ -47,7 +54,8 @@ public class RecipeService {
 	}
 
 	public List<UnitOfMeasurement> getUnitsOfMeasurement(User userID) {
-		Iterable<UnitOfMeasurement> unitsOfMeasurement = unitOfMeasurementRepository.findAllByUser(userID);
+		Iterable<UnitOfMeasurement> unitsOfMeasurement =
+				unitOfMeasurementRepository.findAllByUser(userID);
 		List<UnitOfMeasurement> unitOfMeasurementList = new ArrayList<>();
 		unitsOfMeasurement.forEach(unitOfMeasurementList::add);
 		return unitOfMeasurementList;
@@ -55,30 +63,51 @@ public class RecipeService {
 
 	public Recipe saveRecipe(Recipe recipe) {
 		recipe = recipeRepository.save(recipe);
-		out.printf(S_S_NL, recipe.toDetailedString(), capitalize(pastOf(demap(SAVE))));
+		logger.info(space(new String[]{
+				recipe.toDetailedString(),
+				capitalize(pastOf(demap(SAVE)))
+		}) + PERIOD);
 		return recipe;
 	}
 
-	public void saveRecipe(Recipe recipe, Ingredient ingredient) {
+	public Recipe saveRecipe(Recipe recipe, Ingredient ingredient) {
 		Set<Ingredient> ingredients = recipe.getIngredients();
 		if (!ingredients.contains(ingredient)) {
-			ingredientRepository.save(ingredient);
-			out.printf(S_S_NL, ingredient.toDetailedString(), capitalize(pastOf(demap(SAVE))));
-			saveRecipe(recipe);
+			ingredient = ingredientRepository.save(ingredient);
+			logger.info(space(new String[]{
+					ingredient.toDetailedString(),
+					capitalize(pastOf(demap(SAVE)))
+			}) + PERIOD);
+			recipe = saveRecipe(recipe);
 			ingredients.add(ingredient);
 			recipe.setIngredients(ingredients);
 		}
-		ingredientRepository.save(ingredient);
-		out.printf(S_S_NL, ingredient.toDetailedString(), capitalize(pastOf(demap(SAVE))));
-		saveRecipe(recipe);
+		ingredient = ingredientRepository.save(ingredient);
+		logger.info(space(new String[]{
+				ingredient.toDetailedString(),
+				capitalize(pastOf(demap(SAVE)))
+		}) + PERIOD);
+		recipe = saveRecipe(recipe);
+		return recipe;
 	}
 
 	public void deleteIngredient(Long ingredientID, Long recipeID) {
 		Recipe recipe = getRecipeByID(recipeID);
 		Ingredient ingredient = getIngredientByID(ingredientID);
 		recipe.getIngredients().remove(ingredient);
-		out.printf(S_S_NL, ingredient.toDetailedString(), capitalize(pastOf(demap(DELETE))));
-		ingredientRepository.deleteById(ingredientID);
+		try {
+			logger.info(space(new String[]{
+					ingredient.toDetailedString(),
+					capitalize(pastOf(demap(DELETE)))
+			}) + PERIOD);
+			ingredientRepository.deleteById(ingredientID);
+		} catch (IllegalArgumentException e) {
+			logger.warn(space( new String[]{
+					(demap(DELETE) + capitalize(demap(INGREDIENT))),
+					pastOf(CATCH),
+					e.getClass().getName()
+			}), e);
+		}
 		saveRecipe(recipe);
 	}
 
@@ -89,23 +118,39 @@ public class RecipeService {
 			recipe.setIngredients(new HashSet<>());
 			saveRecipe(recipe);
 			for (Ingredient ingredient: ingredients) {
-				out.printf(S_S_NL, ingredient.toDetailedString(), capitalize(pastOf(demap(DELETE))));
-				ingredientRepository.deleteById(ingredient.getIngredientID());
+				try {
+					logger.info(space(new String[]{
+							ingredient.toDetailedString(),
+							capitalize(pastOf(demap(DELETE)))
+					}) + PERIOD);
+					ingredientRepository.deleteById(ingredient.getIngredientID());
+				} catch (IllegalArgumentException e) {
+					logger.warn(space( new String[]{
+							(demap(DELETE) + capitalize(demap(RECIPE))),
+							pastOf(CATCH),
+							e.getClass().getName()
+					}), e);
+				}
 			}
-			out.printf(S_S_NL, recipe.toDetailedString(), capitalize(pastOf(demap(DELETE))));
+			logger.info(space(new String[]{
+					recipe.toDetailedString(),
+					capitalize(pastOf(demap(DELETE)))
+			}) + PERIOD);
 			recipeRepository.deleteById(recipeID);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			logger.warn(space( new String[]{
+					(demap(DELETE) + capitalize(demap(RECIPE))),
+					pastOf(CATCH),
+					e.getClass().getName()
+			}), e);
 		}
 	}
 
-	public Recipe getRecipeByID(Long recipeID)
-	{
+	public Recipe getRecipeByID(Long recipeID) {
 		return recipeRepository.findById(recipeID).orElseThrow();
 	}
 
-	public Amount getAmountByID(Long amountID)
-	{
+	public Amount getAmountByID(Long amountID) {
 		return amountRepository.findById(amountID).orElseThrow();
 	}
 
@@ -113,38 +158,57 @@ public class RecipeService {
 		return unitOfMeasurementRepository.findById(unitOfMeasurementID).orElseThrow();
 	}
 
-	public Ingredient getIngredientByID(Long ingredientID)
-	{
+	public Ingredient getIngredientByID(Long ingredientID) {
 		return ingredientRepository.findById(ingredientID).orElseThrow();
 	}
 
-	public void saveUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
-		unitOfMeasurementRepository.save(unitOfMeasurement);
-		out.printf(S_S_NL, unitOfMeasurement.toDetailedString(), capitalize(pastOf(demap(SAVE))));
+	public UnitOfMeasurement saveUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+		unitOfMeasurement = unitOfMeasurementRepository.save(unitOfMeasurement);
+		logger.info(space(new String[]{
+				unitOfMeasurement.toDetailedString(),
+				capitalize(pastOf(demap(SAVE)))
+		}) + PERIOD);
+		return unitOfMeasurement;
 	}
 
-	public void saveAmount(Amount amount) {
-		amountRepository.save(amount);
-		out.printf(S_S_NL, amount.toDetailedString(), capitalize(pastOf(demap(SAVE))));
+	public Amount saveAmount(Amount amount) {
+		amount = amountRepository.save(amount);
+		logger.info(space(new String[]{
+				amount.toDetailedString(),
+				capitalize(pastOf(demap(SAVE)))
+		}) + PERIOD);
+		return amount;
 	}
 
 	public void deleteUnitOfMeasurement(Long unitOfMeasurementID) {
 		try {
-			out.printf(S_S_NL, getUnitOfMeasurementByID(unitOfMeasurementID).toDetailedString(),
-					capitalize(pastOf(demap(DELETE))));
+			logger.info(space(new String[]{
+					getUnitOfMeasurementByID(unitOfMeasurementID).toDetailedString(),
+					capitalize(pastOf(demap(DELETE)))
+			}) + PERIOD);
 			unitOfMeasurementRepository.deleteById(unitOfMeasurementID);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			logger.warn(space( new String[]{
+					(demap(DELETE) + capitalize(demap(UNIT_OF_MEASUREMENT))),
+					pastOf(CATCH),
+					e.getClass().getName()
+			}), e);
 		}
 	}
 
 	public void deleteAmount(Long amountID) {
 		try {
-			out.printf(S_S_NL, getAmountByID(amountID).toDetailedString(),
-					capitalize(pastOf(demap(DELETE))));
+			logger.info(space(new String[]{
+					getAmountByID(amountID).toDetailedString(),
+					capitalize(pastOf(demap(DELETE)))
+			}) + PERIOD);
 			amountRepository.deleteById(amountID);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			logger.warn(space( new String[]{
+					(demap(DELETE) + capitalize(demap(AMOUNT))),
+					pastOf(CATCH),
+					e.getClass().getName()
+			}), e);
 		}
 	}
 }

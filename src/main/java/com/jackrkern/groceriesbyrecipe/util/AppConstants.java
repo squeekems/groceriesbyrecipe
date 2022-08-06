@@ -64,6 +64,7 @@ public class AppConstants {
 	public static final String SUCCESS = "success";
 
 	////////////////////////// Nouns
+	public static final String ID = "ID";
 	public static final String SOMEONE = "someone";
 	public static final String STORE_ITEMS = "Store Items";
 
@@ -71,7 +72,6 @@ public class AppConstants {
 	public static final String NOUN_Q_NOUN_Q_VERB = "%s \"%s\" %s";
 	public static final String NOUN_VERB_PREPOSITION_NOUN = "%s %s %S %s";
 	public static final String S_S = "%s %s";
-	public static final String S_S_NL = "%s %s\n";
 	public static final String WELCOME_S = "Welcome, %s!";
 
 	////////////////////////// Path Variables
@@ -91,6 +91,7 @@ public class AppConstants {
 	public static final String PVV_UNIT_OF_MEASUREMENT_ID = "unitOfMeasurementID";
 
 	////////////////////////// Prepositions
+	public static final String BY = "by";
 	public static final String FROM = "from";
 	public static final String IS = "is";
 	public static final String OF = "of";
@@ -182,6 +183,7 @@ public class AppConstants {
 	////////////////////////// Verbs
 	public static final String BE = "be";
 	public static final String CALL = "call";
+	public static final String CATCH = "catch";
 	public static final String SELECT = "select";
 	public static final String TRY = "try";
 
@@ -255,15 +257,13 @@ public class AppConstants {
 	 * @return The pastOf tense of the String.
 	 */
 	public static String pastOf(String s) {
-		if (s.toLowerCase(Locale.ROOT).equals("be")) {
+		if (s.toLowerCase(Locale.ROOT).equals(CATCH)) {
+			return "caught";
+		} else if (s.toLowerCase(Locale.ROOT).equals(BE)) {
 			return s + "en";
-		} else if (s.toLowerCase(Locale.ROOT).equals("get")) {
+		} else if (s.toLowerCase(Locale.ROOT).equals(demap(GET))) {
 			char[] chars = s.toCharArray();
-			if (Character.isUpperCase(chars[1])) {
-				chars[1] = 'O';
-			} else {
-				chars[1] = 'o';
-			}
+			chars[1] = 'o';
 			return new String(chars);
 		} else if (s.endsWith("e")) {
 			return s + "d";
